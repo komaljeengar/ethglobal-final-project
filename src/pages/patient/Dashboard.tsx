@@ -217,7 +217,7 @@ const Dashboard = () => {
     const Icon = config.icon;
 
     return (
-      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border`}>
+      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border text-black`}>
         <Icon className={`h-3 w-3 ${config.color}`} />
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </Badge>
@@ -276,27 +276,27 @@ const Dashboard = () => {
         </div>
 
         {/* Search and Filter Bar */}
-        <div className="flex flex-col md:flex-row gap-4 items-center">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" />
+        <div className="flex flex-col md:flex-row gap-4 items-center bg-white p-4 rounded-lg">
+          <div className="relative flex-1 max-w-md bg-white">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
                 <Input
                   placeholder="Search medical records, doctors, appointments..."
-                  className="pl-10 text-gray-900 placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
+                  className="pl-10 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
                 />
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="border-purple-300 text-purple-700 hover:bg-purple-50 hover:border-purple-400">
+            <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
-            <Button variant="outline" size="sm" className="border-purple-300 text-purple-700 hover:bg-purple-50 hover:border-purple-400">
+            <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
               <Calendar className="h-4 w-4 mr-2" />
               Last 30 days
             </Button>
             {searchQuery && (
-              <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="border-purple-300 text-purple-700 hover:bg-purple-50 hover:border-purple-400">
+              <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                 Clear Search
               </Button>
             )}
@@ -440,7 +440,7 @@ const Dashboard = () => {
           {/* Health Records Overview */}
           <Card className="bg-gradient-to-br from-purple-50 via-purple-100 to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-black">
                 <FileText className="h-5 w-5 text-purple-600" />
                 Recent Medical Records
                 <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
@@ -492,7 +492,7 @@ const Dashboard = () => {
           {/* AI Health Insights */}
           <Card className="bg-gradient-to-br from-purple-50 via-purple-100 to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-black">
                 <Brain className="h-5 w-5 text-purple-600" />
                 AI Health Insights
                 <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
@@ -526,7 +526,7 @@ const Dashboard = () => {
           {/* Upcoming Appointments & Permissions */}
           <Card className="bg-gradient-to-br from-purple-50 via-purple-100 to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-black">
                 <Calendar className="h-5 w-5 text-purple-600" />
                 Upcoming Appointments
               </CardTitle>
@@ -559,7 +559,7 @@ const Dashboard = () => {
 
               {/* Active Permissions */}
               <div>
-                <h4 className="font-semibold text-sm mb-3 text-purple-900">Active Permissions</h4>
+                <h4 className="font-semibold text-sm mb-3 text-black">Active Permissions</h4>
                 <div className="text-black space-y-2">
                   {activePermissions.slice(0, 3).map((permission, index) => (
                     <div key={index} className="flex items-center justify-between p-2 bg-gradient-to-r from-purple-50 via-white to-indigo-50 rounded-lg border border-purple-200">
