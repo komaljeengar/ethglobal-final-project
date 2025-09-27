@@ -84,7 +84,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
      return (
        <Sidebar className="w-64 bg-white border-r border-purple-200 shadow-lg" collapsible="icon">
-         <SidebarContent>
+         <SidebarContent className="bg-white">
            {/* Logo */}
            <div className="p-6 border-b border-purple-200 bg-white">
              <div className="flex items-center space-x-2">
@@ -100,11 +100,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               {user?.role === 'doctor' ? 'Clinical Tools' : 'Your Health'}
             </SidebarGroupLabel>
             <SidebarGroupContent className="bg-white">
-              <SidebarMenu>
+              <SidebarMenu className="bg-white">
                 {navItems.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <NavLink to={item.url} className={`${getNavCls(item.url)} transition-all duration-300`}>
+                  <SidebarMenuItem key={item.title} className="bg-white">
+                    <SidebarMenuButton asChild className="bg-white">
+                      <NavLink to={item.url} className={`${getNavCls(item.url)} transition-all duration-300 bg-white`}>
                         <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
                         <span>{item.title}</span>
                       </NavLink>
@@ -121,9 +121,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                  Emergency
                </SidebarGroupLabel>
                <SidebarGroupContent className="bg-white">
-                 <SidebarMenu>
-                   <SidebarMenuItem>
-                     <SidebarMenuButton className="text-red-600 hover:bg-red-50 transition-all duration-300">
+                 <SidebarMenu className="bg-white">
+                   <SidebarMenuItem className="bg-white">
+                     <SidebarMenuButton className="text-red-600 hover:bg-red-50 transition-all duration-300 bg-white">
                        <Heart className="mr-3 h-5 w-5 flex-shrink-0" />
                        <span>Emergency Access</span>
                      </SidebarMenuButton>
