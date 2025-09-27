@@ -24,13 +24,6 @@
 - [🚀 Features](#-features)
 - [🏗️ Architecture](#️-architecture)
 - [💻 Technology Stack](#-technology-stack)
-- [🔧 Installation](#-installation)
-- [🌐 Deployment](#-deployment)
-- [📱 Usage](#-usage)
-- [🔐 Security](#-security)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👥 Team](#-team)
 
 ---
 
