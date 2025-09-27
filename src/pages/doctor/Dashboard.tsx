@@ -277,7 +277,7 @@ const DoctorDashboard = () => {
         <div className="bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Dr.0G Doctor Dashboard</h1>
+              <h1 className="text-3xl font-bold mb-2">Dr Hedera Doctor Dashboard</h1>
               <p className="text-blue-100">
                 Good morning, {user?.name}! Managing patient care with AI insights
               </p>

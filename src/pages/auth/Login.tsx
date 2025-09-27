@@ -110,7 +110,7 @@ const Login = () => {
                 <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-md">
                   <span className="text-2xl font-extrabold text-white">Mv</span>
                 </div>
-                <span className="text-xl font-bold text-gray-900">Dr.0G</span>
+                <span className="text-xl font-bold text-gray-900">Dr Hedera</span>
               </div>
             </div>
 
@@ -133,7 +133,7 @@ const Login = () => {
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold mb-2 text-gray-900">Welcome Back</h1>
               <p className="text-purple-600">
-                Sign in to your Dr.0G account
+                Sign in to your Dr Hedera account
               </p>
             </div>
 
