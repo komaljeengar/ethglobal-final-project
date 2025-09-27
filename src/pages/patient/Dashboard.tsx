@@ -284,9 +284,12 @@ const Dashboard = () => {
         <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Dr Hedera Patient Dashboard</h1>
+              <h1 className="text-3xl font-bold mb-2">
+                Dr Hedera Patient Dashboard
+              </h1>
               <p className="text-purple-100">
-                Welcome back, {user?.name}! Your health data is secure and up to date
+                Welcome back, {user?.name}! Your health data is secure and up to
+                date
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -307,7 +310,9 @@ const Dashboard = () => {
                 className="bg-white/10 border-white/30 text-white hover:bg-white/20"
                 disabled={isLoading}
               >
-                <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
+                <RefreshCw
+                  className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`}
+                />
                 Sync Data
               </Button>
             </div>
@@ -316,14 +321,19 @@ const Dashboard = () => {
           {/* Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {quickStats.map((stat, index) => (
-              <div key={index} className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+              <div
+                key={index}
+                className="bg-white/10 rounded-lg p-4 backdrop-blur-sm"
+              >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className={`${stat.color}`}>
-                    {stat.icon}
-                  </div>
-                  <span className="text-sm text-white font-medium">{stat.label}</span>
+                  <div className={`${stat.color}`}>{stat.icon}</div>
+                  <span className="text-sm text-white font-medium">
+                    {stat.label}
+                  </span>
                 </div>
-                <div className="text-2xl font-bold text-white">{stat.value}</div>
+                <div className="text-2xl font-bold text-white">
+                  {stat.value}
+                </div>
               </div>
             ))}
           </div>
@@ -333,24 +343,37 @@ const Dashboard = () => {
         <div className="flex flex-col md:flex-row gap-4 items-center bg-white p-4 rounded-lg">
           <div className="relative flex-1 max-w-md bg-white">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
-                <Input
-                  placeholder="Search medical records, doctors, appointments..."
-                  className="pl-10 text-black placeholder-gray-500 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
-                  value={searchQuery}
-                  onChange={(e) => handleSearch(e.target.value)}
-                />
+            <Input
+              placeholder="Search medical records, doctors, appointments..."
+              className="pl-10 text-black placeholder-gray-500 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+            >
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
-            <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+            >
               <Calendar className="h-4 w-4 mr-2" />
               Last 30 days
             </Button>
             {searchQuery && (
-              <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSearchQuery("")}
+                className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+              >
                 Clear Search
               </Button>
             )}
@@ -366,7 +389,8 @@ const Dashboard = () => {
                 <div>
                   <h3 className="font-semibold text-green-900">Data Synced!</h3>
                   <p className="text-green-700 text-sm">
-                    Your medical records have been updated across all connected systems.
+                    Your medical records have been updated across all connected
+                    systems.
                   </p>
                 </div>
               </div>
@@ -385,13 +409,20 @@ const Dashboard = () => {
                     Demo Mode Active
                   </p>
                   <p className="text-sm text-yellow-700">
-                    You are viewing demo data. Create a real account to start managing your actual medical records.
+                    You are viewing demo data. Create a real account to start
+                    managing your actual medical records.
                   </p>
                   <div className="flex items-center gap-4 mt-3">
-                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
+                    <Badge
+                      variant="outline"
+                      className="bg-yellow-50 text-yellow-700 border-yellow-200"
+                    >
                       Demo Data
                     </Badge>
-                    <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                    <Badge
+                      variant="outline"
+                      className="bg-blue-50 text-blue-700 border-blue-200"
+                    >
                       Sample Records
                     </Badge>
                   </div>
@@ -411,21 +442,34 @@ const Dashboard = () => {
                   MedVault: Secure Healthcare Data Management
                 </p>
                 <p className="text-sm text-gray-700">
-                  Your medical records are encrypted and stored on the blockchain. 
-                  You control who has access to your health information.
+                  Your medical records are encrypted and stored on the
+                  blockchain. You control who has access to your health
+                  information.
                 </p>
                 <div className="flex items-center gap-4 mt-3">
-                  <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
+                  <Badge
+                    variant="outline"
+                    className="bg-purple-50 text-purple-700 border-purple-200"
+                  >
                     HIPAA Compliant
                   </Badge>
-                  <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                  <Badge
+                    variant="outline"
+                    className="bg-green-50 text-green-700 border-green-200"
+                  >
                     Blockchain Secured
                   </Badge>
-                  <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                  <Badge
+                    variant="outline"
+                    className="bg-blue-50 text-blue-700 border-blue-200"
+                  >
                     AI Powered
                   </Badge>
                   {isConnected && (
-                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                    <Badge
+                      variant="outline"
+                      className="bg-green-50 text-green-700 border-green-200"
+                    >
                       <Activity className="h-3 w-3 mr-1" />
                       Wallet Connected
                     </Badge>
@@ -437,38 +481,11 @@ const Dashboard = () => {
         </Card>
 
         {/* Blockchain Integration Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="gap-6">
           <WalletConnection />
-          <BlockchainRegistration />
         </div>
-
+        <BlockchainRegistration />
         {/* Quick Actions Bar */}
-        <Card className="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-600 text-white shadow-lg">
-          <CardContent className="p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Zap className="h-5 w-5" />
-              Quick Actions
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300" onClick={() => navigate('/patient/records')}>
-                <PlusCircle className="h-4 w-4 mr-2" />
-                Upload Records
-              </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300" onClick={() => navigate('/patient/ai-chat')}>
-                <Brain className="h-4 w-4 mr-2" />
-                AI Health Chat
-              </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300" onClick={() => navigate('/patient/permissions')}>
-                <Shield className="h-4 w-4 mr-2" />
-                Manage Access
-              </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
-                <Calendar className="h-4 w-4 mr-2" />
-                Schedule Visit
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Achievement/Progress Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -479,13 +496,22 @@ const Dashboard = () => {
                   <Trophy className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-purple-900">Health Milestone</h4>
+                  <h4 className="font-semibold text-purple-900">
+                    Health Milestone
+                  </h4>
                   <p className="text-sm text-purple-700">
-                    {recentRecords.length >= 10 ? "Health Champion!" : `${10 - recentRecords.length} more records to Health Champion level`}
+                    {recentRecords.length >= 10
+                      ? "Health Champion!"
+                      : `${
+                          10 - recentRecords.length
+                        } more records to Health Champion level`}
                   </p>
                 </div>
               </div>
-              <Progress value={(recentRecords.length / 10) * 100} className="mt-3 h-2" />
+              <Progress
+                value={(recentRecords.length / 10) * 100}
+                className="mt-3 h-2"
+              />
             </CardContent>
           </Card>
 
@@ -496,13 +522,29 @@ const Dashboard = () => {
                   <ShieldCheck className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-blue-900">Data Security Score</h4>
+                  <h4 className="font-semibold text-blue-900">
+                    Data Security Score
+                  </h4>
                   <p className="text-sm text-blue-700">
-                    {Math.round((activePermissions.filter(p => p.status === 'active').length / Math.max(activePermissions.length, 1)) * 100)}% of permissions active
+                    {Math.round(
+                      (activePermissions.filter((p) => p.status === "active")
+                        .length /
+                        Math.max(activePermissions.length, 1)) *
+                        100
+                    )}
+                    % of permissions active
                   </p>
                 </div>
               </div>
-              <Progress value={(activePermissions.filter(p => p.status === 'active').length / Math.max(activePermissions.length, 1)) * 100} className="mt-3 h-2" />
+              <Progress
+                value={
+                  (activePermissions.filter((p) => p.status === "active")
+                    .length /
+                    Math.max(activePermissions.length, 1)) *
+                  100
+                }
+                className="mt-3 h-2"
+              />
             </CardContent>
           </Card>
 
@@ -513,7 +555,9 @@ const Dashboard = () => {
                   <Network className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-purple-900">Connected Providers</h4>
+                  <h4 className="font-semibold text-purple-900">
+                    Connected Providers
+                  </h4>
                   <p className="text-sm text-purple-700">
                     Connected to {activePermissions.length} healthcare providers
                   </p>
@@ -521,7 +565,14 @@ const Dashboard = () => {
               </div>
               <div className="flex gap-1 mt-3">
                 {activePermissions.map((_, i) => (
-                  <div key={i} className={`h-2 flex-1 rounded ${i < activePermissions.length ? "bg-gradient-to-r from-purple-500 to-indigo-500" : "bg-gray-200"}`} />
+                  <div
+                    key={i}
+                    className={`h-2 flex-1 rounded ${
+                      i < activePermissions.length
+                        ? "bg-gradient-to-r from-purple-500 to-indigo-500"
+                        : "bg-gray-200"
+                    }`}
+                  />
                 ))}
               </div>
             </CardContent>
@@ -536,7 +587,10 @@ const Dashboard = () => {
               <CardTitle className="flex items-center gap-2 text-black">
                 <FileText className="h-5 w-5 text-purple-600" />
                 Recent Medical Records
-                <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
+                <Badge
+                  variant="outline"
+                  className="bg-purple-50 text-purple-700 border-purple-200"
+                >
                   LIVE
                 </Badge>
               </CardTitle>
@@ -556,28 +610,40 @@ const Dashboard = () => {
                       Upload your first medical record to get started
                     </p>
                   )}
-                  <Button className="mt-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800" onClick={() => navigate('/patient/records')}>
+                  <Button
+                    className="mt-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
+                    onClick={() => navigate("/patient/records")}
+                  >
                     <Plus className="h-4 w-4 mr-2" />
-                    {isDemoMode ? "Upload Your First Record" : "Upload Medical Records"}
+                    {isDemoMode
+                      ? "Upload Your First Record"
+                      : "Upload Medical Records"}
                   </Button>
                 </div>
               ) : (
                 <div className="space-y-3">
                   {filteredRecords.slice(0, 5).map((record) => (
-                    <div key={record.id} className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-blue-50 rounded-lg border border-purple-200">
+                    <div
+                      key={record.id}
+                      className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-blue-50 rounded-lg border border-purple-200"
+                    >
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center">
                           <FileText className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <p className="font-medium text-sm text-gray-900">{record.title}</p>
+                          <p className="font-medium text-sm text-gray-900">
+                            {record.title}
+                          </p>
                           <p className="text-xs text-gray-600">
                             {record.doctor} • {record.date}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium text-sm text-gray-700">{record.value}</p>
+                        <p className="font-medium text-sm text-gray-700">
+                          {record.value}
+                        </p>
                         <div className="flex items-center gap-1">
                           {getStatusBadge(record.status)}
                         </div>
@@ -595,7 +661,10 @@ const Dashboard = () => {
               <CardTitle className="flex items-center gap-2 text-black">
                 <Brain className="h-5 w-5 text-purple-600" />
                 AI Health Insights
-                <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
+                <Badge
+                  variant="outline"
+                  className="bg-purple-50 text-purple-700 border-purple-200"
+                >
                   AI
                 </Badge>
               </CardTitle>
@@ -606,15 +675,27 @@ const Dashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {healthInsights.map((insight, index) => (
-                  <div key={index} className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}>
+                  <div
+                    key={index}
+                    className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}
+                  >
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-sm text-black">{insight.title}</h4>
-                      <Badge className={`${insight.bgColor} ${insight.color} border-0`}>
+                      <h4 className="font-medium text-sm text-black">
+                        {insight.title}
+                      </h4>
+                      <Badge
+                        className={`${insight.bgColor} ${insight.color} border-0`}
+                      >
                         {insight.value}
                       </Badge>
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">{insight.description}</p>
-                    <Button variant="link" className="p-0 text-xs h-auto text-purple-600 hover:text-purple-800">
+                    <p className="text-sm text-gray-600 mb-2">
+                      {insight.description}
+                    </p>
+                    <Button
+                      variant="link"
+                      className="p-0 text-xs h-auto text-purple-600 hover:text-purple-800"
+                    >
                       {insight.action}
                     </Button>
                   </div>
@@ -638,15 +719,25 @@ const Dashboard = () => {
               {/* Appointments */}
               <div className="space-y-3">
                 {upcomingAppointments.map((appointment, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-indigo-50 rounded-lg border border-purple-200">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-indigo-50 rounded-lg border border-purple-200"
+                  >
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <p className="font-medium text-sm text-gray-900">{appointment.time}</p>
-                        <Badge variant="outline" className="text-xs border-purple-200 text-purple-700">
+                        <p className="font-medium text-sm text-gray-900">
+                          {appointment.time}
+                        </p>
+                        <Badge
+                          variant="outline"
+                          className="text-xs border-purple-200 text-purple-700"
+                        >
                           {appointment.status}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-700">{appointment.patient}</p>
+                      <p className="text-sm text-gray-700">
+                        {appointment.patient}
+                      </p>
                       <p className="text-xs text-gray-600">
                         {appointment.type} • {appointment.duration}
                       </p>
@@ -659,13 +750,22 @@ const Dashboard = () => {
 
               {/* Active Permissions */}
               <div>
-                <h4 className="font-semibold text-sm mb-3 text-black">Active Permissions</h4>
+                <h4 className="font-semibold text-sm mb-3 text-black">
+                  Active Permissions
+                </h4>
                 <div className="text-black space-y-2">
                   {activePermissions.slice(0, 3).map((permission, index) => (
-                    <div key={index} className="flex items-center justify-between p-2 bg-gradient-to-r from-purple-50 via-white to-indigo-50 rounded-lg border border-purple-200">
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-2 bg-gradient-to-r from-purple-50 via-white to-indigo-50 rounded-lg border border-purple-200"
+                    >
                       <div className="flex-1">
-                        <p className="font-medium text-xs text-gray-900">{permission.doctor}</p>
-                        <p className="text-xs text-gray-600">{permission.specialization}</p>
+                        <p className="font-medium text-xs text-gray-900">
+                          {permission.doctor}
+                        </p>
+                        <p className="text-xs text-gray-600">
+                          {permission.specialization}
+                        </p>
                       </div>
                       <div className="flex items-center gap-1">
                         {getStatusBadge(permission.status)}
@@ -677,6 +777,41 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </div>
+        <Card className="bg-gradient-to-r from-purple-200 via-purple-300 to-indigo-400 text-white shadow-lg">
+          <CardContent className="p-6">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <Zap className="h-5 w-5" />
+              Quick Actions
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Button
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300"
+                onClick={() => navigate("/patient/records")}
+              >
+                <PlusCircle className="h-4 w-4 mr-2" />
+                Upload Records
+              </Button>
+              <Button
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300"
+                onClick={() => navigate("/patient/ai-chat")}
+              >
+                <Brain className="h-4 w-4 mr-2" />
+                AI Health Chat
+              </Button>
+              <Button
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300"
+                onClick={() => navigate("/patient/permissions")}
+              >
+                <Shield className="h-4 w-4 mr-2" />
+                Manage Access
+              </Button>
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
+                <Calendar className="h-4 w-4 mr-2" />
+                Schedule Visit
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </DashboardLayout>
   );
