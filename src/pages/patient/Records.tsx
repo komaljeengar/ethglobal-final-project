@@ -47,7 +47,9 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWeb3 } from '@/contexts/Web3Context';
 import DashboardLayout from '@/components/layout/DashboardLayout';
+import EncryptedDocumentUpload from '@/components/EncryptedDocumentUpload';
 
 const Records = () => {
   const navigate = useNavigate();
@@ -285,6 +287,11 @@ const Records = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Encrypted Document Upload */}
+        {isConnected && (
+          <EncryptedDocumentUpload />
+        )}
 
         {/* Medical Records List */}
         <div className="grid grid-cols-1 gap-6">
