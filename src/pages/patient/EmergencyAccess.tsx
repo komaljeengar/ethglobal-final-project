@@ -106,7 +106,7 @@ const EmergencyAccess = () => {
     const config = priorityConfig[priority as keyof typeof priorityConfig] || priorityConfig.medium;
 
     return (
-      <Badge variant={config.variant} className={`${config.bgColor} ${config.color} ${config.borderColor} border`}>
+      <Badge variant={config.variant} className={`${config.bgColor} ${config.color} ${config.borderColor} border text-black`}>
         {priority.charAt(0).toUpperCase() + priority.slice(1)} Priority
       </Badge>
     );
@@ -122,7 +122,7 @@ const EmergencyAccess = () => {
     const Icon = config.icon;
 
     return (
-      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border`}>
+      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border text-black`}>
         <Icon className={`h-3 w-3 ${config.color}`} />
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </Badge>
@@ -133,11 +133,11 @@ const EmergencyAccess = () => {
     <DashboardLayout>
       <div className="min-h-screen bg-white p-4 space-y-6">
         {/* Enhanced Header */}
-        <div className="bg-gradient-to-br from-red-600 to-orange-700 text-white rounded-xl p-6 shadow-xl">
+        <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-3xl font-bold mb-2">Emergency Access</h1>
-              <p className="text-red-100">
+              <p className="text-purple-100">
                 Manage emergency contacts and access permissions for critical situations
               </p>
             </div>
@@ -163,28 +163,28 @@ const EmergencyAccess = () => {
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Heart className="h-5 w-5 text-red-300" />
-                <span className="text-sm text-red-100">Emergency Contacts</span>
+                <span className="text-sm text-purple-100">Emergency Contacts</span>
               </div>
               <div className="text-2xl font-bold">{emergencyContacts.length}</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle className="h-5 w-5 text-green-300" />
-                <span className="text-sm text-red-100">Active Contacts</span>
+                <span className="text-sm text-purple-100">Active Contacts</span>
               </div>
               <div className="text-2xl font-bold">{emergencyContacts.filter(c => c.status === 'active').length}</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <AlertTriangle className="h-5 w-5 text-yellow-300" />
-                <span className="text-sm text-red-100">Critical Priority</span>
+                <span className="text-sm text-purple-100">Critical Priority</span>
               </div>
               <div className="text-2xl font-bold">{emergencyContacts.filter(c => c.priority === 'critical').length}</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Shield className="h-5 w-5 text-blue-300" />
-                <span className="text-sm text-red-100">Security Level</span>
+                <span className="text-sm text-purple-100">Security Level</span>
               </div>
               <div className="text-2xl font-bold">High</div>
             </div>
@@ -209,10 +209,10 @@ const EmergencyAccess = () => {
         )}
 
         {/* Emergency Settings */}
-        <Card>
+        <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5 text-red-600" />
+            <CardTitle className="flex items-center gap-2 text-black">
+              <Settings className="h-5 w-5 text-purple-600" />
               Emergency Access Settings
             </CardTitle>
             <CardDescription>
@@ -225,7 +225,7 @@ const EmergencyAccess = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label className="text-base font-medium">Auto-activate Emergency Access</Label>
-                    <p className="text-sm text-gray-600">Automatically activate emergency access in critical situations</p>
+                    <p className="text-sm text-purple-600">Automatically activate emergency access in critical situations</p>
                   </div>
                   <Switch checked={emergencySettings.autoActivate} />
                 </div>
@@ -233,7 +233,7 @@ const EmergencyAccess = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label className="text-base font-medium">Require Verification</Label>
-                    <p className="text-sm text-gray-600">Require additional verification before granting access</p>
+                    <p className="text-sm text-purple-600">Require additional verification before granting access</p>
                   </div>
                   <Switch checked={emergencySettings.requireVerification} />
                 </div>
@@ -241,7 +241,7 @@ const EmergencyAccess = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label className="text-base font-medium">Notify Emergency Contacts</Label>
-                    <p className="text-sm text-gray-600">Send notifications when emergency access is activated</p>
+                    <p className="text-sm text-purple-600">Send notifications when emergency access is activated</p>
                   </div>
                   <Switch checked={emergencySettings.notifyContacts} />
                 </div>
@@ -250,19 +250,19 @@ const EmergencyAccess = () => {
               <div className="space-y-4">
                 <div>
                   <Label className="text-base font-medium">Activation Delay</Label>
-                  <p className="text-sm text-gray-600 mb-2">Time before emergency access is activated</p>
+                  <p className="text-sm text-purple-600 mb-2">Time before emergency access is activated</p>
                   <div className="flex items-center gap-2">
-                    <Input type="number" value={emergencySettings.activationDelay} className="w-20" />
-                    <span className="text-sm text-gray-600">minutes</span>
+                    <Input type="number" value={emergencySettings.activationDelay} className="w-20 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200" />
+                    <span className="text-sm text-purple-600">minutes</span>
                   </div>
                 </div>
 
                 <div>
                   <Label className="text-base font-medium">Maximum Access Duration</Label>
-                  <p className="text-sm text-gray-600 mb-2">How long emergency access remains active</p>
+                  <p className="text-sm text-purple-600 mb-2">How long emergency access remains active</p>
                   <div className="flex items-center gap-2">
-                    <Input type="number" value={emergencySettings.maxAccessDuration} className="w-20" />
-                    <span className="text-sm text-gray-600">hours</span>
+                    <Input type="number" value={emergencySettings.maxAccessDuration} className="w-20 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200" />
+                    <span className="text-sm text-purple-600">hours</span>
                   </div>
                 </div>
               </div>
@@ -273,7 +273,7 @@ const EmergencyAccess = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h4 className="font-medium">Allow Full Medical Records Access</h4>
-                <p className="text-sm text-gray-600">Grant complete access to all medical records during emergency</p>
+                <p className="text-sm text-purple-600">Grant complete access to all medical records during emergency</p>
               </div>
               <Switch checked={emergencySettings.allowFullAccess} />
             </div>
@@ -281,12 +281,12 @@ const EmergencyAccess = () => {
         </Card>
 
         {/* Emergency Contacts */}
-        <Card>
+        <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Heart className="h-5 w-5 text-red-600" />
+            <CardTitle className="flex items-center gap-2 text-black">
+              <Heart className="h-5 w-5 text-purple-600" />
               Emergency Contacts
-              <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">
+              <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
                 {emergencyContacts.length} Contacts
               </Badge>
             </CardTitle>
@@ -297,14 +297,14 @@ const EmergencyAccess = () => {
           <CardContent>
             <div className="space-y-4">
               {emergencyContacts.map((contact) => (
-                <div key={contact.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-red-50 bg-white">
+                <div key={contact.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg hover:shadow-md transition-shadow">
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                      <User className="h-6 w-6 text-red-600" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                      <User className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold">{contact.name}</h3>
+                        <h3 className="font-semibold text-black">{contact.name}</h3>
                         {getPriorityBadge(contact.priority)}
                         {getStatusBadge(contact.status)}
                       </div>
@@ -324,7 +324,7 @@ const EmergencyAccess = () => {
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="text-xs">
+                        <Badge variant="outline" className="text-xs border-purple-200 text-purple-700">
                           <Shield className="h-3 w-3 mr-1" />
                           {contact.accessLevel}
                         </Badge>
@@ -332,15 +332,15 @@ const EmergencyAccess = () => {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="bg-purple-600 text-white border-purple-600 hover:bg-white hover:text-purple-600 hover:border-purple-600 transition-all duration-300">
                       <Eye className="h-4 w-4 mr-1" />
                       View
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="bg-purple-600 text-white border-purple-600 hover:bg-white hover:text-purple-600 hover:border-purple-600 transition-all duration-300">
                       <Edit className="h-4 w-4 mr-1" />
                       Edit
                     </Button>
-                    <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                    <Button variant="outline" size="sm" className="bg-red-600 text-white border-red-600 hover:bg-white hover:text-red-600 hover:border-red-600 transition-all duration-300">
                       <Trash2 className="h-4 w-4 mr-1" />
                       Remove
                     </Button>
@@ -359,22 +359,22 @@ const EmergencyAccess = () => {
         </Card>
 
         {/* Quick Actions */}
-        <Card className="bg-gradient-to-r from-red-500 to-orange-600 text-white">
+        <Card className="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-600 text-white shadow-lg">
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <AlertTriangle className="h-5 w-5" />
               Emergency Actions
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <Heart className="h-4 w-4 mr-2" />
                 Activate Emergency Access
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <Bell className="h-4 w-4 mr-2" />
                 Notify All Contacts
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <Shield className="h-4 w-4 mr-2" />
                 Security Settings
               </Button>

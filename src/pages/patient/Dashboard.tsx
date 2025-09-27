@@ -508,7 +508,7 @@ const Dashboard = () => {
                 {healthInsights.map((insight, index) => (
                   <div key={index} className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}>
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-sm">{insight.title}</h4>
+                      <h4 className="font-medium text-sm text-black">{insight.title}</h4>
                       <Badge className={`${insight.bgColor} ${insight.color} border-0`}>
                         {insight.value}
                       </Badge>

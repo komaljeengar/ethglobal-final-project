@@ -138,7 +138,7 @@ const Permissions = () => {
     const Icon = config.icon;
 
     return (
-      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border`}>
+      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border text-black`}>
         <Icon className={`h-3 w-3 ${config.color}`} />
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </Badge>
@@ -219,27 +219,27 @@ const Permissions = () => {
         </div>
 
         {/* Search and Filter Bar */}
-        <div className="flex flex-col md:flex-row gap-4 items-center">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <div className="flex flex-col md:flex-row gap-4 items-center bg-white p-4 rounded-lg">
+          <div className="relative flex-1 max-w-md bg-white">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
             <Input
               placeholder="Search doctors, specializations, permissions..."
-              className="pl-10"
+              className="pl-10 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
               <Calendar className="h-4 w-4 mr-2" />
               Expiring Soon
             </Button>
             {searchQuery && (
-              <Button variant="outline" size="sm" onClick={() => setSearchQuery("")}>
+              <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                 Clear Search
               </Button>
             )}
@@ -264,26 +264,26 @@ const Permissions = () => {
         )}
 
         {/* Quick Actions Bar */}
-        <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+        <Card className="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-600 text-white shadow-lg">
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Zap className="h-5 w-5" />
               Quick Actions
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <UserPlus className="h-4 w-4 mr-2" />
                 Grant Access
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <UserMinus className="h-4 w-4 mr-2" />
                 Revoke Access
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <Shield className="h-4 w-4 mr-2" />
                 Security Settings
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <Activity className="h-4 w-4 mr-2" />
                 Access Logs
               </Button>
@@ -293,12 +293,12 @@ const Permissions = () => {
 
         {/* Pending Requests */}
         {filteredRequests.length > 0 && (
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-orange-600" />
+              <CardTitle className="flex items-center gap-2 text-black">
+                <Clock className="h-5 w-5 text-purple-600" />
                 Pending Access Requests
-                <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200">
+                <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
                   {filteredRequests.length} Pending
                 </Badge>
               </CardTitle>
@@ -309,18 +309,18 @@ const Permissions = () => {
             <CardContent>
               <div className="space-y-4">
                 {filteredRequests.map((request) => (
-                  <div key={request.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  <div key={request.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg">
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                        <User className="h-6 w-6 text-orange-600" />
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                        <User className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-semibold">{request.doctor}</h3>
+                        <h3 className="font-semibold text-black">{request.doctor}</h3>
                         <p className="text-sm text-gray-600">{request.specialization}</p>
                         <p className="text-sm text-gray-500 mt-1">{request.reason}</p>
                         <div className="flex flex-wrap gap-1 mt-2">
                           {request.requestedAccess.map((access) => (
-                            <Badge key={access} variant="outline" className="text-xs">
+                            <Badge key={access} variant="outline" className="text-xs border-purple-200 text-purple-700">
                               {access}
                             </Badge>
                           ))}
@@ -328,7 +328,7 @@ const Permissions = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="bg-purple-600 text-white border-purple-600 hover:bg-white hover:text-purple-600 hover:border-purple-600 transition-all duration-300">
                         <UserMinus className="h-4 w-4 mr-1" />
                         Deny
                       </Button>
@@ -345,12 +345,12 @@ const Permissions = () => {
         )}
 
         {/* Active Permissions */}
-        <Card>
+        <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-green-600" />
+            <CardTitle className="flex items-center gap-2 text-black">
+              <Users className="h-5 w-5 text-purple-600" />
               Active Permissions
-              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+              <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
                 {filteredPermissions.length} Active
               </Badge>
             </CardTitle>
@@ -371,15 +371,15 @@ const Permissions = () => {
             ) : (
               <div className="space-y-4">
                 {filteredPermissions.map((permission) => (
-                  <div key={permission.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-blue-50 bg-white">
+                  <div key={permission.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg hover:shadow-md transition-shadow">
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <Stethoscope className="h-6 w-6 text-blue-600" />
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                        <Stethoscope className="h-6 w-6 text-white" />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="font-semibold">{permission.doctor}</h3>
-                          <Badge variant="outline" className="text-xs">
+                          <h3 className="font-semibold text-black">{permission.doctor}</h3>
+                          <Badge variant="outline" className="text-xs border-purple-200 text-purple-700">
                             {permission.access}
                           </Badge>
                           {getStatusBadge(permission.status)}
@@ -401,7 +401,7 @@ const Permissions = () => {
                         </div>
                         <div className="flex flex-wrap gap-1">
                           {permission.permissions.map((perm) => (
-                            <Badge key={perm} variant="outline" className="text-xs">
+                            <Badge key={perm} variant="outline" className="text-xs border-purple-200 text-purple-700">
                               {perm}
                             </Badge>
                           ))}
@@ -409,15 +409,15 @@ const Permissions = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="bg-purple-600 text-white border-purple-600 hover:bg-white hover:text-purple-600 hover:border-purple-600 transition-all duration-300">
                         <Eye className="h-4 w-4 mr-1" />
                         View Details
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="bg-purple-600 text-white border-purple-600 hover:bg-white hover:text-purple-600 hover:border-purple-600 transition-all duration-300">
                         <Settings className="h-4 w-4 mr-1" />
                         Modify
                       </Button>
-                      <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
+                      <Button variant="outline" size="sm" className="bg-red-600 text-white border-red-600 hover:bg-white hover:text-red-600 hover:border-red-600 transition-all duration-300">
                         <UserMinus className="h-4 w-4 mr-1" />
                         Revoke
                       </Button>
