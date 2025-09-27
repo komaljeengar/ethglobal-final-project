@@ -50,61 +50,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const location = useLocation();
   const { user, logout } = useAuth();
 
-  // Add custom styles for crazy animations
-  React.useEffect(() => {
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes pulse-slow {
-        0%, 100% { transform: scale(1.05); }
-        50% { transform: scale(1.08); }
-      }
-      @keyframes pulse-fast {
-        0%, 100% { opacity: 0.2; }
-        50% { opacity: 0.4; }
-      }
-      @keyframes glow {
-        0%, 100% { box-shadow: 0 0 20px rgba(147, 51, 234, 0.3); }
-        50% { box-shadow: 0 0 30px rgba(147, 51, 234, 0.6), 0 0 40px rgba(236, 72, 153, 0.3); }
-      }
-      @keyframes rainbow {
-        0% { filter: hue-rotate(0deg); }
-        25% { filter: hue-rotate(90deg); }
-        50% { filter: hue-rotate(180deg); }
-        75% { filter: hue-rotate(270deg); }
-        100% { filter: hue-rotate(360deg); }
-      }
-      .animate-pulse-slow { animation: pulse-slow 2s ease-in-out infinite; }
-      .animate-pulse-fast { animation: pulse-fast 1s ease-in-out infinite; }
-      .animate-glow { animation: glow 2s ease-in-out infinite; }
-      .animate-rainbow { animation: rainbow 3s ease-in-out infinite; }
-      .hover\\:scale-102:hover { transform: scale(1.02); }
-      .active-nav-item {
-        position: relative;
-        overflow: hidden;
-      }
-      .active-nav-item::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-        animation: shimmer 2s ease-in-out infinite;
-      }
-      @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
-      }
-    `;
-    document.head.appendChild(style);
-    return () => {
-      if (document.head.contains(style)) {
-        document.head.removeChild(style);
-      }
-    };
-  }, []);
-
   const patientNavItems = [
     { title: "Dashboard", url: "/patient/dashboard", icon: LayoutDashboard },
     { title: "Medical Records", url: "/patient/records", icon: FileText },
@@ -142,8 +87,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     const isActive = (path: string) => currentPath === path;
     const getNavCls = (path: string) =>
       isActive(path)
-        ? "relative bg-gradient-to-r from-purple-500 via-purple-600 to-indigo-600 text-white font-bold hover:from-purple-600 hover:via-purple-700 hover:to-indigo-700 border-l-8 border-white rounded-r-2xl transform scale-105 animate-pulse-slow before:absolute before:inset-0 before:bg-gradient-to-r before:from-purple-400 before:via-pink-500 before:to-purple-600 before:opacity-20 before:rounded-r-2xl before:animate-pulse-fast"
-        : "hover:bg-gradient-to-r hover:from-purple-50 hover:to-purple-100 text-purple-700 hover:text-purple-900 hover:font-medium hover:border-l-4 hover:border-purple-300 hover:rounded-r-lg hover:scale-102 transition-all duration-300";
+        ? "bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold hover:from-purple-600 hover:to-purple-700 border-l-4 border-purple-300 rounded-r-lg"
+        : "hover:bg-purple-50 text-purple-700 hover:text-purple-900 hover:font-medium hover:border-l-4 hover:border-purple-300 hover:rounded-r-lg transition-all duration-300";
 
     return (
       <Sidebar
@@ -177,26 +122,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                     <SidebarMenuButton asChild className="bg-white p-0 w-full">
                       <NavLink
                         to={item.url}
-                        className={`${getNavCls(item.url)} ${
-                          isActive(item.url) ? "active-nav-item" : ""
-                        } transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full`}
+                        className={`${getNavCls(
+                          item.url
+                        )} transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full`}
                       >
-                        <item.icon
-                          className={`mr-3 h-5 w-5 flex-shrink-0 ${
-                            isActive(item.url)
-                              ? "text-yellow-200 transform rotate-3 animate-pulse"
-                              : ""
-                          }`}
-                        />
-                        <span
-                          className={`text-sm ${
-                            isActive(item.url)
-                              ? "bg-gradient-to-r from-white via-yellow-100 to-white bg-clip-text text-transparent font-extrabold tracking-wide animate-pulse"
-                              : ""
-                          }`}
-                        >
-                          {item.title}
-                        </span>
+                        <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
+                        <span className="text-sm">{item.title}</span>
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -213,7 +144,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               <SidebarGroupContent className="bg-white">
                 <SidebarMenu className="bg-white">
                   <SidebarMenuItem className="bg-white mb-3 px-2">
-                    <SidebarMenuButton className="text-red-600 hover:bg-gradient-to-r hover:from-red-50 hover:to-red-100 hover:text-red-700 hover:font-medium hover:border-l-4 hover:border-red-300 hover:rounded-r-lg transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full">
+                    <SidebarMenuButton className="text-red-600 hover:bg-red-50 hover:text-red-700 hover:font-medium hover:border-l-4 hover:border-red-300 hover:rounded-r-lg transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full">
                       <Heart className="mr-3 h-5 w-5 flex-shrink-0" />
                       <span className="text-sm">Emergency Access</span>
                     </SidebarMenuButton>
@@ -222,6 +153,57 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               </SidebarGroupContent>
             </SidebarGroup>
           )}
+
+          {/* Profile Section */}
+          <div className="mt-auto bg-white border-t border-purple-100">
+            <div className="p-4">
+              <div className="flex items-center space-x-3">
+                <Avatar className="w-10 h-10">
+                  <AvatarFallback className="bg-gradient-to-br from-purple-500 to-purple-600 text-white text-sm font-semibold">
+                    {user?.avatar || user?.name?.slice(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-purple-900 truncate">
+                    {user?.name || "User"}
+                  </p>
+                  <p className="text-xs text-purple-600 truncate">
+                    {user?.role === "doctor"
+                      ? user?.specialization || "Doctor"
+                      : user?.email || "Patient"}
+                  </p>
+                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-8 p-0 hover:bg-purple-50"
+                    >
+                      <Settings className="h-4 w-4 text-purple-600" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem
+                      onClick={() => navigate("/settings")}
+                      className="hover:bg-purple-50"
+                    >
+                      <Settings className="w-4 h-4 mr-2" />
+                      Settings
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={handleLogout}
+                      className="text-red-600 hover:bg-red-50"
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
+          </div>
         </SidebarContent>
       </Sidebar>
     );
