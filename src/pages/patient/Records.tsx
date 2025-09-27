@@ -300,7 +300,7 @@ const Records = () => {
         )}
 
         {/* Quick Actions Bar */}
-        <Card className="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-600 text-white shadow-lg">
+        {/* <Card className="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-600 text-white shadow-lg">
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Zap className="h-5 w-5" />
@@ -325,7 +325,7 @@ const Records = () => {
               </Button>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
 
         {/* Encrypted Document Upload */}
         {isConnected && (
@@ -336,7 +336,7 @@ const Records = () => {
         <div className="grid grid-cols-1 gap-6">
           {filteredRecords.length === 0 ? (
             <Card>
-              <CardContent className="p-8 text-center">
+              {/* <CardContent className="p-8 text-center">
                 <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-600 mb-2">
                   {isDemoMode ? "No medical records found" : "No medical records yet"}
@@ -350,7 +350,7 @@ const Records = () => {
                   <Upload className="h-4 w-4 mr-2" />
                   {isDemoMode ? "Upload Your First Record" : "Upload Medical Records"}
                 </Button>
-              </CardContent>
+              </CardContent> */}
             </Card>
           ) : (
             filteredRecords.map((record) => (

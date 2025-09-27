@@ -108,8 +108,7 @@ const ClinicalSupport = () => {
     {
       id: "1",
       name: "Drug Interaction Checker",
-      description:
-        "Check for potential drug interactions",
+      description: "Check for potential drug interactions",
       icon: <Shield className="h-6 w-6" />,
       color: "text-red-600",
       bgColor: "bg-red-50",
@@ -327,16 +326,29 @@ const ClinicalSupport = () => {
               />
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+              >
                 <Search className="h-4 w-4 mr-2" />
                 Filter
               </Button>
-              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+              >
                 <Calendar className="h-4 w-4 mr-2" />
                 Recent
               </Button>
               {searchQuery && (
-                <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSearchQuery("")}
+                  className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                >
                   Clear Search
                 </Button>
               )}
@@ -389,7 +401,9 @@ const ClinicalSupport = () => {
                     {tool.icon}
                   </div>
                   <div className="text-left w-full">
-                    <h3 className="font-medium text-black text-base leading-tight mb-2">{tool.name}</h3>
+                    <h3 className="font-medium text-black text-base leading-tight mb-2">
+                      {tool.name}
+                    </h3>
                     <p className="text-sm text-purple-600 leading-relaxed break-words">
                       {tool.description}
                     </p>
@@ -417,14 +431,12 @@ const ClinicalSupport = () => {
                 <Button
                   key={question.id}
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-start gap-2 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 min-h-[100px]"
+                  className="h-auto p-4 flex flex-col items-center gap-2 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 min-h-[100px]"
                   onClick={() => handleQuickQuestion(question.question)}
                 >
-                  <div className="flex items-start gap-2 w-full">
-                    <div className="flex-shrink-0 mt-0.5">
-                      {question.icon}
-                    </div>
-                    <span className="font-medium text-black text-base leading-relaxed break-words text-left">
+                  <div className="flex items-center gap-2 w-full justify-center">
+                    <div className="flex-shrink-0">{question.icon}</div>
+                    <span className="font-medium text-black text-base leading-relaxed break-words text-center">
                       {question.question}
                     </span>
                   </div>
@@ -546,7 +558,9 @@ const ClinicalSupport = () => {
                       className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-medium text-sm text-black">{insight.title}</h4>
+                        <h4 className="font-medium text-sm text-black">
+                          {insight.title}
+                        </h4>
                         <Badge
                           className={`${insight.bgColor} ${insight.color} border-0`}
                         >
@@ -556,7 +570,10 @@ const ClinicalSupport = () => {
                       <p className="text-sm text-black mb-2">
                         {insight.description}
                       </p>
-                      <Button variant="link" className="p-0 text-xs h-auto text-black">
+                      <Button
+                        variant="link"
+                        className="p-0 text-xs h-auto text-black"
+                      >
                         {insight.action}
                       </Button>
                     </div>
@@ -575,19 +592,31 @@ const ClinicalSupport = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                  >
                     <BookOpen className="h-4 w-4 mr-2" />
                     Clinical Guidelines
                   </Button>
-                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                  >
                     <Shield className="h-4 w-4 mr-2" />
                     Drug Interactions
                   </Button>
-                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                  >
                     <Brain className="h-4 w-4 mr-2" />
                     Diagnosis Support
                   </Button>
-                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                  >
                     <FileText className="h-4 w-4 mr-2" />
                     Medical Literature
                   </Button>

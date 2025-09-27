@@ -14,6 +14,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   User,
   FileText,
   Heart,
@@ -57,6 +74,14 @@ const Patient = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showRefreshed, setShowRefreshed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAddRecordOpen, setIsAddRecordOpen] = useState(false);
+  const [newRecord, setNewRecord] = useState({
+    title: "",
+    type: "",
+    description: "",
+    date: new Date().toISOString().split("T")[0],
+    doctor: user?.name || "Dr. Emily Rodriguez",
+  });
 
   // Mock patient data
   const patient = {
@@ -73,6 +98,8 @@ const Patient = () => {
     insurance: "Blue Cross Blue Shield",
     lastVisit: "2024-01-20",
     nextAppointment: "2024-02-15",
+    height: "5'6\"",
+    bmi: "24.2",
     riskLevel: "low",
     status: "stable",
     allergies: ["Penicillin", "Shellfish"],
@@ -130,6 +157,27 @@ const Patient = () => {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsLoading(false);
+    setShowRefreshed(true);
+    setTimeout(() => setShowRefreshed(false), 3000);
+  };
+
+  const handleAddRecord = () => {
+    // Add the new record to the medicalRecords array (in a real app, this would be an API call)
+    console.log("Adding new record:", newRecord);
+
+    // Reset form
+    setNewRecord({
+      title: "",
+      type: "",
+      description: "",
+      date: new Date().toISOString().split("T")[0],
+      doctor: user?.name || "Dr. Emily Rodriguez",
+    });
+
+    // Close modal
+    setIsAddRecordOpen(false);
+
+    // Show success message (could integrate with existing showRefreshed)
     setShowRefreshed(true);
     setTimeout(() => setShowRefreshed(false), 3000);
   };
@@ -255,11 +303,16 @@ const Patient = () => {
                   <User className="h-8 w-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-black">{patient.name}</h3>
+                  <h3 className="text-xl font-bold text-black">
+                    {patient.name}
+                  </h3>
                   <p className="text-purple-600">
                     {patient.age} years old • {patient.gender}
                   </p>
-                  <Badge variant="outline" className="mt-1 bg-purple-50 text-purple-700 border-purple-200">
+                  <Badge
+                    variant="outline"
+                    className="mt-1 bg-purple-50 text-purple-700 border-purple-200"
+                  >
                     {patient.status.charAt(0).toUpperCase() +
                       patient.status.slice(1)}
                   </Badge>
@@ -283,7 +336,9 @@ const Patient = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-purple-500" />
-                  <span className="text-sm text-black">DOB: {patient.dateOfBirth}</span>
+                  <span className="text-sm text-black">
+                    DOB: {patient.dateOfBirth}
+                  </span>
                 </div>
               </div>
 
@@ -349,7 +404,7 @@ const Patient = () => {
 
               <Separator />
 
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>Height</span>
                   <span className="font-medium">{vitalSigns.height}</span>
@@ -358,7 +413,7 @@ const Patient = () => {
                   <span>BMI</span>
                   <span className="font-medium">{vitalSigns.bmi}</span>
                 </div>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
 
@@ -372,10 +427,16 @@ const Patient = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <h4 className="font-medium mb-2 text-black">Current Conditions</h4>
+                <h4 className="font-medium mb-2 text-black">
+                  Current Conditions
+                </h4>
                 <div className="space-y-1">
                   {patient.conditions.map((condition, index) => (
-                    <Badge key={index} variant="outline" className="mr-1 bg-purple-50 text-purple-700 border-purple-200">
+                    <Badge
+                      key={index}
+                      variant="outline"
+                      className="mr-1 bg-purple-50 text-purple-700 border-purple-200"
+                    >
                       {condition}
                     </Badge>
                   ))}
@@ -385,7 +446,9 @@ const Patient = () => {
               <Separator />
 
               <div>
-                <h4 className="font-medium mb-2 text-black">Current Medications</h4>
+                <h4 className="font-medium mb-2 text-black">
+                  Current Medications
+                </h4>
                 <div className="space-y-1">
                   {patient.medications.map((medication, index) => (
                     <div key={index} className="text-sm text-purple-600">
@@ -401,7 +464,11 @@ const Patient = () => {
                 <h4 className="font-medium mb-2 text-black">Known Allergies</h4>
                 <div className="space-y-1">
                   {patient.allergies.map((allergy, index) => (
-                    <Badge key={index} variant="destructive" className="mr-1">
+                    <Badge
+                      key={index}
+                      variant="outline"
+                      className="mr-1 mb-1 bg-red-50 text-red-700 border-red-200 font-medium"
+                    >
                       {allergy}
                     </Badge>
                   ))}
@@ -412,12 +479,30 @@ const Patient = () => {
 
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span>Last Visit</span>
-                  <span className="font-medium">{patient.lastVisit}</span>
+                  <span className="text-gray-600 font-medium">Last Visit</span>
+                  <span className="font-semibold text-purple-700">
+                    {patient.lastVisit}
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span>Next Appointment</span>
-                  <span className="font-medium">{patient.nextAppointment}</span>
+                  <span className="text-gray-600 font-medium">
+                    Next Appointment
+                  </span>
+                  <span className="font-semibold text-purple-700">
+                    {patient.nextAppointment}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600 font-medium">Height</span>
+                  <span className="font-semibold text-purple-700">
+                    {patient.height}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600 font-medium">BMI</span>
+                  <span className="font-semibold text-purple-700">
+                    {patient.bmi}
+                  </span>
                 </div>
               </div>
             </CardContent>
@@ -448,14 +533,171 @@ const Patient = () => {
                 />
               </div>
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                >
                   <Filter className="h-4 w-4 mr-2" />
                   Filter
                 </Button>
-                <Button size="sm" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Record
-                </Button>
+                <Dialog
+                  open={isAddRecordOpen}
+                  onOpenChange={setIsAddRecordOpen}
+                >
+                  <DialogTrigger asChild>
+                    <Button
+                      size="sm"
+                      className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Record
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md bg-white border-purple-200">
+                    <DialogHeader>
+                      <DialogTitle className="text-purple-900 text-xl font-semibold">
+                        Add New Medical Record
+                      </DialogTitle>
+                      <DialogDescription className="text-purple-600">
+                        Add a new medical record for {patient.name}
+                      </DialogDescription>
+                    </DialogHeader>
+
+                    <div className="space-y-4 py-4">
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="title"
+                          className="text-purple-900 font-medium"
+                        >
+                          Record Title
+                        </Label>
+                        <Input
+                          id="title"
+                          placeholder="e.g., Blood Test Results, X-Ray Report"
+                          value={newRecord.title}
+                          onChange={(e) =>
+                            setNewRecord({
+                              ...newRecord,
+                              title: e.target.value,
+                            })
+                          }
+                          className="border-purple-300 focus:border-purple-500 focus:ring-purple-200"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="type"
+                          className="text-purple-900 font-medium"
+                        >
+                          Record Type
+                        </Label>
+                        <Select
+                          value={newRecord.type}
+                          onValueChange={(value) =>
+                            setNewRecord({ ...newRecord, type: value })
+                          }
+                        >
+                          <SelectTrigger className="border-purple-300 focus:border-purple-500 focus:ring-purple-200">
+                            <SelectValue placeholder="Select record type" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white border-purple-200">
+                            <SelectItem value="Lab Results">
+                              Lab Results
+                            </SelectItem>
+                            <SelectItem value="Imaging">Imaging</SelectItem>
+                            <SelectItem value="Consultation">
+                              Consultation
+                            </SelectItem>
+                            <SelectItem value="Medication">
+                              Medication
+                            </SelectItem>
+                            <SelectItem value="Procedure">Procedure</SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="date"
+                          className="text-purple-900 font-medium"
+                        >
+                          Date
+                        </Label>
+                        <Input
+                          id="date"
+                          type="date"
+                          value={newRecord.date}
+                          onChange={(e) =>
+                            setNewRecord({ ...newRecord, date: e.target.value })
+                          }
+                          className="border-purple-300 focus:border-purple-500 focus:ring-purple-200"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="description"
+                          className="text-purple-900 font-medium"
+                        >
+                          Description
+                        </Label>
+                        <Textarea
+                          id="description"
+                          placeholder="Enter detailed description of the record..."
+                          value={newRecord.description}
+                          onChange={(e) =>
+                            setNewRecord({
+                              ...newRecord,
+                              description: e.target.value,
+                            })
+                          }
+                          className="border-purple-300 focus:border-purple-500 focus:ring-purple-200 min-h-[80px]"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="doctor"
+                          className="text-purple-900 font-medium"
+                        >
+                          Doctor
+                        </Label>
+                        <Input
+                          id="doctor"
+                          placeholder="Doctor name"
+                          value={newRecord.doctor}
+                          onChange={(e) =>
+                            setNewRecord({
+                              ...newRecord,
+                              doctor: e.target.value,
+                            })
+                          }
+                          className="border-purple-300 focus:border-purple-500 focus:ring-purple-200"
+                        />
+                      </div>
+                    </div>
+
+                    <DialogFooter>
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsAddRecordOpen(false)}
+                        className="border-purple-300 text-purple-700 hover:bg-purple-50"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        onClick={handleAddRecord}
+                        disabled={!newRecord.title || !newRecord.type}
+                        className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white"
+                      >
+                        Add Record
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
 
@@ -472,11 +714,16 @@ const Patient = () => {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold text-black">{record.title}</h3>
-                        <Badge variant="outline" className="text-xs bg-purple-50 text-purple-700 border-purple-200">
+                        <h3 className="font-semibold text-black">
+                          {record.title}
+                        </h3>
+                        <Badge
+                          variant="outline"
+                          className="text-xs bg-purple-50 text-purple-700 border-purple-200"
+                        >
                           {record.type}
                         </Badge>
-                        {getStatusBadge(record.status)}
+                        {/* {getStatusBadge(record.status)} */}
                       </div>
                       <p className="text-sm text-purple-600 mb-2">
                         {record.description}
@@ -491,7 +738,9 @@ const Patient = () => {
                           {record.date}
                         </span>
                         <span className="flex items-center gap-1">
-                          <span className="font-medium text-black">${record.value}</span>
+                          <span className="font-medium text-black">
+                            ${record.value}
+                          </span>
                         </span>
                       </div>
                       <p className="text-sm text-purple-600 italic">
@@ -500,15 +749,27 @@ const Patient = () => {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                    >
                       <Eye className="h-4 w-4 mr-1" />
                       View
                     </Button>
-                    <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                    >
                       <Download className="h-4 w-4 mr-1" />
                       Download
                     </Button>
-                    <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                    >
                       <Edit className="h-4 w-4 mr-1" />
                       Edit
                     </Button>
