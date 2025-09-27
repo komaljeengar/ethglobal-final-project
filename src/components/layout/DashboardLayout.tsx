@@ -86,7 +86,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
        <Sidebar className="w-64 bg-white border-r border-purple-200 shadow-lg" collapsible="icon">
          <SidebarContent>
            {/* Logo */}
-           <div className="p-6 border-b border-purple-200">
+           <div className="p-6 border-b border-purple-200 bg-white">
              <div className="flex items-center space-x-2">
                <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center flex-shrink-0">
                  <Shield className="w-5 h-5 text-white" />
@@ -95,11 +95,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
              </div>
            </div>
 
-          <SidebarGroup>
-            <SidebarGroupLabel className="text-purple-700 font-semibold">
+          <SidebarGroup className="bg-white">
+            <SidebarGroupLabel className="text-purple-700 font-semibold bg-white">
               {user?.role === 'doctor' ? 'Clinical Tools' : 'Your Health'}
             </SidebarGroupLabel>
-            <SidebarGroupContent>
+            <SidebarGroupContent className="bg-white">
               <SidebarMenu>
                 {navItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
@@ -116,11 +116,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           </SidebarGroup>
 
            {user?.role === 'patient' && (
-             <SidebarGroup>
-               <SidebarGroupLabel className="text-purple-700 font-semibold">
+             <SidebarGroup className="bg-white">
+               <SidebarGroupLabel className="text-purple-700 font-semibold bg-white">
                  Emergency
                </SidebarGroupLabel>
-               <SidebarGroupContent>
+               <SidebarGroupContent className="bg-white">
                  <SidebarMenu>
                    <SidebarMenuItem>
                      <SidebarMenuButton className="text-red-600 hover:bg-red-50 transition-all duration-300">
