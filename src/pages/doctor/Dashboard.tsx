@@ -316,30 +316,32 @@ const DoctorDashboard = () => {
         </div>
 
         {/* Search and Filter Bar */}
-        <div className="flex flex-col md:flex-row gap-4 items-center">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <Input
-              placeholder="Search patients, conditions, appointments..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
-              <Search className="h-4 w-4 mr-2" />
-              Filter
-            </Button>
-            <Button variant="outline" size="sm">
-              <Calendar className="h-4 w-4 mr-2" />
-              Today
-            </Button>
-            {searchQuery && (
-              <Button variant="outline" size="sm" onClick={() => setSearchQuery("")}>
-                Clear Search
+        <div className="bg-white p-4 rounded-lg">
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
+              <Input
+                placeholder="Search patients, conditions, appointments..."
+                className="pl-10 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Search className="h-4 w-4 mr-2" />
+                Filter
               </Button>
-            )}
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Calendar className="h-4 w-4 mr-2" />
+                Today
+              </Button>
+              {searchQuery && (
+                <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                  Clear Search
+                </Button>
+              )}
+            </div>
           </div>
         </div>
 
