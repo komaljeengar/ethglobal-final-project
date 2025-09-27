@@ -431,7 +431,7 @@ const ClinicalSupport = () => {
                 <Button
                   key={question.id}
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-center gap-2 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 min-h-[100px]"
+                  className="h-auto p-1 flex flex-col items-center gap-2 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 min-h-[100px]"
                   onClick={() => handleQuickQuestion(question.question)}
                 >
                   <div className="flex items-center gap-2 w-full justify-center">

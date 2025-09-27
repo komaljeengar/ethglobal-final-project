@@ -163,7 +163,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           </div>
 
           <SidebarGroup className="bg-white py-4">
-            <SidebarGroupLabel className="text-purple-700 font-semibold bg-white px-4 mb-3">
+            <SidebarGroupLabel className="text-purple-800 font-bold text-lg tracking-wide bg-white px-4 mb-4 uppercase">
               {user?.role === "doctor" ? "Clinical Tools" : "Your Health"}
             </SidebarGroupLabel>
             <SidebarGroupContent className="bg-white">
