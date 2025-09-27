@@ -335,7 +335,7 @@ const DoctorDashboard = () => {
     return (
       <Badge
         variant={config.variant}
-        className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border`}
+        className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border text-black`}
       >
         <Icon className={`h-3 w-3 ${config.color}`} />
         {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -364,7 +364,7 @@ const DoctorDashboard = () => {
         <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2">drH Doctor Dashboard</h1>
+              <h1 className="text-3xl font-bold mb-2">Dr Hedera Doctor Dashboard</h1>
               <p className="text-purple-100">
                 Good morning, {user?.name}! Managing patient care with AI
                 insights
@@ -407,34 +407,32 @@ const DoctorDashboard = () => {
         </div>
 
         {/* Search and Filter Bar */}
-        <div className="flex flex-col md:flex-row gap-4 items-center">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <Input
-              placeholder="Search patients, conditions, appointments..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
-              <Search className="h-4 w-4 mr-2" />
-              Filter
-            </Button>
-            <Button variant="outline" size="sm">
-              <Calendar className="h-4 w-4 mr-2" />
-              Today
-            </Button>
-            {searchQuery && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setSearchQuery("")}
-              >
-                Clear Search
+        <div className="bg-white p-4 rounded-lg">
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
+              <Input
+                placeholder="Search patients, conditions, appointments..."
+                className="pl-10 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Search className="h-4 w-4 mr-2" />
+                Filter
               </Button>
-            )}
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Calendar className="h-4 w-4 mr-2" />
+                Today
+              </Button>
+              {searchQuery && (
+                <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                  Clear Search
+                </Button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -511,16 +509,22 @@ const DoctorDashboard = () => {
               </Button>
               <Button
                 className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
-                onClick={() => navigate("/doctor/ai-chat")}
+                onClick={() => navigate("/doctor/clinical-support")}
               >
                 <Brain className="h-4 w-4 mr-2" />
                 AI Clinical Support
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button 
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/clinical-support")}
+              >
                 <Calendar className="h-4 w-4 mr-2" />
                 Schedule Appointment
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button 
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/clinical-support")}
+              >
                 <FileText className="h-4 w-4 mr-2" />
                 Medical Knowledge
               </Button>
@@ -622,50 +626,42 @@ const DoctorDashboard = () => {
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           {/* Pending Access Requests */}
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-blue-600" />
+              <CardTitle className="flex items-center gap-2 text-black">
+                <Users className="h-5 w-5 text-purple-600" />
                 Patient Access Requests
-                <Badge
-                  variant="outline"
-                  className="bg-blue-50 text-blue-700 border-blue-200"
-                >
+                <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
                   {filteredRequests.length} Pending
                 </Badge>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-purple-600">
                 Patient requests for medical record access
               </CardDescription>
             </CardHeader>
             <CardContent>
               {filteredRequests.length === 0 ? (
                 <div className="text-center py-8">
-                  <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600">No pending requests</p>
+                  <Users className="h-12 w-12 text-purple-400 mx-auto mb-4" />
+                  <p className="text-purple-600">No pending requests</p>
                 </div>
               ) : (
                 <div className="space-y-3">
                   {filteredRequests.slice(0, 5).map((request) => (
-                    <div
-                      key={request.id}
-                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
-                    >
+                    <div key={request.id} className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <Users className="h-5 w-5 text-blue-600" />
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                          <Users className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <p className="font-medium text-sm">
-                            {request.patient}
-                          </p>
-                          <p className="text-xs text-gray-600">
+                          <p className="font-medium text-sm text-black">{request.patient}</p>
+                          <p className="text-xs text-purple-600">
                             {request.condition} • {request.patientId}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium text-sm">{request.value}</p>
+                        <p className="font-medium text-sm text-black">{request.value}</p>
                         <div className="flex items-center gap-1">
                           {getStatusBadge(request.urgency)}
                         </div>
@@ -678,9 +674,9 @@ const DoctorDashboard = () => {
           </Card>
 
           {/* AI Clinical Insights */}
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-black">
                 <Brain className="h-5 w-5 text-purple-600" />
                 AI Clinical Insights
                 <Badge
@@ -690,7 +686,7 @@ const DoctorDashboard = () => {
                   AI
                 </Badge>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-purple-600">
                 AI-powered clinical recommendations and alerts
               </CardDescription>
             </CardHeader>
@@ -702,16 +698,12 @@ const DoctorDashboard = () => {
                     className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-sm">{insight.title}</h4>
-                      <Badge
-                        className={`${insight.bgColor} ${insight.color} border-0`}
-                      >
+                      <h4 className="font-medium text-sm text-black">{insight.title}</h4>
+                      <Badge className={`${insight.bgColor} ${insight.color} border-0`}>
                         {insight.value}
                       </Badge>
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">
-                      {insight.description}
-                    </p>
+                    <p className="text-sm text-purple-600 mb-2">{insight.description}</p>
                     <div className="flex items-center gap-2">
                       <Button variant="link" className="p-0 text-xs h-auto">
                         {insight.action}
@@ -727,13 +719,13 @@ const DoctorDashboard = () => {
           </Card>
 
           {/* Today's Schedule & Recent Patients */}
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-green-600" />
+              <CardTitle className="flex items-center gap-2 text-black">
+                <Calendar className="h-5 w-5 text-purple-600" />
                 Today's Schedule
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-purple-600">
                 Your scheduled appointments for today
               </CardDescription>
             </CardHeader>
@@ -741,28 +733,19 @@ const DoctorDashboard = () => {
               {/* Appointments */}
               <div className="space-y-3">
                 {todaysAppointments.map((appointment, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
-                  >
+                  <div key={index} className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg">
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <p className="font-medium text-sm">
-                          {appointment.time}
-                        </p>
-                        <Badge variant="outline" className="text-xs">
-                          {appointment.status}
-                        </Badge>
+                        <p className="font-medium text-sm text-black">{appointment.time}</p>
+                        {getStatusBadge(appointment.status)}
                       </div>
-                      <p className="text-sm text-gray-600">
-                        {appointment.patient}
-                      </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-sm text-black">{appointment.patient}</p>
+                      <p className="text-xs text-purple-600">
                         {appointment.type} • {appointment.duration}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-sm">{appointment.value}</p>
+                      <p className="font-medium text-sm text-black">{appointment.value}</p>
                     </div>
                   </div>
                 ))}
@@ -772,18 +755,13 @@ const DoctorDashboard = () => {
 
               {/* Recent Patients */}
               <div>
-                <h4 className="font-semibold text-sm mb-3">Recent Patients</h4>
+                <h4 className="font-semibold text-sm mb-3 text-black">Recent Patients</h4>
                 <div className="space-y-2">
                   {recentPatients.slice(0, 3).map((patient, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-2 bg-gray-50 rounded-lg"
-                    >
+                    <div key={index} className="flex items-center justify-between p-2 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg">
                       <div className="flex-1">
-                        <p className="font-medium text-xs">{patient.name}</p>
-                        <p className="text-xs text-gray-500">
-                          {patient.condition}
-                        </p>
+                        <p className="font-medium text-xs text-black">{patient.name}</p>
+                        <p className="text-xs text-purple-600">{patient.condition}</p>
                       </div>
                       <div className="flex items-center gap-1">
                         {getStatusBadge(patient.status)}

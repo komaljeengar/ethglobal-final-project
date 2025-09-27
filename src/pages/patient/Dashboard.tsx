@@ -237,7 +237,7 @@ const Dashboard = () => {
         <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Dr.0G Patient Dashboard</h1>
+              <h1 className="text-3xl font-bold mb-2">Dr Hedera Patient Dashboard</h1>
               <p className="text-purple-100">
                 Welcome back, {user?.name}! Your health data is secure and up to date
               </p>

@@ -64,10 +64,15 @@ const Settings = () => {
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value
     }));
+    // Auto-enable editing when user starts typing
+    if (!isEditing) {
+      setIsEditing(true);
+    }
   };
 
   const handleNotificationChange = (setting: string, value: boolean) => {
@@ -93,12 +98,25 @@ const Settings = () => {
 
   const handleSaveProfile = () => {
     console.log('Saving profile:', formData);
+    // Here you would typically save to backend
+    setIsEditing(false);
+  };
+
+  const handleCancelEdit = () => {
+    // Reset form data to original values
+    setFormData({
+      name: user?.name || '',
+      email: user?.email || '',
+      phone: '',
+      specialization: user?.specialization || '',
+      licenseNumber: '',
+    });
     setIsEditing(false);
   };
 
   const blockchainInfo = {
     walletAddress: '0x742d35Cc6688C02532898FcF434670a6EB91F6B8',
-    network: 'Flow Mainnet',
+    network: 'Hedera EVM',
     recordsStored: 47,
     totalTransactions: 156,
     storageUsed: '2.3 GB',
@@ -136,74 +154,91 @@ const Settings = () => {
               <Card className="p-6 bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-semibold text-black">Profile Information</h2>
-                  <Button 
-                    variant={isEditing ? "default" : "outline"}
-                    onClick={() => isEditing ? handleSaveProfile() : setIsEditing(true)}
-                    className={isEditing ? "bg-purple-600 hover:bg-purple-700" : "bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"}
-                  >
-                    {isEditing ? <Save className="w-4 h-4 mr-2" /> : <User className="w-4 h-4 mr-2" />}
-                    {isEditing ? 'Save Changes' : 'Edit Profile'}
-                  </Button>
+                  <div className="flex gap-2">
+                    {isEditing && (
+                      <Button 
+                        variant="outline"
+                        onClick={handleCancelEdit}
+                        className="bg-gradient-to-r from-red-50 to-red-100 border-red-300 text-red-700 hover:from-red-100 hover:to-red-200 hover:border-red-400"
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Cancel
+                      </Button>
+                    )}
+                    <Button 
+                      variant={isEditing ? "default" : "outline"}
+                      onClick={() => isEditing ? handleSaveProfile() : setIsEditing(true)}
+                      className={isEditing ? "bg-purple-600 hover:bg-purple-700" : "bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"}
+                    >
+                      {isEditing ? <Save className="w-4 h-4 mr-2" /> : <User className="w-4 h-4 mr-2" />}
+                      {isEditing ? 'Save Changes' : 'Edit Profile'}
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="name">Full Name</Label>
+                    <Label htmlFor="name" className="text-black">Full Name</Label>
                     <Input
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      disabled={!isEditing}
-                      className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
+                      disabled={false}
+                      placeholder="Enter your full name"
+                      className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 hover:border-purple-400 transition-colors duration-200"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email">Email Address</Label>
+                    <Label htmlFor="email" className="text-black">Email Address</Label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      disabled={!isEditing}
-                      className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
+                      disabled={false}
+                      placeholder="Enter your email address"
+                      className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 hover:border-purple-400 transition-colors duration-200"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone">Phone Number</Label>
+                    <Label htmlFor="phone" className="text-black">Phone Number</Label>
                     <Input
                       id="phone"
                       name="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      disabled={!isEditing}
-                      className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
+                      disabled={false}
+                      placeholder="Enter your phone number"
+                      className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 hover:border-purple-400 transition-colors duration-200"
                     />
                   </div>
                   {user?.role === 'doctor' && (
                     <>
                       <div>
-                        <Label htmlFor="specialization">Specialization</Label>
+                        <Label htmlFor="specialization" className="text-black">Specialization</Label>
                         <Input
                           id="specialization"
                           name="specialization"
                           value={formData.specialization}
                           onChange={handleInputChange}
-                          disabled={!isEditing}
-                          className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
+                          disabled={false}
+                          placeholder="Enter your medical specialization"
+                          className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 hover:border-purple-400 transition-colors duration-200"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="licenseNumber">Medical License Number</Label>
+                        <Label htmlFor="licenseNumber" className="text-black">Medical License Number</Label>
                         <Input
                           id="licenseNumber"
                           name="licenseNumber"
                           value={formData.licenseNumber}
                           onChange={handleInputChange}
-                          disabled={!isEditing}
-                          className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
+                          disabled={false}
+                          placeholder="Enter your medical license number"
+                          className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 hover:border-purple-400 transition-colors duration-200"
                         />
                       </div>
                     </>
@@ -213,18 +248,18 @@ const Settings = () => {
                 <Separator className="my-6" />
 
                 <div>
-                  <h3 className="text-lg font-semibold mb-4">Account Status</h3>
+                  <h3 className="text-lg font-semibold mb-4 text-black">Account Status</h3>
                   <div className="flex flex-wrap gap-4">
-                    <Badge className="bg-secondary/10 text-secondary border-secondary/20">
+                    <Badge className="bg-purple-100 text-purple-700 border-purple-200">
                       <CheckCircle className="w-3 h-3 mr-1" />
                       World ID Verified
                     </Badge>
-                    <Badge className="bg-primary/10 text-primary border-primary/20">
+                    <Badge className="bg-purple-100 text-purple-700 border-purple-200">
                       <Shield className="w-3 h-3 mr-1" />
                       {user?.role === 'doctor' ? 'Licensed Physician' : 'Patient Account'}
                     </Badge>
                     {user?.role === 'doctor' && (
-                      <Badge className="bg-accent/10 text-accent border-accent/20">
+                      <Badge className="bg-purple-100 text-purple-700 border-purple-200">
                         <CheckCircle className="w-3 h-3 mr-1" />
                         Board Certified
                       </Badge>
@@ -244,7 +279,7 @@ const Settings = () => {
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="font-medium">Emergency Access</h3>
+                      <h3 className="font-medium text-black">Emergency Access</h3>
                       <p className="text-sm text-purple-600">
                         Allow emergency medical personnel to access your critical health information
                       </p>
@@ -257,7 +292,7 @@ const Settings = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="font-medium">Medical Research Participation</h3>
+                      <h3 className="font-medium text-black">Medical Research Participation</h3>
                       <p className="text-sm text-purple-600">
                         Anonymously contribute your health data to medical research studies
                       </p>
@@ -270,7 +305,7 @@ const Settings = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="font-medium">Audit Trail</h3>
+                      <h3 className="font-medium text-black">Audit Trail</h3>
                       <p className="text-sm text-purple-600">
                         Maintain detailed logs of who accessed your records and when
                       </p>
@@ -283,7 +318,7 @@ const Settings = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="font-medium">Anonymous Analytics</h3>
+                      <h3 className="font-medium text-black">Anonymous Analytics</h3>
                       <p className="text-sm text-purple-600">
                         Help improve MedVault with anonymous usage analytics
                       </p>
@@ -298,18 +333,18 @@ const Settings = () => {
                 <Separator className="my-6" />
 
                 <div>
-                  <h3 className="font-medium mb-4">Data Retention</h3>
+                  <h3 className="font-medium mb-4 text-black">Data Retention</h3>
                   <p className="text-sm text-purple-600 mb-4">
                     Choose how long your medical data is retained on the blockchain
                   </p>
                   <div className="grid grid-cols-3 gap-4">
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       5 Years
                     </Button>
-                    <Button variant="outline" className="justify-start bg-primary/5 border-primary">
+                    <Button variant="outline" className="justify-start bg-purple-600 text-white border-purple-600 hover:bg-purple-700">
                       7 Years (Recommended)
                     </Button>
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       Indefinite
                     </Button>
                   </div>
@@ -327,7 +362,7 @@ const Settings = () => {
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="font-medium">Two-Factor Authentication</h3>
+                      <h3 className="font-medium text-black">Two-Factor Authentication</h3>
                       <p className="text-sm text-purple-600">
                         Add an extra layer of security to your account
                       </p>
@@ -340,7 +375,7 @@ const Settings = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="font-medium">World ID Backup Authentication</h3>
+                      <h3 className="font-medium text-black">World ID Backup Authentication</h3>
                       <p className="text-sm text-purple-600">
                         Enable backup biometric authentication methods
                       </p>
@@ -353,7 +388,7 @@ const Settings = () => {
 
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h3 className="font-medium">Trusted Devices</h3>
+                      <h3 className="font-medium text-black">Trusted Devices</h3>
                       <p className="text-sm text-purple-600">
                         Remember trusted devices to reduce authentication frequency
                       </p>
@@ -368,21 +403,21 @@ const Settings = () => {
                 <Separator className="my-6" />
 
                 <div className="space-y-4">
-                  <h3 className="font-medium">Password & Authentication</h3>
+                  <h3 className="font-medium text-black">Password & Authentication</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Key className="w-4 h-4 mr-2" />
                       Change Password
                     </Button>
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Eye className="w-4 h-4 mr-2" />
                       Re-scan Biometrics
                     </Button>
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Smartphone className="w-4 h-4 mr-2" />
                       Manage Devices
                     </Button>
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Lock className="w-4 h-4 mr-2" />
                       Recovery Codes
                     </Button>
@@ -413,11 +448,11 @@ const Settings = () => {
                 
                 <div className="space-y-6">
                   <div>
-                    <h3 className="font-medium mb-4">Communication Channels</h3>
+                    <h3 className="font-medium mb-4 text-black">Communication Channels</h3>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <h4 className="font-medium">Email Notifications</h4>
+                          <h4 className="font-medium text-black">Email Notifications</h4>
                           <p className="text-sm text-purple-600">
                             Receive updates and alerts via email
                           </p>
@@ -430,7 +465,7 @@ const Settings = () => {
 
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <h4 className="font-medium">SMS Notifications</h4>
+                          <h4 className="font-medium text-black">SMS Notifications</h4>
                           <p className="text-sm text-purple-600">
                             Get urgent alerts via text message
                           </p>
@@ -443,7 +478,7 @@ const Settings = () => {
 
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <h4 className="font-medium">Push Notifications</h4>
+                          <h4 className="font-medium text-black">Push Notifications</h4>
                           <p className="text-sm text-purple-600">
                             Browser and mobile app notifications
                           </p>
@@ -459,7 +494,7 @@ const Settings = () => {
                   <Separator />
 
                   <div>
-                    <h3 className="font-medium mb-4">Notification Types</h3>
+                    <h3 className="font-medium mb-4 text-black">Notification Types</h3>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
@@ -476,7 +511,7 @@ const Settings = () => {
 
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <h4 className="font-medium">Appointment Reminders</h4>
+                          <h4 className="font-medium text-black">Appointment Reminders</h4>
                           <p className="text-sm text-purple-600">
                             Upcoming appointments and scheduling changes
                           </p>
@@ -489,7 +524,7 @@ const Settings = () => {
 
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <h4 className="font-medium">Lab Results</h4>
+                          <h4 className="font-medium text-black">Lab Results</h4>
                           <p className="text-sm text-purple-600">
                             New lab results and medical reports
                           </p>
@@ -502,7 +537,7 @@ const Settings = () => {
 
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <h4 className="font-medium">Access Requests</h4>
+                          <h4 className="font-medium text-black">Access Requests</h4>
                           <p className="text-sm text-purple-600">
                             Doctor permission requests and access notifications
                           </p>
@@ -516,7 +551,7 @@ const Settings = () => {
                       {user?.role === 'patient' && (
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
-                            <h4 className="font-medium">Medication Reminders</h4>
+                            <h4 className="font-medium text-black">Medication Reminders</h4>
                             <p className="text-sm text-purple-600">
                               Daily medication and prescription refill reminders
                             </p>
@@ -542,7 +577,7 @@ const Settings = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="font-medium mb-4">Wallet Information</h3>
+                    <h3 className="font-medium mb-4 text-black">Wallet Information</h3>
                     <div className="space-y-3">
                       <div>
                         <Label className="text-sm text-purple-600">Wallet Address</Label>
@@ -557,13 +592,13 @@ const Settings = () => {
                       </div>
                       <div>
                         <Label className="text-sm text-purple-600">Network</Label>
-                        <p className="text-sm mt-1">{blockchainInfo.network}</p>
+                        <p className="text-sm mt-1 text-black">{blockchainInfo.network}</p>
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="font-medium mb-4">Storage Statistics</h3>
+                    <h3 className="font-medium mb-4 text-black">Storage Statistics</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between">
                         <span className="text-sm text-purple-600">Records Stored:</span>
@@ -588,32 +623,32 @@ const Settings = () => {
                 <Separator className="my-6" />
 
                 <div className="space-y-4">
-                  <h3 className="font-medium">Blockchain Actions</h3>
+                  <h3 className="font-medium text-black">Blockchain Actions</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Wallet className="w-4 h-4 mr-2" />
                       Connect External Wallet
                     </Button>
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Database className="w-4 h-4 mr-2" />
                       Backup Data to IPFS
                     </Button>
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Globe className="w-4 h-4 mr-2" />
                       View on Block Explorer
                     </Button>
-                    <Button variant="outline" className="justify-start">
+                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <SettingsIcon className="w-4 h-4 mr-2" />
                       Advanced Settings
                     </Button>
                   </div>
                 </div>
 
-                <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-lg">
                   <div className="flex items-start space-x-3">
-                    <Shield className="w-5 h-5 text-primary mt-0.5" />
+                    <Shield className="w-5 h-5 text-purple-600 mt-0.5" />
                     <div>
-                      <h4 className="font-medium text-primary">Blockchain Security</h4>
+                      <h4 className="font-medium text-purple-900">Blockchain Security</h4>
                       <p className="text-sm text-purple-600 mt-1">
                         Your medical records are secured using Flow blockchain technology with cryptographic 
                         hashing and decentralized storage. All transactions are immutable and verifiable.

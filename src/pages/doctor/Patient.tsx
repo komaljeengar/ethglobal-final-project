@@ -242,24 +242,24 @@ const Patient = () => {
         {/* Patient Overview */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Patient Info */}
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <User className="h-5 w-5 text-blue-600" />
+              <CardTitle className="flex items-center gap-2 text-black">
+                <User className="h-5 w-5 text-purple-600" />
                 Patient Information
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                  <User className="h-8 w-8 text-blue-600" />
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center">
+                  <User className="h-8 w-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">{patient.name}</h3>
-                  <p className="text-gray-600">
+                  <h3 className="text-xl font-bold text-black">{patient.name}</h3>
+                  <p className="text-purple-600">
                     {patient.age} years old • {patient.gender}
                   </p>
-                  <Badge variant="outline" className="mt-1">
+                  <Badge variant="outline" className="mt-1 bg-purple-50 text-purple-700 border-purple-200">
                     {patient.status.charAt(0).toUpperCase() +
                       patient.status.slice(1)}
                   </Badge>
@@ -270,52 +270,52 @@ const Patient = () => {
 
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm">{patient.phone}</span>
+                  <Phone className="h-4 w-4 text-purple-500" />
+                  <span className="text-sm text-black">{patient.phone}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm">{patient.email}</span>
+                  <Mail className="h-4 w-4 text-purple-500" />
+                  <span className="text-sm text-black">{patient.email}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm">{patient.address}</span>
+                  <MapPin className="h-4 w-4 text-purple-500" />
+                  <span className="text-sm text-black">{patient.address}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm">DOB: {patient.dateOfBirth}</span>
+                  <Calendar className="h-4 w-4 text-purple-500" />
+                  <span className="text-sm text-black">DOB: {patient.dateOfBirth}</span>
                 </div>
               </div>
 
               <Separator />
 
               <div className="space-y-2">
-                <h4 className="font-medium">Emergency Contact</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-medium text-black">Emergency Contact</h4>
+                <p className="text-sm text-purple-600">
                   {patient.emergencyContact}
                 </p>
               </div>
 
               <div className="space-y-2">
-                <h4 className="font-medium">Primary Care</h4>
-                <p className="text-sm text-gray-600">{patient.primaryCare}</p>
+                <h4 className="font-medium text-black">Primary Care</h4>
+                <p className="text-sm text-purple-600">{patient.primaryCare}</p>
               </div>
 
               <div className="space-y-2">
-                <h4 className="font-medium">Insurance</h4>
-                <p className="text-sm text-gray-600">{patient.insurance}</p>
+                <h4 className="font-medium text-black">Insurance</h4>
+                <p className="text-sm text-purple-600">{patient.insurance}</p>
               </div>
             </CardContent>
           </Card>
 
           {/* Vital Signs */}
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Heart className="h-5 w-5 text-red-600" />
+              <CardTitle className="flex items-center gap-2 text-black">
+                <Heart className="h-5 w-5 text-purple-600" />
                 Vital Signs
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-purple-600">
                 Last updated: {vitalSigns.lastUpdated}
               </CardDescription>
             </CardHeader>
@@ -363,19 +363,19 @@ const Patient = () => {
           </Card>
 
           {/* Medical Summary */}
-          <Card>
+          <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Stethoscope className="h-5 w-5 text-green-600" />
+              <CardTitle className="flex items-center gap-2 text-black">
+                <Stethoscope className="h-5 w-5 text-purple-600" />
                 Medical Summary
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <h4 className="font-medium mb-2">Current Conditions</h4>
+                <h4 className="font-medium mb-2 text-black">Current Conditions</h4>
                 <div className="space-y-1">
                   {patient.conditions.map((condition, index) => (
-                    <Badge key={index} variant="outline" className="mr-1">
+                    <Badge key={index} variant="outline" className="mr-1 bg-purple-50 text-purple-700 border-purple-200">
                       {condition}
                     </Badge>
                   ))}
@@ -385,10 +385,10 @@ const Patient = () => {
               <Separator />
 
               <div>
-                <h4 className="font-medium mb-2">Current Medications</h4>
+                <h4 className="font-medium mb-2 text-black">Current Medications</h4>
                 <div className="space-y-1">
                   {patient.medications.map((medication, index) => (
-                    <div key={index} className="text-sm text-gray-600">
+                    <div key={index} className="text-sm text-purple-600">
                       {medication}
                     </div>
                   ))}
@@ -398,7 +398,7 @@ const Patient = () => {
               <Separator />
 
               <div>
-                <h4 className="font-medium mb-2">Known Allergies</h4>
+                <h4 className="font-medium mb-2 text-black">Known Allergies</h4>
                 <div className="space-y-1">
                   {patient.allergies.map((allergy, index) => (
                     <Badge key={index} variant="destructive" className="mr-1">
@@ -425,13 +425,13 @@ const Patient = () => {
         </div>
 
         {/* Medical Records */}
-        <Card>
+        <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <FileText className="h-5 w-5 text-blue-600" />
+            <CardTitle className="flex items-center gap-2 text-black">
+              <FileText className="h-5 w-5 text-purple-600" />
               Medical Records
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-purple-600">
               Complete medical history and test results
             </CardDescription>
           </CardHeader>
@@ -439,20 +439,20 @@ const Patient = () => {
             {/* Search Bar */}
             <div className="flex flex-col md:flex-row gap-4 items-center mb-6">
               <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
                 <Input
                   placeholder="Search medical records..."
-                  className="pl-10"
+                  className="pl-10 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
                 />
               </div>
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                   <Filter className="h-4 w-4 mr-2" />
                   Filter
                 </Button>
-                <Button size="sm">
+                <Button size="sm" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white">
                   <Plus className="h-4 w-4 mr-2" />
                   Add Record
                 </Button>
@@ -464,24 +464,24 @@ const Patient = () => {
               {filteredRecords.map((record) => (
                 <div
                   key={record.id}
-                  className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-blue-50 bg-white"
+                  className="flex items-center justify-between p-4 border border-purple-200 rounded-lg hover:bg-purple-50 bg-gradient-to-r from-purple-50 via-white to-indigo-50"
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <FileText className="h-6 w-6 text-blue-600" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                      <FileText className="h-6 w-6 text-white" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold">{record.title}</h3>
-                        <Badge variant="outline" className="text-xs">
+                        <h3 className="font-semibold text-black">{record.title}</h3>
+                        <Badge variant="outline" className="text-xs bg-purple-50 text-purple-700 border-purple-200">
                           {record.type}
                         </Badge>
                         {getStatusBadge(record.status)}
                       </div>
-                      <p className="text-sm text-gray-600 mb-2">
+                      <p className="text-sm text-purple-600 mb-2">
                         {record.description}
                       </p>
-                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
+                      <div className="flex items-center gap-4 text-sm text-purple-500 mb-2">
                         <span className="flex items-center gap-1">
                           <User className="h-4 w-4" />
                           {record.doctor}
@@ -491,24 +491,24 @@ const Patient = () => {
                           {record.date}
                         </span>
                         <span className="flex items-center gap-1">
-                          <span className="font-medium">${record.value}</span>
+                          <span className="font-medium text-black">${record.value}</span>
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 italic">
+                      <p className="text-sm text-purple-600 italic">
                         {record.notes}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Eye className="h-4 w-4 mr-1" />
                       View
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Download className="h-4 w-4 mr-1" />
                       Download
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Edit className="h-4 w-4 mr-1" />
                       Edit
                     </Button>

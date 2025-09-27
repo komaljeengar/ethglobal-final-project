@@ -109,7 +109,7 @@ const ClinicalSupport = () => {
       id: "1",
       name: "Drug Interaction Checker",
       description:
-        "Check for potential drug interactions and contraindications",
+        "Check for potential drug interactions",
       icon: <Shield className="h-6 w-6" />,
       color: "text-red-600",
       bgColor: "bg-red-50",
@@ -147,7 +147,7 @@ const ClinicalSupport = () => {
   const quickQuestions = [
     {
       id: "1",
-      question: "Check drug interactions for Lisinopril and Metformin",
+      question: "Check drug interactions for Metformin",
       icon: <Shield className="h-4 w-4" />,
     },
     {
@@ -162,7 +162,7 @@ const ClinicalSupport = () => {
     },
     {
       id: "4",
-      question: "Latest guidelines for diabetes management",
+      question: "Guidelines for diabetes management",
       icon: <FileText className="h-4 w-4" />,
     },
   ];
@@ -314,6 +314,36 @@ const ClinicalSupport = () => {
           </div>
         </div>
 
+        {/* Search and Filter Bar */}
+        <div className="bg-white p-4 rounded-lg">
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
+              <Input
+                placeholder="Search clinical tools, questions, insights..."
+                className="pl-10 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Search className="h-4 w-4 mr-2" />
+                Filter
+              </Button>
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Calendar className="h-4 w-4 mr-2" />
+                Recent
+              </Button>
+              {searchQuery && (
+                <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                  Clear Search
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Success Message */}
         {showRefreshed && (
           <Card className="bg-green-50 border-green-200">
@@ -335,13 +365,13 @@ const ClinicalSupport = () => {
         )}
 
         {/* Clinical Tools */}
-        <Card>
+        <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Zap className="h-5 w-5 text-blue-600" />
+            <CardTitle className="flex items-center gap-2 text-black">
+              <Zap className="h-5 w-5 text-purple-600" />
               Clinical Tools
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-purple-600">
               AI-powered tools to enhance your clinical practice
             </CardDescription>
           </CardHeader>
@@ -351,16 +381,16 @@ const ClinicalSupport = () => {
                 <Button
                   key={tool.id}
                   variant="outline"
-                  className={`h-auto p-4 flex flex-col items-start gap-3 ${tool.bgColor} ${tool.borderColor} border hover:shadow-lg transition-all duration-300`}
+                  className={`h-auto p-4 flex flex-col items-start gap-3 ${tool.bgColor} ${tool.borderColor} border hover:shadow-lg transition-all duration-300 min-h-[140px]`}
                 >
                   <div
-                    className={`${tool.color} ${tool.bgColor} p-2 rounded-lg`}
+                    className={`${tool.color} ${tool.bgColor} p-2 rounded-lg flex-shrink-0`}
                   >
                     {tool.icon}
                   </div>
-                  <div className="text-left">
-                    <h3 className="font-medium text-gray-900">{tool.name}</h3>
-                    <p className="text-sm text-gray-600 mt-1">
+                  <div className="text-left w-full">
+                    <h3 className="font-medium text-black text-base leading-tight mb-2">{tool.name}</h3>
+                    <p className="text-sm text-purple-600 leading-relaxed break-words">
                       {tool.description}
                     </p>
                   </div>
@@ -371,13 +401,13 @@ const ClinicalSupport = () => {
         </Card>
 
         {/* Quick Questions */}
-        <Card>
+        <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Lightbulb className="h-5 w-5 text-yellow-600" />
+            <CardTitle className="flex items-center gap-2 text-black">
+              <Lightbulb className="h-5 w-5 text-purple-600" />
               Quick Clinical Questions
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-purple-600">
               Common clinical scenarios you can ask your AI assistant
             </CardDescription>
           </CardHeader>
@@ -387,12 +417,16 @@ const ClinicalSupport = () => {
                 <Button
                   key={question.id}
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-start gap-2"
+                  className="h-auto p-4 flex flex-col items-start gap-2 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 min-h-[100px]"
                   onClick={() => handleQuickQuestion(question.question)}
                 >
-                  <div className="flex items-center gap-2">
-                    {question.icon}
-                    <span className="font-medium">{question.question}</span>
+                  <div className="flex items-start gap-2 w-full">
+                    <div className="flex-shrink-0 mt-0.5">
+                      {question.icon}
+                    </div>
+                    <span className="font-medium text-black text-base leading-relaxed break-words text-left">
+                      {question.question}
+                    </span>
                   </div>
                 </Button>
               ))}
@@ -404,16 +438,16 @@ const ClinicalSupport = () => {
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           {/* Chat Interface */}
           <div className="xl:col-span-2">
-            <Card className="h-[600px] flex flex-col">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Bot className="h-5 w-5 text-blue-600" />
+            <Card className="h-[600px] flex flex-col bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm overflow-hidden">
+              <CardHeader className="flex-shrink-0">
+                <CardTitle className="flex items-center gap-2 text-black">
+                  <Bot className="h-5 w-5 text-purple-600" />
                   Clinical AI Assistant
                 </CardTitle>
               </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
+              <CardContent className="flex-1 flex flex-col min-h-0 p-4">
                 {/* Messages */}
-                <div className="flex-1 overflow-y-auto space-y-4 mb-4">
+                <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2">
                   {messages.map((msg) => (
                     <div
                       key={msg.id}
@@ -422,9 +456,9 @@ const ClinicalSupport = () => {
                       }`}
                     >
                       <div
-                        className={`max-w-[80%] p-3 rounded-lg ${
+                        className={`max-w-[85%] p-3 rounded-lg break-words ${
                           msg.type === "user"
-                            ? "bg-blue-600 text-white"
+                            ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white"
                             : "bg-gray-100 text-gray-900"
                         }`}
                       >
@@ -432,8 +466,8 @@ const ClinicalSupport = () => {
                           {msg.type === "ai" && (
                             <Bot className="h-4 w-4 mt-1 flex-shrink-0" />
                           )}
-                          <div className="flex-1">
-                            <p className="text-sm whitespace-pre-wrap">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm whitespace-pre-wrap break-words">
                               {msg.content}
                             </p>
                             <p className="text-xs opacity-70 mt-1">
@@ -472,17 +506,18 @@ const ClinicalSupport = () => {
                 </div>
 
                 {/* Message Input */}
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-shrink-0">
                   <Input
                     placeholder="Ask your clinical AI assistant..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                    className="flex-1"
+                    className="flex-1 min-w-0"
                   />
                   <Button
                     onClick={handleSendMessage}
                     disabled={!message.trim()}
+                    className="flex-shrink-0"
                   >
                     <Send className="h-4 w-4" />
                   </Button>
@@ -493,13 +528,13 @@ const ClinicalSupport = () => {
 
           {/* Clinical Insights Sidebar */}
           <div className="space-y-6">
-            <Card>
+            <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Brain className="h-5 w-5 text-blue-600" />
+                <CardTitle className="flex items-center gap-2 text-black">
+                  <Brain className="h-5 w-5 text-purple-600" />
                   Clinical Insights
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-purple-600">
                   AI-powered clinical recommendations
                 </CardDescription>
               </CardHeader>
@@ -511,17 +546,17 @@ const ClinicalSupport = () => {
                       className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-medium text-sm">{insight.title}</h4>
+                        <h4 className="font-medium text-sm text-black">{insight.title}</h4>
                         <Badge
                           className={`${insight.bgColor} ${insight.color} border-0`}
                         >
                           {insight.value}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 mb-2">
+                      <p className="text-sm text-black mb-2">
                         {insight.description}
                       </p>
-                      <Button variant="link" className="p-0 text-xs h-auto">
+                      <Button variant="link" className="p-0 text-xs h-auto text-black">
                         {insight.action}
                       </Button>
                     </div>
@@ -531,28 +566,28 @@ const ClinicalSupport = () => {
             </Card>
 
             {/* Quick Actions */}
-            <Card>
+            <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-blue-600" />
+                <CardTitle className="flex items-center gap-2 text-black">
+                  <Zap className="h-5 w-5 text-purple-600" />
                   Quick Actions
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                     <BookOpen className="h-4 w-4 mr-2" />
                     Clinical Guidelines
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                     <Shield className="h-4 w-4 mr-2" />
                     Drug Interactions
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                     <Brain className="h-4 w-4 mr-2" />
                     Diagnosis Support
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                     <FileText className="h-4 w-4 mr-2" />
                     Medical Literature
                   </Button>

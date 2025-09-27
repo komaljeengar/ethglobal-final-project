@@ -248,7 +248,7 @@ const Index = () => {
                         <span className="text-white font-bold text-sm">Mv</span>
                       </div>
                       <span className="text-white font-medium">
-                        Dr.0G Dashboard
+                        Dr Hedera Dashboard
                       </span>
                     </div>
                     <div className="flex gap-2">
@@ -401,7 +401,7 @@ const Index = () => {
                 style={{ transitionDelay: "800ms" }}
               >
                 <AnimatedText
-                  text="Why Dr.0G is the healthcare standard"
+                  text="Why Dr Hedera is the healthcare standard"
                   className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8"
                   delay={1000}
                 />
@@ -411,17 +411,17 @@ const Index = () => {
                     {
                       title: "Institutional-grade security",
                       description:
-                        "Dr.0G protocols are secured by enterprise-level security audits with a proven track record of protecting millions of medical records.",
+                        "Dr Hedera protocols are secured by enterprise-level security audits with a proven track record of protecting millions of medical records.",
                     },
                     {
                       title: "Cross-platform compatibility",
                       description:
-                        "Dr.0G connects existing healthcare systems to any blockchain network and enables seamless multi-platform data management.",
+                        "Dr Hedera connects existing healthcare systems to any blockchain network and enables seamless multi-platform data management.",
                     },
                     {
                       title: "Healthcare-ready infrastructure",
                       description:
-                        "Dr.0G provides healthcare institutions with comprehensive documentation, dedicated support, and proven scalability.",
+                        "Dr Hedera provides healthcare institutions with comprehensive documentation, dedicated support, and proven scalability.",
                     },
                   ].map((item, index) => (
                     <div
@@ -599,7 +599,7 @@ const Index = () => {
                         }`}
                         style={{ transitionDelay: "1200ms" }}
                       >
-                        Dr.0G Analytics Dashboard
+                        Dr Hedera Analytics Dashboard
                       </span>
                     </div>
                     <div
