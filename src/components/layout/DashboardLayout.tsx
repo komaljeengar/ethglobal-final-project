@@ -50,6 +50,31 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const location = useLocation();
   const { user, logout } = useAuth();
 
+  // Prevent any black hover states in sidebar
+  React.useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+      .sidebar-override *:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      .sidebar-override button:focus,
+      .sidebar-override a:focus {
+        background-color: transparent !important;
+        color: inherit !important;
+      }
+      .sidebar-override [data-radix-popper-content-wrapper] {
+        z-index: 50 !important;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
+    };
+  }, []);
+
   const patientNavItems = [
     { title: "Dashboard", url: "/patient/dashboard", icon: LayoutDashboard },
     { title: "Medical Records", url: "/patient/records", icon: FileText },
@@ -87,12 +112,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     const isActive = (path: string) => currentPath === path;
     const getNavCls = (path: string) =>
       isActive(path)
-        ? "bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold hover:from-purple-600 hover:to-purple-700 border-l-4 border-purple-300 rounded-r-lg"
-        : "hover:bg-purple-50 text-purple-700 hover:text-purple-900 hover:font-medium hover:border-l-4 hover:border-purple-300 hover:rounded-r-lg transition-all duration-300";
+        ? "bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold hover:from-purple-600 hover:to-purple-700 border-l-4 border-purple-300 rounded-r-lg focus:from-purple-600 focus:to-purple-700"
+        : "hover:bg-purple-50 text-purple-700 hover:text-purple-900 hover:font-medium hover:border-l-4 hover:border-purple-300 hover:rounded-r-lg transition-all duration-300 focus:bg-purple-50 focus:text-purple-900";
 
     return (
       <Sidebar
-        className="w-64 bg-white border-r border-purple-200 shadow-lg"
+        className="w-64 bg-white border-r border-purple-200 shadow-lg sidebar-override"
         collapsible="icon"
       >
         <SidebarContent className="bg-white">
@@ -119,12 +144,15 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                     key={item.title}
                     className="bg-white mb-3 px-2"
                   >
-                    <SidebarMenuButton asChild className="bg-white p-0 w-full">
+                    <SidebarMenuButton
+                      asChild
+                      className="bg-white p-0 w-full hover:bg-white focus:bg-white"
+                    >
                       <NavLink
                         to={item.url}
                         className={`${getNavCls(
                           item.url
-                        )} transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full`}
+                        )} transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full focus:outline-none focus:ring-0`}
                       >
                         <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
                         <span className="text-sm">{item.title}</span>
@@ -144,7 +172,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
               <SidebarGroupContent className="bg-white">
                 <SidebarMenu className="bg-white">
                   <SidebarMenuItem className="bg-white mb-3 px-2">
-                    <SidebarMenuButton className="text-red-600 hover:bg-red-50 hover:text-red-700 hover:font-medium hover:border-l-4 hover:border-red-300 hover:rounded-r-lg transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full">
+                    <SidebarMenuButton className="text-red-600 hover:bg-red-50 hover:text-red-700 hover:font-medium hover:border-l-4 hover:border-red-300 hover:rounded-r-lg transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full focus:outline-none focus:bg-red-50 focus:text-red-700">
                       <Heart className="mr-3 h-5 w-5 flex-shrink-0" />
                       <span className="text-sm">Emergency Access</span>
                     </SidebarMenuButton>
@@ -183,20 +211,23 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                       <Settings className="h-4 w-4 text-purple-600" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuContent
+                    align="end"
+                    className="w-48 bg-white border border-purple-200 shadow-lg rounded-lg p-1"
+                  >
                     <DropdownMenuItem
                       onClick={() => navigate("/settings")}
-                      className="hover:bg-purple-50"
+                      className="hover:bg-purple-50 focus:bg-purple-50 rounded-md cursor-pointer text-purple-900"
                     >
-                      <Settings className="w-4 h-4 mr-2" />
+                      <Settings className="w-4 h-4 mr-2 text-purple-600" />
                       Settings
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator />
+                    <DropdownMenuSeparator className="bg-purple-100 my-1" />
                     <DropdownMenuItem
                       onClick={handleLogout}
-                      className="text-red-600 hover:bg-red-50"
+                      className="text-red-600 hover:bg-red-50 focus:bg-red-50 rounded-md cursor-pointer"
                     >
-                      <LogOut className="w-4 h-4 mr-2" />
+                      <LogOut className="w-4 h-4 mr-2 text-red-500" />
                       Sign Out
                     </DropdownMenuItem>
                   </DropdownMenuContent>
