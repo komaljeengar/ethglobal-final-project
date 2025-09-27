@@ -11,9 +11,13 @@ interface User {
   name: string;
   email: string;
   role: "patient" | "doctor";
-  worldIdVerified: boolean;
   avatar?: string;
   specialization?: string; // for doctors
+  // Blockchain integration
+  walletAddress?: string;
+  patientId?: number;
+  isBlockchainRegistered?: boolean;
+  verificationLevel?: number;
 }
 
 interface AuthContextType {
@@ -52,7 +56,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       name: "John Smith",
       email: "john.smith@email.com",
       role: "patient",
-      worldIdVerified: true,
       avatar: "JS",
     },
     doctor: {
@@ -60,7 +63,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       name: "Dr. Emily Rodriguez",
       email: "emily.rodriguez@medvault.com",
       role: "doctor",
-      worldIdVerified: true,
       avatar: "ER",
       specialization: "Cardiologist",
     },
@@ -115,7 +117,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       name: userData.name || "",
       email: userData.email || "",
       role: userData.role || "patient",
-      worldIdVerified: false,
       avatar:
         userData.name
           ?.split(" ")

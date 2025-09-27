@@ -22,11 +22,14 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWeb3 } from '@/contexts/Web3Context';
 import { useToast } from '@/hooks/use-toast';
+import WalletConnection from '@/components/WalletConnection';
 
 const Register = () => {
   const navigate = useNavigate();
   const { register, isLoading } = useAuth();
+  const { isConnected } = useWeb3();
   const { toast } = useToast();
   
   const [step, setStep] = useState(1);
@@ -81,7 +84,7 @@ const Register = () => {
       
       toast({
         title: "Registration Successful",
-        description: "Welcome to MedVault!",
+        description: "Welcome to dr Hedera!",
       });
       
       navigate(userType === 'patient' ? '/patient/dashboard' : '/doctor/dashboard');
@@ -102,7 +105,7 @@ const Register = () => {
             <div className="text-center mb-8">
               <h2 className="text-muted-foreground text-black text-3xl font-bold mb-2">Choose Your Role</h2>
               <p className="text-muted-foreground text-purple-600">
-                Select how you'll be using MedVault
+                Select how you'll be using dr Hedera
               </p>
             </div>
 
@@ -182,7 +185,7 @@ const Register = () => {
             <div className="text-center mb-8">
               <h2 className="text-muted-foreground text-black text-3xl font-bold mb-2">Account Details</h2>
               <p className="text-muted-foreground text-purple-900">
-                Complete your MedVault registration
+                Complete your dr Hedera registration
               </p>
             </div>
 
@@ -309,17 +312,18 @@ const Register = () => {
               </div>
             </div>
 
-            <Card className="p-4 bg-gradient-to-r from-purple-100 via-white to-blue-100 border-purple-200">
-              <div className="flex items-start space-x-3">
-                <Wallet className="w-5 h-5 text-purple-600 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-sm mb-1 text-gray-900">Blockchain Wallet Connection</h4>
-                  <p className="text-xs text-gray-700">
-                    A Flow blockchain wallet will be created for you automatically. You can connect your own wallet later in settings.
+            {/* MetaMask Wallet Connection */}
+            <div className="space-y-4">
+              <h4 className="font-semibold text-sm text-gray-900">Blockchain Wallet Connection</h4>
+              <WalletConnection />
+              {userType === 'patient' && !isConnected && (
+                <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                  <p className="text-sm text-amber-800">
+                    <strong>Note:</strong> Patients need to connect their MetaMask wallet to create a blockchain identity for secure medical data management.
                   </p>
                 </div>
-              </div>
-            </Card>
+              )}
+            </div>
 
             <div className="flex space-x-4 ">
               <Button 
@@ -329,14 +333,18 @@ const Register = () => {
               > 
                 Back
               </Button>
-              <Button type="submit" className="flex-1 gradient-primary" disabled={isLoading}>
+              <Button 
+                type="submit" 
+                className="flex-1 gradient-primary" 
+                disabled={isLoading || (userType === 'patient' && !isConnected)}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                     Creating Account...
                   </>
                 ) : (
-                  'Create MedVault Account'
+                  'Create dr Hedera Account'
                 )}
               </Button>
             </div>
@@ -349,7 +357,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Simple Header without announcement bar */}
       <nav className="sticky top-0 z-[100] w-full border-b border-gray-200 bg-white shadow-sm">
         <div className="container mx-auto px-4">
@@ -360,7 +368,7 @@ const Register = () => {
                 <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-md">
                   <span className="text-2xl font-extrabold text-white">Mv</span>
                 </div>
-                <span className="text-xl font-bold text-gray-900">MedVault</span>
+                <span className="text-xl font-bold text-gray-900">dr Hedera</span>
               </div>
             </div>
 
@@ -378,7 +386,8 @@ const Register = () => {
       </nav>
       
       {/* Registration Form */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="flex-1 flex items-center justify-center">
+        <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
           {/* Progress Steps */}
           <div className="flex items-center justify-center mb-12">
@@ -413,11 +422,19 @@ const Register = () => {
             </p>
           </div>
         </div>
+        </div>
       </div>
 
       {/* Simple Footer */}
       {/* Footer */}
-      <Footer />
+      <footer className="bg-white border-t border-purple-100 py-4 px-6">
+            <div className="flex items-center justify-center text-center">
+              <p className="text-xs text-purple-600">
+                © 2025 dr Hedera - Licensed under MIT | Secure Healthcare Data
+                Management Platform | All rights reserved
+              </p>
+            </div>
+          </footer>
     </div>
   );
 };

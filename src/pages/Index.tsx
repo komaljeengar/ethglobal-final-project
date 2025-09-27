@@ -54,11 +54,6 @@ const Index = () => {
       description: "Your medical data is secured on Flow blockchain with immutable records and cryptographic protection."
     },
     {
-      icon: <Eye className="w-6 h-6 text-primary" />,
-      title: "World ID Authentication",
-      description: "Biometric verification ensures only you can access your medical records with iris scanning technology."
-    },
-    {
       icon: <Brain className="w-6 h-6 text-primary" />,
       title: "AI Health Assistant",
       description: "Hedera AI analyzes your medical history to provide personalized health insights and recommendations."
@@ -89,7 +84,6 @@ const Index = () => {
 
   const technologies = [
     { name: "Flow Blockchain", color: "bg-primary text-primary-foreground" },
-    { name: "World ID", color: "bg-secondary text-secondary-foreground" },
     { name: "Hedera AI", color: "bg-accent text-accent-foreground" },
     { name: "IPFS Storage", color: "bg-muted text-muted-foreground" }
   ];

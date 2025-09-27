@@ -65,24 +65,66 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWeb3 } from '@/contexts/Web3Context';
 import DashboardLayout from '@/components/layout/DashboardLayout';
+import WalletConnection from '@/components/WalletConnection';
+import BlockchainRegistration from '@/components/BlockchainRegistration';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { isConnected, account } = useWeb3();
   const [searchQuery, setSearchQuery] = useState("");
   const [showRefreshed, setShowRefreshed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDemoMode, setIsDemoMode] = useState(false);
+  const [userRecords, setUserRecords] = useState([]);
+  const [userPermissions, setUserPermissions] = useState([]);
 
-  // Mock data for healthcare dashboard
+  // Check if user is in demo mode
+  React.useEffect(() => {
+    const isDemo = user?.email?.includes('demo') || user?.name?.includes('Demo') || user?.id === '1' || user?.id === '2';
+    setIsDemoMode(isDemo);
+  }, [user]);
+
+  // Dynamic data based on user type
   const quickStats = [
-    { label: 'Total Records', value: '47', icon: <FileText className="w-5 h-5" />, color: 'text-green-600', bgColor: 'bg-green-50', borderColor: 'border-green-200' },
-    { label: 'Active Permissions', value: '3', icon: <Users className="w-5 h-5" />, color: 'text-blue-600', bgColor: 'bg-blue-50', borderColor: 'border-blue-200' },
-    { label: 'AI Chats', value: '12', icon: <Brain className="w-5 h-5" />, color: 'text-purple-600', bgColor: 'bg-purple-50', borderColor: 'border-purple-200' },
-    { label: 'Appointments', value: '2', icon: <Calendar className="w-5 h-5" />, color: 'text-orange-600', bgColor: 'bg-orange-50', borderColor: 'border-orange-200' },
+    { 
+      label: 'Total Records', 
+      value: isDemoMode ? '47' : userRecords.length.toString(), 
+      icon: <FileText className="w-5 h-5" />, 
+      color: 'text-green-600', 
+      bgColor: 'bg-green-50', 
+      borderColor: 'border-green-200' 
+    },
+    { 
+      label: 'Active Permissions', 
+      value: isDemoMode ? '3' : userPermissions.length.toString(), 
+      icon: <Users className="w-5 h-5" />, 
+      color: 'text-blue-600', 
+      bgColor: 'bg-blue-50', 
+      borderColor: 'border-blue-200' 
+    },
+    { 
+      label: 'AI Chats', 
+      value: isDemoMode ? '12' : '0', 
+      icon: <Brain className="w-5 h-5" />, 
+      color: 'text-purple-600', 
+      bgColor: 'bg-purple-50', 
+      borderColor: 'border-purple-200' 
+    },
+    { 
+      label: 'Appointments', 
+      value: isDemoMode ? '2' : '0', 
+      icon: <Calendar className="w-5 h-5" />, 
+      color: 'text-orange-600', 
+      bgColor: 'bg-orange-50', 
+      borderColor: 'border-orange-200' 
+    },
   ];
 
-  const recentRecords = [
+  // Demo records for demo users, empty for real users
+  const demoRecords = [
     {
       id: '1',
       title: 'Blood Test Results',
@@ -115,7 +157,10 @@ const Dashboard = () => {
     }
   ];
 
-  const activePermissions = [
+  const recentRecords = isDemoMode ? demoRecords : userRecords;
+
+  // Demo permissions for demo users, empty for real users
+  const demoPermissions = [
     {
       doctor: 'Dr. Emily Rodriguez',
       specialization: 'Cardiologist',
@@ -141,6 +186,8 @@ const Dashboard = () => {
       status: 'expiring'
     }
   ];
+
+  const activePermissions = isDemoMode ? demoPermissions : userPermissions;
 
   const healthInsights = [
     {
@@ -243,10 +290,17 @@ const Dashboard = () => {
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <Badge className="bg-white/20 text-white border-white/30">
-                <Activity className="h-3 w-3 mr-1" />
-                Live Data
-              </Badge>
+              {isDemoMode ? (
+                <Badge className="bg-yellow-500/20 text-yellow-100 border-yellow-300">
+                  <Activity className="h-3 w-3 mr-1" />
+                  Demo Mode
+                </Badge>
+              ) : (
+                <Badge className="bg-white/20 text-white border-white/30">
+                  <Activity className="h-3 w-3 mr-1" />
+                  Live Data
+                </Badge>
+              )}
               <Button
                 onClick={handleRefresh}
                 variant="outline"
@@ -267,9 +321,9 @@ const Dashboard = () => {
                   <div className={`${stat.color}`}>
                     {stat.icon}
                   </div>
-                  <span className="text-sm text-purple-100">{stat.label}</span>
+                  <span className="text-sm text-white font-medium">{stat.label}</span>
                 </div>
-                <div className="text-2xl font-bold">{stat.value}</div>
+                <div className="text-2xl font-bold text-white">{stat.value}</div>
               </div>
             ))}
           </div>
@@ -281,7 +335,7 @@ const Dashboard = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
                 <Input
                   placeholder="Search medical records, doctors, appointments..."
-                  className="pl-10 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
+                  className="pl-10 text-black placeholder-gray-500 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
                 />
@@ -320,16 +374,43 @@ const Dashboard = () => {
           </Card>
         )}
 
+        {/* Demo Mode Warning */}
+        {isDemoMode && (
+          <Card className="bg-gradient-to-r from-yellow-50 via-amber-50 to-orange-50 border-yellow-200 shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex gap-4">
+                <AlertTriangle className="h-6 w-6 text-yellow-600 mt-0.5 flex-shrink-0" />
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-yellow-900">
+                    Demo Mode Active
+                  </p>
+                  <p className="text-sm text-yellow-700">
+                    You are viewing demo data. Create a real account to start managing your actual medical records.
+                  </p>
+                  <div className="flex items-center gap-4 mt-3">
+                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
+                      Demo Data
+                    </Badge>
+                    <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                      Sample Records
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Healthcare Info Banner */}
         <Card className="bg-gradient-to-r from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
           <CardContent className="p-6">
             <div className="flex gap-4">
               <InfoIcon className="h-6 w-6 text-purple-600 mt-0.5 flex-shrink-0" />
               <div className="space-y-2">
-                <p className="text-sm font-semibold text-purple-900">
+                <p className="text-sm font-semibold text-gray-900">
                   MedVault: Secure Healthcare Data Management
                 </p>
-                <p className="text-sm text-purple-700">
+                <p className="text-sm text-gray-700">
                   Your medical records are encrypted and stored on the blockchain. 
                   You control who has access to your health information.
                 </p>
@@ -343,11 +424,23 @@ const Dashboard = () => {
                   <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
                     AI Powered
                   </Badge>
+                  {isConnected && (
+                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                      <Activity className="h-3 w-3 mr-1" />
+                      Wallet Connected
+                    </Badge>
+                  )}
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
+
+        {/* Blockchain Integration Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <WalletConnection />
+          <BlockchainRegistration />
+        </div>
 
         {/* Quick Actions Bar */}
         <Card className="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-600 text-white shadow-lg">
@@ -455,10 +548,17 @@ const Dashboard = () => {
               {filteredRecords.length === 0 ? (
                 <div className="text-center py-8">
                   <FileText className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-                  <p className="text-purple-600">No records found</p>
+                  <p className="text-gray-600 mb-2">
+                    {isDemoMode ? "No records found" : "No medical records yet"}
+                  </p>
+                  {!isDemoMode && (
+                    <p className="text-sm text-gray-500 mb-4">
+                      Upload your first medical record to get started
+                    </p>
+                  )}
                   <Button className="mt-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800" onClick={() => navigate('/patient/records')}>
                     <Plus className="h-4 w-4 mr-2" />
-                    Upload Your First Record
+                    {isDemoMode ? "Upload Your First Record" : "Upload Medical Records"}
                   </Button>
                 </div>
               ) : (
@@ -470,14 +570,14 @@ const Dashboard = () => {
                           <FileText className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <p className="font-medium text-sm text-purple-900">{record.title}</p>
-                          <p className="text-xs text-purple-600">
+                          <p className="font-medium text-sm text-gray-900">{record.title}</p>
+                          <p className="text-xs text-gray-600">
                             {record.doctor} • {record.date}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium text-sm text-purple-700">{record.value}</p>
+                        <p className="font-medium text-sm text-gray-700">{record.value}</p>
                         <div className="flex items-center gap-1">
                           {getStatusBadge(record.status)}
                         </div>
@@ -513,7 +613,7 @@ const Dashboard = () => {
                         {insight.value}
                       </Badge>
                     </div>
-                    <p className="text-sm text-purple-600 mb-2">{insight.description}</p>
+                    <p className="text-sm text-gray-600 mb-2">{insight.description}</p>
                     <Button variant="link" className="p-0 text-xs h-auto text-purple-600 hover:text-purple-800">
                       {insight.action}
                     </Button>
@@ -541,13 +641,13 @@ const Dashboard = () => {
                   <div key={index} className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-indigo-50 rounded-lg border border-purple-200">
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <p className="font-medium text-sm text-purple-900">{appointment.time}</p>
+                        <p className="font-medium text-sm text-gray-900">{appointment.time}</p>
                         <Badge variant="outline" className="text-xs border-purple-200 text-purple-700">
                           {appointment.status}
                         </Badge>
                       </div>
-                      <p className="text-sm text-purple-700">{appointment.patient}</p>
-                      <p className="text-xs text-purple-600">
+                      <p className="text-sm text-gray-700">{appointment.patient}</p>
+                      <p className="text-xs text-gray-600">
                         {appointment.type} • {appointment.duration}
                       </p>
                     </div>
@@ -564,8 +664,8 @@ const Dashboard = () => {
                   {activePermissions.slice(0, 3).map((permission, index) => (
                     <div key={index} className="flex items-center justify-between p-2 bg-gradient-to-r from-purple-50 via-white to-indigo-50 rounded-lg border border-purple-200">
                       <div className="flex-1">
-                        <p className="font-medium text-xs text-purple-900">{permission.doctor}</p>
-                        <p className="text-xs text-purple-600">{permission.specialization}</p>
+                        <p className="font-medium text-xs text-gray-900">{permission.doctor}</p>
+                        <p className="text-xs text-gray-600">{permission.specialization}</p>
                       </div>
                       <div className="flex items-center gap-1">
                         {getStatusBadge(permission.status)}
