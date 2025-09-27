@@ -7,7 +7,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import { 
   Shield, 
-  Eye, 
   ArrowLeft,
   Loader2,
   User,
@@ -26,8 +25,7 @@ const Login = () => {
   const { login, isLoading, setDemoMode } = useAuth();
   const { toast } = useToast();
   
-  const [loginMethod, setLoginMethod] = useState<'email' | 'worldid'>('email');
-  const [worldIdScanning, setWorldIdScanning] = useState(false);
+  const [loginMethod, setLoginMethod] = useState<'email'>('email');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -59,21 +57,6 @@ const Login = () => {
     }
   };
 
-  const handleWorldIdLogin = async () => {
-    setWorldIdScanning(true);
-    // Simulate iris scanning
-    await new Promise(resolve => setTimeout(resolve, 2500));
-    setWorldIdScanning(false);
-    
-    // Auto-login as patient for demo
-    setDemoMode('patient');
-    navigate('/patient/dashboard');
-    
-    toast({
-      title: "World ID Login Successful",
-      description: "Biometric authentication complete!",
-    });
-  };
 
   const handleDemoLogin = (role: 'patient' | 'doctor') => {
     setDemoMode(role);
@@ -117,7 +100,7 @@ const Login = () => {
             {/* Right side actions */}
             <div className="flex items-center gap-3">
               <Button 
-                className="bg-white border-purple-500 text-purple-500 hover:bg-purple-200 hover:text-black" 
+                className="bg-white border-purple-500 text-white hover:bg-purple-100 hover:text-black-800" 
                 onClick={() => navigate('/auth/register')}
               >
                 Sign Up
@@ -137,30 +120,8 @@ const Login = () => {
               </p>
             </div>
 
-            {/* Login Method Toggle */}
-            <div className="grid grid-cols-2 gap-2 mb-6">
-              <Button
-                className={`w-full ${loginMethod === 'email' 
-                  ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white' 
-                  : 'bg-white border-purple-300 text-purple-600 hover:bg-purple-50'}`}
-                onClick={() => setLoginMethod('email')}
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                Email
-              </Button>
-              <Button
-                className={`w-full ${loginMethod === 'worldid' 
-                  ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white' 
-                  : 'bg-white border-purple-300 text-purple-600 hover:bg-purple-50'}`}
-                onClick={() => setLoginMethod('worldid')}
-              >
-                <Eye className="text-white w-4 h-4 mr-2" />
-                World ID
-              </Button>
-            </div>
 
-            {loginMethod === 'email' ? (
-              <form onSubmit={handleEmailLogin} className="space-y-6">
+            <form onSubmit={handleEmailLogin} className="space-y-6">
                 <div>
                   <Label htmlFor="email" className="text-purple-700">Email Address</Label>
                   <Input
@@ -221,45 +182,7 @@ const Login = () => {
                     </>
                   )}
                 </Button>
-              </form>
-            ) : (
-              <div className="space-y-6">
-                <Card className="p-6 text-center bg-gradient-to-br from-purple-50 to-white border border-purple-200">
-                  <div className="w-24 h-24 mx-auto mb-4 relative">
-                    <div className={`w-full h-full rounded-full border-4 ${worldIdScanning ? 'border-purple-500 animate-iris-scan' : 'border-purple-300'} flex items-center justify-center bg-purple-100`}>
-                      <Eye className={`w-12 h-12 ${worldIdScanning ? 'text-purple-600 animate-pulse' : 'text-purple-500'}`} />
-                    </div>
-                    {worldIdScanning && (
-                      <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-purple-500 animate-spin"></div>
-                    )}
-                  </div>
-
-                  {worldIdScanning ? (
-                    <>
-                      <h3 className="text-lg font-semibold mb-2 text-gray-900">Authenticating...</h3>
-                      <p className="text-sm text-purple-600 mb-4">
-                        Please look directly at the sensor
-                      </p>
-                      <div className="flex items-center justify-center space-x-2 text-purple-600 text-sm">
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Processing biometric data...</span>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <h3 className="text-lg font-semibold mb-2 text-gray-900">Biometric Login</h3>
-                      <p className="text-sm text-purple-600 mb-4">
-                        Secure access with iris recognition
-                      </p>
-                      <Button onClick={handleWorldIdLogin} className="bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:from-purple-700 hover:to-purple-800">
-                        <Eye className="w-4 h-4 mr-2" />
-                        Start Iris Scan
-                      </Button>
-                    </>
-                  )}
-                </Card>
-              </div>
-            )}
+            </form>
 
             <Separator className="my-6" />
 
@@ -302,7 +225,7 @@ const Login = () => {
       </div>
       
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

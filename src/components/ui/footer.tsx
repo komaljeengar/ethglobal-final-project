@@ -272,8 +272,8 @@ export default function Footer() {
           <p className="text-xs text-purple-200 max-w-4xl mx-auto leading-relaxed">
             Dr Hedera is a revolutionary healthcare platform that transforms
             medical data management through blockchain security, AI-powered insights,
-            and biometric authentication. Our platform supports Flow blockchain,
-            World ID verification, and Hedera AI with enterprise-grade security and HIPAA compliance.
+            and secure authentication. Our platform supports Flow blockchain
+            and Hedera AI with enterprise-grade security and HIPAA compliance.
           </p>
         </div>
       </div>

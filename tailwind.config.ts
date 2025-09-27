@@ -81,20 +81,6 @@ export default {
             height: "0",
           },
         },
-        "iris-scan": {
-          "0%": {
-            transform: "scale(1)",
-            opacity: "1",
-          },
-          "50%": {
-            transform: "scale(1.05)",
-            opacity: "0.8",
-          },
-          "100%": {
-            transform: "scale(1)",
-            opacity: "1",
-          },
-        },
         "glow": {
           "0%, 100%": {
             boxShadow: "0 0 20px hsl(var(--primary) / 0.3)",
@@ -197,7 +183,6 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "iris-scan": "iris-scan 2s ease-in-out infinite",
         "glow": "glow 2s ease-in-out infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",

@@ -160,27 +160,6 @@ export default function Navbar() {
                           </Link>
                         </DropdownMenuItem>
 
-                        <DropdownMenuItem asChild>
-                          <Link
-                            to="#biometric-auth"
-                            className="flex items-center gap-4 p-4 rounded-xl hover:bg-emerald-50 transition-all duration-300 group"
-                          >
-                            <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
-                              <Eye className="w-5 h-5 text-emerald-600" />
-                            </div>
-                            <div className="flex-1">
-                              <div className="font-semibold text-gray-900 text-sm">
-                                Biometric Security
-                              </div>
-                              <div className="text-xs text-gray-500 mt-1">
-                                World ID iris scanning authentication
-                              </div>
-                            </div>
-                            <div className="text-xs text-emerald-600 font-semibold">
-                              Secure
-                            </div>
-                          </Link>
-                        </DropdownMenuItem>
 
                         <DropdownMenuSeparator className="my-2" />
 

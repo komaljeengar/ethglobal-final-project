@@ -58,7 +58,6 @@ const Settings = () => {
 
   const [securitySettings, setSecuritySettings] = useState({
     twoFactorAuth: true,
-    worldIdBackup: true,
     sessionTimeout: 30,
     deviceTrust: true,
   });
@@ -251,10 +250,6 @@ const Settings = () => {
                   <h3 className="text-lg font-semibold mb-4 text-black">Account Status</h3>
                   <div className="flex flex-wrap gap-4">
                     <Badge className="bg-purple-100 text-purple-700 border-purple-200">
-                      <CheckCircle className="w-3 h-3 mr-1" />
-                      World ID Verified
-                    </Badge>
-                    <Badge className="bg-purple-100 text-purple-700 border-purple-200">
                       <Shield className="w-3 h-3 mr-1" />
                       {user?.role === 'doctor' ? 'Licensed Physician' : 'Patient Account'}
                     </Badge>
@@ -373,18 +368,6 @@ const Settings = () => {
                     />
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <h3 className="font-medium text-black">World ID Backup Authentication</h3>
-                      <p className="text-sm text-purple-600">
-                        Enable backup biometric authentication methods
-                      </p>
-                    </div>
-                    <Switch
-                      checked={securitySettings.worldIdBackup}
-                      onCheckedChange={(checked) => handleSecurityChange('worldIdBackup', checked)}
-                    />
-                  </div>
 
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
@@ -408,10 +391,6 @@ const Settings = () => {
                     <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Key className="w-4 h-4 mr-2" />
                       Change Password
-                    </Button>
-                    <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
-                      <Eye className="w-4 h-4 mr-2" />
-                      Re-scan Biometrics
                     </Button>
                     <Button variant="outline" className="justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                       <Smartphone className="w-4 h-4 mr-2" />

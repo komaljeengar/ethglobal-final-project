@@ -16,7 +16,6 @@ MedVault is a revolutionary Web3 healthcare platform that combines the best of b
 
 ### 🏥 Healthcare Features (From care-chain-access)
 - **Blockchain Security**: Medical data secured on Flow blockchain
-- **World ID Authentication**: Biometric verification with iris scanning
 - **AI Health Assistant**: Hedera AI-powered health insights
 - **Permission Control**: Granular access control for healthcare providers
 - **Universal Access**: Global medical record access
@@ -41,7 +40,6 @@ MedVault is a revolutionary Web3 healthcare platform that combines the best of b
 
 ### Healthcare Integration
 - **Flow Blockchain** for data security
-- **World ID** for biometric authentication
 - **Hedera AI** for health insights
 - **IPFS** for decentralized storage
 
@@ -162,7 +160,6 @@ src/
 - AI-powered health insights
 - Permission-based access control
 - Medical record management
-- Biometric authentication
 
 ## 🚀 Deployment
 

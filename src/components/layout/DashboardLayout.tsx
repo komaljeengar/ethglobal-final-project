@@ -80,11 +80,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     { title: "Medical Records", url: "/patient/records", icon: FileText },
     { title: "Permissions", url: "/patient/permissions", icon: Users },
     { title: "AI Health Chat", url: "/patient/ai-chat", icon: MessageSquare },
-    {
-      title: "Emergency Access",
-      url: "/patient/emergency-access",
-      icon: Heart,
-    },
     { title: "Settings", url: "/settings", icon: Settings },
   ];
 
