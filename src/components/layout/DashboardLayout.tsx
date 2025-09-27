@@ -320,7 +320,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           <footer className="bg-white border-t border-purple-100 py-4 px-6">
             <div className="flex items-center justify-center text-center">
               <p className="text-xs text-purple-600">
-                © 2024 dr Hedera - Licensed under MIT | Secure Healthcare Data Management Platform | All rights reserved
+                © 2024 dr Hedera - Licensed under MIT | Secure Healthcare Data
+                Management Platform | All rights reserved
               </p>
             </div>
           </footer>
