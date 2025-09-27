@@ -689,7 +689,7 @@ const BlockchainRegistration: React.FC = () => {
               <Button
                 onClick={prefillSampleData}
                 variant="outline"
-                className="w-full border-purple-300 text-purple-700 hover:bg-purple-50"
+                className="w-full border-purple-300 bg-white text-purple-700 hover:bg-purple-50"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Fill with Sample Data
