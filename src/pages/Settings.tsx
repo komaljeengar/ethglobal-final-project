@@ -109,34 +109,37 @@ const Settings = () => {
     <DashboardLayout>
       <div className="min-h-screen bg-white p-6 space-y-8">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">Settings</h1>
-            <p className="text-muted-foreground">
-              Manage your account, privacy, and security preferences
-            </p>
+        <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Settings</h1>
+              <p className="text-purple-100">
+                Manage your account, privacy, and security preferences
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Settings Tabs */}
         <Tabs defaultValue="profile" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="privacy">Privacy</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
-            <TabsTrigger value="blockchain">Blockchain</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-5 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-200">
+            <TabsTrigger value="profile" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">Profile</TabsTrigger>
+            <TabsTrigger value="privacy" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">Privacy</TabsTrigger>
+            <TabsTrigger value="security" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">Security</TabsTrigger>
+            <TabsTrigger value="notifications" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">Notifications</TabsTrigger>
+            <TabsTrigger value="blockchain" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">Blockchain</TabsTrigger>
           </TabsList>
 
           {/* Profile Settings */}
           <TabsContent value="profile" className="mt-6">
             <div className="grid gap-6">
-              <Card className="p-6">
+              <Card className="p-6 bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold">Profile Information</h2>
+                  <h2 className="text-xl font-semibold text-black">Profile Information</h2>
                   <Button 
                     variant={isEditing ? "default" : "outline"}
                     onClick={() => isEditing ? handleSaveProfile() : setIsEditing(true)}
+                    className={isEditing ? "bg-purple-600 hover:bg-purple-700" : "bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"}
                   >
                     {isEditing ? <Save className="w-4 h-4 mr-2" /> : <User className="w-4 h-4 mr-2" />}
                     {isEditing ? 'Save Changes' : 'Edit Profile'}
@@ -152,7 +155,7 @@ const Settings = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       disabled={!isEditing}
-                      className="mt-2"
+                      className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
                     />
                   </div>
                   <div>
@@ -164,7 +167,7 @@ const Settings = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       disabled={!isEditing}
-                      className="mt-2"
+                      className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
                     />
                   </div>
                   <div>
@@ -176,7 +179,7 @@ const Settings = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       disabled={!isEditing}
-                      className="mt-2"
+                      className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
                     />
                   </div>
                   {user?.role === 'doctor' && (
@@ -189,7 +192,7 @@ const Settings = () => {
                           value={formData.specialization}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="mt-2"
+                          className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
                         />
                       </div>
                       <div>
@@ -200,7 +203,7 @@ const Settings = () => {
                           value={formData.licenseNumber}
                           onChange={handleInputChange}
                           disabled={!isEditing}
-                          className="mt-2"
+                          className="mt-2 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200"
                         />
                       </div>
                     </>
@@ -235,14 +238,14 @@ const Settings = () => {
           {/* Privacy Settings */}
           <TabsContent value="privacy" className="mt-6">
             <div className="grid gap-6">
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold mb-6">Privacy & Data Control</h2>
+              <Card className="p-6 bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
+                <h2 className="text-xl font-semibold mb-6 text-black">Privacy & Data Control</h2>
                 
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h3 className="font-medium">Emergency Access</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-purple-600">
                         Allow emergency medical personnel to access your critical health information
                       </p>
                     </div>
@@ -255,7 +258,7 @@ const Settings = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h3 className="font-medium">Medical Research Participation</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-purple-600">
                         Anonymously contribute your health data to medical research studies
                       </p>
                     </div>
@@ -268,7 +271,7 @@ const Settings = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h3 className="font-medium">Audit Trail</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-purple-600">
                         Maintain detailed logs of who accessed your records and when
                       </p>
                     </div>
@@ -281,7 +284,7 @@ const Settings = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h3 className="font-medium">Anonymous Analytics</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-purple-600">
                         Help improve MedVault with anonymous usage analytics
                       </p>
                     </div>
@@ -296,7 +299,7 @@ const Settings = () => {
 
                 <div>
                   <h3 className="font-medium mb-4">Data Retention</h3>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-sm text-purple-600 mb-4">
                     Choose how long your medical data is retained on the blockchain
                   </p>
                   <div className="grid grid-cols-3 gap-4">
@@ -318,14 +321,14 @@ const Settings = () => {
           {/* Security Settings */}
           <TabsContent value="security" className="mt-6">
             <div className="grid gap-6">
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold mb-6">Security & Authentication</h2>
+              <Card className="p-6 bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
+                <h2 className="text-xl font-semibold mb-6 text-black">Security & Authentication</h2>
                 
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h3 className="font-medium">Two-Factor Authentication</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-purple-600">
                         Add an extra layer of security to your account
                       </p>
                     </div>
@@ -338,7 +341,7 @@ const Settings = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h3 className="font-medium">World ID Backup Authentication</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-purple-600">
                         Enable backup biometric authentication methods
                       </p>
                     </div>
@@ -351,7 +354,7 @@ const Settings = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h3 className="font-medium">Trusted Devices</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-purple-600">
                         Remember trusted devices to reduce authentication frequency
                       </p>
                     </div>
@@ -405,8 +408,8 @@ const Settings = () => {
           {/* Notification Settings */}
           <TabsContent value="notifications" className="mt-6">
             <div className="grid gap-6">
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold mb-6">Notification Preferences</h2>
+              <Card className="p-6 bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
+                <h2 className="text-xl font-semibold mb-6 text-black">Notification Preferences</h2>
                 
                 <div className="space-y-6">
                   <div>
@@ -415,7 +418,7 @@ const Settings = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <h4 className="font-medium">Email Notifications</h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-purple-600">
                             Receive updates and alerts via email
                           </p>
                         </div>
@@ -428,7 +431,7 @@ const Settings = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <h4 className="font-medium">SMS Notifications</h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-purple-600">
                             Get urgent alerts via text message
                           </p>
                         </div>
@@ -441,7 +444,7 @@ const Settings = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <h4 className="font-medium">Push Notifications</h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-purple-600">
                             Browser and mobile app notifications
                           </p>
                         </div>
@@ -461,7 +464,7 @@ const Settings = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <h4 className="font-medium text-red-700">Emergency Alerts</h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-purple-600">
                             Critical medical alerts and emergency access notifications
                           </p>
                         </div>
@@ -474,7 +477,7 @@ const Settings = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <h4 className="font-medium">Appointment Reminders</h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-purple-600">
                             Upcoming appointments and scheduling changes
                           </p>
                         </div>
@@ -487,7 +490,7 @@ const Settings = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <h4 className="font-medium">Lab Results</h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-purple-600">
                             New lab results and medical reports
                           </p>
                         </div>
@@ -500,7 +503,7 @@ const Settings = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
                           <h4 className="font-medium">Access Requests</h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-purple-600">
                             Doctor permission requests and access notifications
                           </p>
                         </div>
@@ -514,7 +517,7 @@ const Settings = () => {
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
                             <h4 className="font-medium">Medication Reminders</h4>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-purple-600">
                               Daily medication and prescription refill reminders
                             </p>
                           </div>
@@ -534,15 +537,15 @@ const Settings = () => {
           {/* Blockchain Settings */}
           <TabsContent value="blockchain" className="mt-6">
             <div className="grid gap-6">
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold mb-6">Blockchain & Storage</h2>
+              <Card className="p-6 bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
+                <h2 className="text-xl font-semibold mb-6 text-black">Blockchain & Storage</h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h3 className="font-medium mb-4">Wallet Information</h3>
                     <div className="space-y-3">
                       <div>
-                        <Label className="text-sm text-muted-foreground">Wallet Address</Label>
+                        <Label className="text-sm text-purple-600">Wallet Address</Label>
                         <div className="flex items-center space-x-2 mt-1">
                           <code className="text-xs bg-muted px-2 py-1 rounded">
                             {blockchainInfo.walletAddress}
@@ -553,7 +556,7 @@ const Settings = () => {
                         </div>
                       </div>
                       <div>
-                        <Label className="text-sm text-muted-foreground">Network</Label>
+                        <Label className="text-sm text-purple-600">Network</Label>
                         <p className="text-sm mt-1">{blockchainInfo.network}</p>
                       </div>
                     </div>
@@ -563,19 +566,19 @@ const Settings = () => {
                     <h3 className="font-medium mb-4">Storage Statistics</h3>
                     <div className="space-y-3">
                       <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground">Records Stored:</span>
+                        <span className="text-sm text-purple-600">Records Stored:</span>
                         <span className="text-sm font-medium">{blockchainInfo.recordsStored}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground">Total Transactions:</span>
+                        <span className="text-sm text-purple-600">Total Transactions:</span>
                         <span className="text-sm font-medium">{blockchainInfo.totalTransactions}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground">IPFS Storage:</span>
+                        <span className="text-sm text-purple-600">IPFS Storage:</span>
                         <span className="text-sm font-medium">{blockchainInfo.storageUsed}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-muted-foreground">IPFS Nodes:</span>
+                        <span className="text-sm text-purple-600">IPFS Nodes:</span>
                         <span className="text-sm font-medium">{blockchainInfo.ipfsNodes}</span>
                       </div>
                     </div>
@@ -611,7 +614,7 @@ const Settings = () => {
                     <Shield className="w-5 h-5 text-primary mt-0.5" />
                     <div>
                       <h4 className="font-medium text-primary">Blockchain Security</h4>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-sm text-purple-600 mt-1">
                         Your medical records are secured using Flow blockchain technology with cryptographic 
                         hashing and decentralized storage. All transactions are immutable and verifiable.
                       </p>

@@ -138,7 +138,7 @@ const Records = () => {
     const Icon = config.icon;
 
     return (
-      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border`}>
+      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border text-black`}>
         <Icon className={`h-3 w-3 ${config.color}`} />
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </Badge>
@@ -214,27 +214,27 @@ const Records = () => {
         </div>
 
         {/* Search and Filter Bar */}
-        <div className="flex flex-col md:flex-row gap-4 items-center">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <div className="flex flex-col md:flex-row gap-4 items-center bg-white p-4 rounded-lg">
+          <div className="relative flex-1 max-w-md bg-white">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
             <Input
               placeholder="Search medical records, doctors, types..."
-              className="pl-10"
+              className="pl-10 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
             />
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
               <Calendar className="h-4 w-4 mr-2" />
               Last 30 days
             </Button>
             {searchQuery && (
-              <Button variant="outline" size="sm" onClick={() => setSearchQuery("")}>
+              <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
                 Clear Search
               </Button>
             )}
@@ -259,26 +259,26 @@ const Records = () => {
         )}
 
         {/* Quick Actions Bar */}
-        <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+        <Card className="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-600 text-white shadow-lg">
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Zap className="h-5 w-5" />
               Quick Actions
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <Upload className="h-4 w-4 mr-2" />
                 Upload New Record
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <Download className="h-4 w-4 mr-2" />
                 Download All
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <Share className="h-4 w-4 mr-2" />
                 Share Records
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white hover:scale-105 transition-all duration-300">
                 <Shield className="h-4 w-4 mr-2" />
                 Privacy Settings
               </Button>
@@ -301,17 +301,17 @@ const Records = () => {
             </Card>
           ) : (
             filteredRecords.map((record) => (
-              <Card key={record.id} className="hover:shadow-lg transition-shadow bg-white border-gray-200">
+              <Card key={record.id} className="hover:shadow-lg transition-shadow bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <FileText className="h-6 w-6 text-blue-600" />
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                        <FileText className="h-6 w-6 text-white" />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-lg font-semibold">{record.title}</h3>
-                          <Badge variant="outline" className="text-xs">
+                          <h3 className="text-lg font-semibold text-black">{record.title}</h3>
+                          <Badge variant="outline" className="text-xs border-purple-200 text-purple-700">
                             {record.badge}
                           </Badge>
                           {getStatusBadge(record.status)}
@@ -334,15 +334,15 @@ const Records = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="bg-purple-600 text-white border-purple-600 hover:bg-white hover:text-purple-600 hover:border-purple-600 transition-all duration-300">
                         <Eye className="h-4 w-4 mr-1" />
                         View
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="bg-purple-600 text-white border-purple-600 hover:bg-white hover:text-purple-600 hover:border-purple-600 transition-all duration-300">
                         <Download className="h-4 w-4 mr-1" />
                         Download
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="bg-purple-600 text-white border-purple-600 hover:bg-white hover:text-purple-600 hover:border-purple-600 transition-all duration-300">
                         <Share className="h-4 w-4 mr-1" />
                         Share
                       </Button>

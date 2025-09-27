@@ -268,10 +268,10 @@ const AIChat = () => {
         )}
 
         {/* Quick Questions */}
-        <Card>
+        <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Lightbulb className="h-5 w-5 text-yellow-600" />
+            <CardTitle className="flex items-center gap-2 text-black">
+              <Lightbulb className="h-5 w-5 text-purple-600" />
               Quick Questions
             </CardTitle>
             <CardDescription>
@@ -284,12 +284,12 @@ const AIChat = () => {
                 <Button
                   key={question.id}
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-start gap-2"
+                  className="h-auto p-4 flex flex-col items-start gap-2 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 transition-all duration-300"
                   onClick={() => handleQuickQuestion(question.question)}
                 >
                   <div className="flex items-center gap-2">
                     {question.icon}
-                    <span className="font-medium">{question.question}</span>
+                    <span className="font-medium text-black">{question.question}</span>
                   </div>
                 </Button>
               ))}
@@ -298,40 +298,40 @@ const AIChat = () => {
         </Card>
 
         {/* Chat Interface */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Chat Messages */}
-          <div className="xl:col-span-2">
-            <Card className="h-[600px] flex flex-col">
+          <div className="lg:col-span-2">
+            <Card className="min-h-[500px] max-h-[800px] sm:min-h-[600px] sm:max-h-[900px] flex flex-col bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-black">
                   <Bot className="h-5 w-5 text-purple-600" />
                   Chat with AI
                 </CardTitle>
               </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
+              <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
                 {/* Messages */}
-                <div className="flex-1 overflow-y-auto space-y-4 mb-4">
+                <div className="flex-1 overflow-y-auto space-y-4 p-6 pb-4 min-h-0">
                   {messages.map((msg) => (
                     <div key={msg.id} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-[80%] p-3 rounded-lg ${
+                      <div className={`max-w-[85%] sm:max-w-[80%] md:max-w-[75%] lg:max-w-[70%] p-3 rounded-lg ${
                         msg.type === 'user' 
                           ? 'bg-purple-600 text-white' 
-                          : 'bg-gray-100 text-gray-900'
+                          : 'bg-gradient-to-r from-purple-50 to-indigo-50 text-gray-900 border border-purple-200'
                       }`}>
                         <div className="flex items-start gap-2">
-                          {msg.type === 'ai' && <Bot className="h-4 w-4 mt-1 flex-shrink-0" />}
-                          <div className="flex-1">
-                            <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                          {msg.type === 'ai' && <Bot className="h-4 w-4 mt-1 flex-shrink-0 text-purple-600" />}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm whitespace-pre-wrap break-words">{msg.content}</p>
                             <p className="text-xs opacity-70 mt-1">{msg.timestamp}</p>
                             {msg.type === 'ai' && (
                               <div className="flex items-center gap-2 mt-2">
-                                <Button size="sm" variant="ghost" className="h-6 px-2">
+                                <Button size="sm" variant="ghost" className="h-6 px-2 text-purple-600 hover:bg-purple-100">
                                   <ThumbsUp className="h-3 w-3" />
                                 </Button>
-                                <Button size="sm" variant="ghost" className="h-6 px-2">
+                                <Button size="sm" variant="ghost" className="h-6 px-2 text-purple-600 hover:bg-purple-100">
                                   <ThumbsDown className="h-3 w-3" />
                                 </Button>
-                                <Button size="sm" variant="ghost" className="h-6 px-2">
+                                <Button size="sm" variant="ghost" className="h-6 px-2 text-purple-600 hover:bg-purple-100">
                                   <Copy className="h-3 w-3" />
                                 </Button>
                               </div>
@@ -343,16 +343,20 @@ const AIChat = () => {
                   ))}
                 </div>
 
-                {/* Message Input */}
-                <div className="flex gap-2">
+                {/* Message Input - Fixed at bottom */}
+                <div className="flex-shrink-0 flex gap-2 w-full flex-col sm:flex-row p-6 pt-4 border-t border-purple-200 bg-white">
                   <Input
                     placeholder="Ask your AI health assistant..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                    className="flex-1"
+                    className="flex-1 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 min-w-0"
                   />
-                  <Button onClick={handleSendMessage} disabled={!message.trim()}>
+                  <Button 
+                    onClick={handleSendMessage} 
+                    disabled={!message.trim()}
+                    className="bg-purple-600 text-white hover:bg-purple-700 disabled:bg-gray-300 disabled:text-gray-500 w-full sm:w-auto"
+                  >
                     <Send className="h-4 w-4" />
                   </Button>
                 </div>
@@ -361,10 +365,10 @@ const AIChat = () => {
           </div>
 
           {/* Health Insights Sidebar */}
-          <div className="space-y-6">
-            <Card>
+          <div className="space-y-6 lg:col-span-1">
+            <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-black">
                   <Brain className="h-5 w-5 text-purple-600" />
                   AI Health Insights
                 </CardTitle>
@@ -375,15 +379,15 @@ const AIChat = () => {
               <CardContent>
                 <div className="space-y-4">
                   {healthInsights.map((insight, index) => (
-                    <div key={index} className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}>
+                    <div key={index} className="p-4 rounded-lg border bg-gradient-to-r from-purple-50 via-white to-indigo-50 border-purple-200">
                       <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-medium text-sm">{insight.title}</h4>
-                        <Badge className={`${insight.bgColor} ${insight.color} border-0`}>
+                        <h4 className="font-medium text-sm text-black">{insight.title}</h4>
+                        <Badge className="bg-purple-100 text-purple-700 border-purple-200">
                           {insight.value}
                         </Badge>
                       </div>
                       <p className="text-sm text-gray-600 mb-2">{insight.description}</p>
-                      <Button variant="link" className="p-0 text-xs h-auto">
+                      <Button variant="link" className="p-0 text-xs h-auto text-purple-600 hover:text-purple-700">
                         {insight.action}
                       </Button>
                     </div>
@@ -393,28 +397,28 @@ const AIChat = () => {
             </Card>
 
             {/* Quick Actions */}
-            <Card>
+            <Card className="bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200 shadow-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-blue-600" />
+                <CardTitle className="flex items-center gap-2 text-black">
+                  <Zap className="h-5 w-5 text-purple-600" />
                   Quick Actions
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 transition-all duration-300">
                     <BookOpen className="h-4 w-4 mr-2" />
                     Health Knowledge Base
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 transition-all duration-300">
                     <FileText className="h-4 w-4 mr-2" />
                     Medical Records Summary
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 transition-all duration-300">
                     <Calendar className="h-4 w-4 mr-2" />
                     Schedule Consultation
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full justify-start bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 transition-all duration-300">
                     <Download className="h-4 w-4 mr-2" />
                     Download Chat History
                   </Button>

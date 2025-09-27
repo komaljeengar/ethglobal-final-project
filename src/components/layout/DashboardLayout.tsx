@@ -217,7 +217,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           </main>
           
           {/* Footer */}
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
     </SidebarProvider>
