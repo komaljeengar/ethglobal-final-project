@@ -151,23 +151,23 @@ const PatientRecords = () => {
       stable: {
         variant: "default" as const,
         icon: CheckCircle,
-        color: "text-green-600",
-        bgColor: "bg-green-50",
-        borderColor: "border-green-200",
+        color: "text-black",
+        bgColor: "bg-gray-50",
+        borderColor: "border-gray-200",
       },
       improving: {
         variant: "default" as const,
         icon: TrendingUp,
-        color: "text-blue-600",
-        bgColor: "bg-blue-50",
-        borderColor: "border-blue-200",
+        color: "text-black",
+        bgColor: "bg-gray-50",
+        borderColor: "border-gray-200",
       },
       monitoring: {
         variant: "secondary" as const,
         icon: Eye,
-        color: "text-orange-600",
-        bgColor: "bg-orange-50",
-        borderColor: "border-orange-200",
+        color: "text-black",
+        bgColor: "bg-gray-50",
+        borderColor: "border-gray-200",
       },
     };
 
@@ -302,34 +302,32 @@ const PatientRecords = () => {
         </div>
 
         {/* Search and Filter Bar */}
-        <div className="flex flex-col md:flex-row gap-4 items-center">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <Input
-              placeholder="Search patients, conditions, IDs..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
-              <Filter className="h-4 w-4 mr-2" />
-              Filter
-            </Button>
-            <Button variant="outline" size="sm">
-              <Calendar className="h-4 w-4 mr-2" />
-              Recent Visits
-            </Button>
-            {searchQuery && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setSearchQuery("")}
-              >
-                Clear Search
+        <div className="bg-white p-4 rounded-lg">
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-purple-600" />
+              <Input
+                placeholder="Search patients, conditions, appointments..."
+                className="pl-10 text-black placeholder-purple-400 bg-white border-purple-300 focus:border-purple-500 focus:ring-purple-200 w-full"
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Search className="h-4 w-4 mr-2" />
+                Filter
               </Button>
-            )}
+              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Calendar className="h-4 w-4 mr-2" />
+                Recent Visits
+              </Button>
+              {searchQuery && (
+                <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                  Clear Search
+                </Button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -398,30 +396,30 @@ const PatientRecords = () => {
             filteredPatients.map((patient) => (
               <Card
                 key={patient.id}
-                className="hover:shadow-lg transition-shadow"
+                className="hover:shadow-lg transition-shadow bg-gradient-to-br from-purple-50 via-white to-indigo-50 border-purple-200"
               >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <User className="h-6 w-6 text-blue-600" />
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                        <User className="h-6 w-6 text-white" />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-lg font-semibold">
+                          <h3 className="text-lg font-semibold text-black">
                             {patient.name}
                           </h3>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs bg-purple-50 text-purple-700 border-purple-200">
                             {patient.patientId}
                           </Badge>
-                          {getStatusBadge(patient.status)}
+                          {/* {getStatusBadge(patient.status)} */}
                           {getRiskBadge(patient.riskLevel)}
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm text-purple-600 mb-2">
                           {patient.condition} • Age: {patient.age} •{" "}
                           {patient.records} records
                         </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
+                        <div className="flex items-center gap-4 text-sm text-purple-500 mb-2">
                           <span className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
                             Last visit: {patient.lastVisit}
@@ -436,11 +434,11 @@ const PatientRecords = () => {
                           </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs bg-purple-50 text-purple-700 border-purple-200">
                             <FileText className="h-3 w-3 mr-1" />
                             {patient.records} Records
                           </Badge>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs bg-purple-50 text-purple-700 border-purple-200">
                             <Activity className="h-3 w-3 mr-1" />
                             {patient.status}
                           </Badge>
@@ -454,15 +452,24 @@ const PatientRecords = () => {
                         onClick={() =>
                           navigate(`/doctor/patient/${patient.id}`)
                         }
+                        className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
                       >
                         <Eye className="h-4 w-4 mr-1" />
                         View Records
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                      >
                         <Edit className="h-4 w-4 mr-1" />
                         Edit
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                      >
                         <Calendar className="h-4 w-4 mr-1" />
                         Schedule
                       </Button>

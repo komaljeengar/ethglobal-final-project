@@ -509,16 +509,22 @@ const DoctorDashboard = () => {
               </Button>
               <Button
                 className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
-                onClick={() => navigate("/doctor/ai-chat")}
+                onClick={() => navigate("/doctor/clinical-support")}
               >
                 <Brain className="h-4 w-4 mr-2" />
                 AI Clinical Support
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button 
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/clinical-support")}
+              >
                 <Calendar className="h-4 w-4 mr-2" />
                 Schedule Appointment
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+              <Button 
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/clinical-support")}
+              >
                 <FileText className="h-4 w-4 mr-2" />
                 Medical Knowledge
               </Button>
