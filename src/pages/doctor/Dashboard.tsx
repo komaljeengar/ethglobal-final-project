@@ -364,7 +364,9 @@ const DoctorDashboard = () => {
         <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Dr Hedera Doctor Dashboard</h1>
+              <h1 className="text-3xl font-bold mb-2">
+                DrH : Doctor Dashboard
+              </h1>
               <p className="text-purple-100">
                 Good morning, {user?.name}! Managing patient care with AI
                 insights
@@ -419,16 +421,29 @@ const DoctorDashboard = () => {
               />
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+              >
                 <Search className="h-4 w-4 mr-2" />
                 Filter
               </Button>
-              <Button variant="outline" size="sm" className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+              >
                 <Calendar className="h-4 w-4 mr-2" />
                 Today
               </Button>
               {searchQuery && (
-                <Button variant="outline" size="sm" onClick={() => setSearchQuery("")} className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSearchQuery("")}
+                  className="bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400"
+                >
                   Clear Search
                 </Button>
               )}
@@ -441,10 +456,10 @@ const DoctorDashboard = () => {
           <Card className="bg-green-50 border-green-200">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <CheckCircle className="h-5 w-5 text-green-600" />
+                <CheckCircle className="h-5 w-5 text-green-300" />
                 <div>
-                  <h3 className="font-semibold text-green-900">Data Synced!</h3>
-                  <p className="text-green-700 text-sm">
+                  <h3 className="font-semibold text-green-500">Data Synced!</h3>
+                  <p className="text-green-400 text-sm">
                     Your patient data has been updated across all connected
                     systems.
                   </p>
@@ -488,46 +503,6 @@ const DoctorDashboard = () => {
                   </Badge>
                 </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Quick Actions Bar */}
-        <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
-          <CardContent className="p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Zap className="h-5 w-5" />
-              Quick Actions
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Button
-                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
-                onClick={() => navigate("/doctor/patient-records")}
-              >
-                <PlusCircle className="h-4 w-4 mr-2" />
-                Add Patient
-              </Button>
-              <Button
-                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
-                onClick={() => navigate("/doctor/clinical-support")}
-              >
-                <Brain className="h-4 w-4 mr-2" />
-                AI Clinical Support
-              </Button>
-              <Button 
-                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
-                onClick={() => navigate("/doctor/clinical-support")}
-              >
-                <Calendar className="h-4 w-4 mr-2" />
-                Schedule Appointment
-              </Button>
-              <Button 
-                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
-                onClick={() => navigate("/doctor/clinical-support")}
-              >
-                <FileText className="h-4 w-4 mr-2" />
-                Medical Knowledge
-              </Button>
             </div>
           </CardContent>
         </Card>
@@ -631,7 +606,10 @@ const DoctorDashboard = () => {
               <CardTitle className="flex items-center gap-2 text-black">
                 <Users className="h-5 w-5 text-purple-600" />
                 Patient Access Requests
-                <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
+                <Badge
+                  variant="outline"
+                  className="bg-purple-50 text-purple-700 border-purple-200"
+                >
                   {filteredRequests.length} Pending
                 </Badge>
               </CardTitle>
@@ -648,20 +626,27 @@ const DoctorDashboard = () => {
               ) : (
                 <div className="space-y-3">
                   {filteredRequests.slice(0, 5).map((request) => (
-                    <div key={request.id} className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg">
+                    <div
+                      key={request.id}
+                      className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg"
+                    >
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
                           <Users className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <p className="font-medium text-sm text-black">{request.patient}</p>
+                          <p className="font-medium text-sm text-black">
+                            {request.patient}
+                          </p>
                           <p className="text-xs text-purple-600">
                             {request.condition} • {request.patientId}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium text-sm text-black">{request.value}</p>
+                        <p className="font-medium text-sm text-black">
+                          {request.value}
+                        </p>
                         <div className="flex items-center gap-1">
                           {getStatusBadge(request.urgency)}
                         </div>
@@ -698,12 +683,18 @@ const DoctorDashboard = () => {
                     className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-sm text-black">{insight.title}</h4>
-                      <Badge className={`${insight.bgColor} ${insight.color} border-0`}>
+                      <h4 className="font-medium text-sm text-black">
+                        {insight.title}
+                      </h4>
+                      <Badge
+                        className={`${insight.bgColor} ${insight.color} border-0`}
+                      >
                         {insight.value}
                       </Badge>
                     </div>
-                    <p className="text-sm text-purple-600 mb-2">{insight.description}</p>
+                    <p className="text-sm text-purple-600 mb-2">
+                      {insight.description}
+                    </p>
                     <div className="flex items-center gap-2">
                       <Button variant="link" className="p-0 text-xs h-auto">
                         {insight.action}
@@ -733,19 +724,28 @@ const DoctorDashboard = () => {
               {/* Appointments */}
               <div className="space-y-3">
                 {todaysAppointments.map((appointment, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg"
+                  >
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <p className="font-medium text-sm text-black">{appointment.time}</p>
+                        <p className="font-medium text-sm text-black">
+                          {appointment.time}
+                        </p>
                         {getStatusBadge(appointment.status)}
                       </div>
-                      <p className="text-sm text-black">{appointment.patient}</p>
+                      <p className="text-sm text-black">
+                        {appointment.patient}
+                      </p>
                       <p className="text-xs text-purple-600">
                         {appointment.type} • {appointment.duration}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-sm text-black">{appointment.value}</p>
+                      <p className="font-medium text-sm text-black">
+                        {appointment.value}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -755,13 +755,22 @@ const DoctorDashboard = () => {
 
               {/* Recent Patients */}
               <div>
-                <h4 className="font-semibold text-sm mb-3 text-black">Recent Patients</h4>
+                <h4 className="font-semibold text-sm mb-3 text-black">
+                  Recent Patients
+                </h4>
                 <div className="space-y-2">
                   {recentPatients.slice(0, 3).map((patient, index) => (
-                    <div key={index} className="flex items-center justify-between p-2 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg">
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-2 bg-gradient-to-r from-purple-50 via-white to-indigo-50 border border-purple-200 rounded-lg"
+                    >
                       <div className="flex-1">
-                        <p className="font-medium text-xs text-black">{patient.name}</p>
-                        <p className="text-xs text-purple-600">{patient.condition}</p>
+                        <p className="font-medium text-xs text-black">
+                          {patient.name}
+                        </p>
+                        <p className="text-xs text-purple-600">
+                          {patient.condition}
+                        </p>
                       </div>
                       <div className="flex items-center gap-1">
                         {getStatusBadge(patient.status)}
@@ -773,6 +782,45 @@ const DoctorDashboard = () => {
             </CardContent>
           </Card>
         </div>
+        {/* Quick Actions Bar */}
+        <Card className="bg-gradient-to-r from-indigo-200 to-purple-400 text-white">
+          <CardContent className="p-6">
+            <h3 className="text-lg text-black  font-semibold mb-4 flex items-center gap-2">
+              <Zap className="text-black h-5 w-5" />
+              Quick Actions
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Button
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/patient-records")}
+              >
+                <PlusCircle className="h-4 w-4 mr-2" />
+                Add Patient
+              </Button>
+              <Button
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/clinical-support")}
+              >
+                <Brain className="h-4 w-4 mr-2" />
+                AI Clinical Support
+              </Button>
+              <Button
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/clinical-support")}
+              >
+                <Calendar className="h-4 w-4 mr-2" />
+                Schedule Appointment
+              </Button>
+              <Button
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/clinical-support")}
+              >
+                <FileText className="h-4 w-4 mr-2" />
+                Medical Knowledge
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </DashboardLayout>
   );

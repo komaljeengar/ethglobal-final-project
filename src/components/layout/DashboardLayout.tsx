@@ -184,7 +184,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                         )} transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full focus:outline-none focus:ring-0`}
                       >
                         <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
-                        <span className="text-sm font-medium hover:font-semibold transition-all duration-300">{item.title}</span>
+                        <span className="text-sm font-medium hover:font-semibold transition-all duration-300">
+                          {item.title}
+                        </span>
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

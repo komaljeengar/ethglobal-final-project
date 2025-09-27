@@ -365,7 +365,7 @@ const PatientRecords = () => {
         )}
 
         {/* Quick Actions Bar */}
-        <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+        <Card className="bg-gradient-to-r from-indigo-200 to-purple-400 text-white">
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Zap className="h-5 w-5" />
