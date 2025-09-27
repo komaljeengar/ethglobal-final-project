@@ -623,35 +623,35 @@ const Permissions = () => {
                         </div>
                       </div>
                     </div>
-                     <div className="flex items-center gap-2">
-                       <Button
-                         variant="outline"
-                         size="sm"
-                         onClick={() => handleViewDetails(permission)}
-                         className="bg-purple-50 text-purple-700 border-purple-300 hover:bg-purple-100 hover:text-purple-800 hover:border-purple-400 transition-all duration-300"
-                       >
-                         <Eye className="h-4 w-4 mr-1" />
-                         View Details
-                       </Button>
-                       <Button
-                         variant="outline"
-                         size="sm"
-                         onClick={() => handleModify(permission)}
-                         className="bg-purple-50 text-purple-700 border-purple-300 hover:bg-red-50 hover:text-red-700 hover:border-red-300 transition-all duration-300"
-                       >
-                         <Settings className="h-4 w-4 mr-1" />
-                         Modify
-                       </Button>
-                       <Button
-                         variant="outline"
-                         size="sm"
-                         onClick={() => handleRevoke(permission)}
-                         className="bg-purple-50 text-purple-700 border-purple-300 hover:bg-red-50 hover:text-red-700 hover:border-red-300 transition-all duration-300"
-                       >
-                         <UserMinus className="h-4 w-4 mr-1" />
-                         Revoke
-                       </Button>
-                     </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleViewDetails(permission)}
+                        className="bg-purple-50 text-purple-700 border-purple-300 hover:bg-purple-100 hover:text-purple-800 hover:border-purple-400 transition-all duration-300"
+                      >
+                        <Eye className="h-4 w-4 mr-1" />
+                        View Details
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleModify(permission)}
+                        className="bg-purple-50 text-purple-700 border-purple-300 hover:bg-red-50 hover:text-red-700 hover:border-red-300 transition-all duration-300"
+                      >
+                        <Settings className="h-4 w-4 mr-1" />
+                        Modify
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleRevoke(permission)}
+                        className="bg-purple-50 text-purple-700 border-purple-300 hover:bg-red-50 hover:text-red-700 hover:border-red-300 transition-all duration-300"
+                      >
+                        <UserMinus className="h-4 w-4 mr-1" />
+                        Revoke
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>
