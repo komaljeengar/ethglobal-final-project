@@ -49,11 +49,14 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWeb3 } from '@/contexts/Web3Context';
 import DashboardLayout from '@/components/layout/DashboardLayout';
+import BlockchainPermissions from '@/components/BlockchainPermissions';
 
 const Permissions = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { isConnected } = useWeb3();
   const [searchQuery, setSearchQuery] = useState("");
   const [showRefreshed, setShowRefreshed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -342,6 +345,11 @@ const Permissions = () => {
               </div>
             </CardContent>
           </Card>
+        )}
+
+        {/* Blockchain Permissions */}
+        {isConnected && (
+          <BlockchainPermissions />
         )}
 
         {/* Active Permissions */}

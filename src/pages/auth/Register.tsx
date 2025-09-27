@@ -22,11 +22,14 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWeb3 } from '@/contexts/Web3Context';
 import { useToast } from '@/hooks/use-toast';
+import WalletConnection from '@/components/WalletConnection';
 
 const Register = () => {
   const navigate = useNavigate();
   const { register, isLoading } = useAuth();
+  const { isConnected } = useWeb3();
   const { toast } = useToast();
   
   const [step, setStep] = useState(1);
@@ -309,17 +312,18 @@ const Register = () => {
               </div>
             </div>
 
-            <Card className="p-4 bg-gradient-to-r from-purple-100 via-white to-blue-100 border-purple-200">
-              <div className="flex items-start space-x-3">
-                <Wallet className="w-5 h-5 text-purple-600 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-sm mb-1 text-gray-900">Blockchain Wallet Connection</h4>
-                  <p className="text-xs text-gray-700">
-                    A Flow blockchain wallet will be created for you automatically. You can connect your own wallet later in settings.
+            {/* MetaMask Wallet Connection */}
+            <div className="space-y-4">
+              <h4 className="font-semibold text-sm text-gray-900">Blockchain Wallet Connection</h4>
+              <WalletConnection />
+              {userType === 'patient' && !isConnected && (
+                <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                  <p className="text-sm text-amber-800">
+                    <strong>Note:</strong> Patients need to connect their MetaMask wallet to create a blockchain identity for secure medical data management.
                   </p>
                 </div>
-              </div>
-            </Card>
+              )}
+            </div>
 
             <div className="flex space-x-4 ">
               <Button 
@@ -329,7 +333,11 @@ const Register = () => {
               > 
                 Back
               </Button>
-              <Button type="submit" className="flex-1 gradient-primary" disabled={isLoading}>
+              <Button 
+                type="submit" 
+                className="flex-1 gradient-primary" 
+                disabled={isLoading || (userType === 'patient' && !isConnected)}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />

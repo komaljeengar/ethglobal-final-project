@@ -8,6 +8,11 @@ interface User {
   worldIdVerified: boolean;
   avatar?: string;
   specialization?: string; // for doctors
+  // Blockchain integration
+  walletAddress?: string;
+  patientId?: number;
+  isBlockchainRegistered?: boolean;
+  verificationLevel?: number;
 }
 
 interface AuthContextType {
