@@ -54,6 +54,7 @@ import EncryptedDocumentUpload from '@/components/EncryptedDocumentUpload';
 const Records = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { isConnected } = useWeb3();
   const [searchQuery, setSearchQuery] = useState("");
   const [showRefreshed, setShowRefreshed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
