@@ -469,7 +469,7 @@ const BlockchainRegistration: React.FC = () => {
                     variant="outline"
                     size="sm"
                     onClick={() => removeMedicalHistory(index)}
-                    className="text-red-600 hover:text-red-700"
+                    className=" bg-red-100 text-red-600 hover:text-red-700"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -510,7 +510,7 @@ const BlockchainRegistration: React.FC = () => {
                     variant="outline"
                     size="sm"
                     onClick={() => removeAllergy(index)}
-                    className="text-red-600 hover:text-red-700"
+                    className=" bg-red-100 text-red-600 hover:text-red-700"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -554,7 +554,7 @@ const BlockchainRegistration: React.FC = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => removeEmergencyContact(index)}
-                      className="text-red-600 hover:text-red-700"
+                      className=" bg-red-100 text-red-600 hover:text-red-700"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -657,7 +657,7 @@ const BlockchainRegistration: React.FC = () => {
                 }}
                 variant="outline"
                 size="sm"
-                className="text-blue-700 border-blue-300 hover:bg-blue-100"
+                className="text-blue-700 bg-blue-50 border-blue-300 hover:bg-blue-100"
               >
                 <X className="h-4 w-4 mr-2" />
                 Clear All & Start Fresh
@@ -689,7 +689,7 @@ const BlockchainRegistration: React.FC = () => {
               <Button
                 onClick={prefillSampleData}
                 variant="outline"
-                className="w-full border-purple-300 text-purple-700 hover:bg-purple-50"
+                className="w-full border-purple-300 bg-white text-purple-700 hover:bg-purple-50"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Fill with Sample Data
