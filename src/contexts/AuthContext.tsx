@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface User {
   id: string;
@@ -13,6 +13,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
+  isInitialized: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (userData: Partial<User>, password: string) => Promise<void>;
   logout: () => void;
@@ -35,7 +36,8 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Start with loading true
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Demo users for quick testing
   const demoUsers: Record<string, User> = {
@@ -58,17 +60,42 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     },
   };
 
+  // Initialize user from localStorage on mount
+  useEffect(() => {
+    const initializeAuth = () => {
+      try {
+        const storedUser = localStorage.getItem('dr-hedera-user');
+        if (storedUser) {
+          const userData = JSON.parse(storedUser);
+          setUser(userData);
+        }
+      } catch (error) {
+        console.error('Error loading user from storage:', error);
+        localStorage.removeItem('dr-hedera-user');
+      } finally {
+        setIsLoading(false);
+        setIsInitialized(true);
+      }
+    };
+
+    initializeAuth();
+  }, []);
+
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Demo login logic
+    let selectedUser;
     if (email.includes('doctor') || email.includes('dr.')) {
-      setUser(demoUsers.doctor);
+      selectedUser = demoUsers.doctor;
     } else {
-      setUser(demoUsers.patient);
+      selectedUser = demoUsers.patient;
     }
+    
+    setUser(selectedUser);
+    localStorage.setItem('dr-hedera-user', JSON.stringify(selectedUser));
     setIsLoading(false);
   };
 
@@ -88,15 +115,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
     
     setUser(newUser);
+    localStorage.setItem('dr-hedera-user', JSON.stringify(newUser));
     setIsLoading(false);
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('dr-hedera-user');
   };
 
   const setDemoMode = (role: 'patient' | 'doctor') => {
-    setUser(demoUsers[role]);
+    const selectedUser = demoUsers[role];
+    setUser(selectedUser);
+    localStorage.setItem('dr-hedera-user', JSON.stringify(selectedUser));
   };
 
   return (
@@ -104,6 +135,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       value={{
         user,
         isLoading,
+        isInitialized,
         login,
         register,
         logout,
