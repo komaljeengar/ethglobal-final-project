@@ -46,7 +46,7 @@ const Login = () => {
       await login(formData.email, formData.password);
       toast({
         title: "Login Successful",
-        description: "Welcome back to MedVault!",
+        description: "Welcome back to dr Hedera!",
       });
     } catch (error) {
       toast({
@@ -68,9 +68,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white flex flex-col">
       {/* Top announcement bar */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-4 relative overflow-hidden">
+      {/* <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
         <div className="relative flex items-center justify-center gap-4 text-sm">
           <div className="flex items-center gap-2">
@@ -81,7 +81,7 @@ const Login = () => {
             🏥 Live: 250K+ Medical Records Secured • AI Health Insights Available
           </span>
         </div>
-      </div>
+      </div> */}
 
       {/* Main navigation */}
       <nav className="sticky top-0 z-[100] w-full border-b border-gray-200 bg-white shadow-sm">
@@ -110,9 +110,10 @@ const Login = () => {
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-md mx-auto">
-          <Card className="p-8 bg-gradient-to-b from-purple-100 to-white border border-purple-200 shadow-lg">
+      <div className="flex-1 flex items-center justify-center">
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-md mx-auto">
+            <Card className="p-8 bg-gradient-to-b from-purple-100 to-white border border-purple-200 shadow-lg">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold mb-2 text-gray-900">Welcome Back</h1>
               <p className="text-purple-600">
@@ -222,10 +223,19 @@ const Login = () => {
             </p>
           </div>
         </div>
+        </div>
       </div>
       
       {/* Footer */}
       {/* <Footer /> */}
+      <footer className="bg-white border-t border-purple-100 py-4 px-6">
+            <div className="flex items-center justify-center text-center">
+              <p className="text-xs text-purple-600">
+                © 2025 dr Hedera - Licensed under MIT | Secure Healthcare Data
+                Management Platform | All rights reserved
+              </p>
+            </div>
+          </footer>
     </div>
   );
 };

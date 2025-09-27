@@ -21,7 +21,8 @@ import {
   Save,
   AlertTriangle,
   Globe,
-  Database
+  Database,
+  X
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import DashboardLayout from '@/components/layout/DashboardLayout';
