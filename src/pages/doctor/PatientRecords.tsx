@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Progress } from '@/components/ui/progress';
-import { Separator } from '@/components/ui/separator';
-import { 
-  FileText, 
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import {
+  FileText,
   Search,
   Filter,
   Calendar,
@@ -47,11 +53,11 @@ import {
   Edit,
   Trash2,
   Lock,
-  Unlock
-} from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import DashboardLayout from '@/components/layout/DashboardLayout';
+  Unlock,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 const PatientRecords = () => {
   const navigate = useNavigate();
@@ -62,75 +68,75 @@ const PatientRecords = () => {
 
   const patients = [
     {
-      id: '1',
-      name: 'Sarah Johnson',
-      patientId: 'PT-001',
+      id: "1",
+      name: "Sarah Johnson",
+      patientId: "PT-001",
       age: 45,
-      condition: 'Hypertension',
-      status: 'stable',
-      lastVisit: '2024-01-20',
-      nextAppointment: '2024-02-15',
-      riskLevel: 'low',
+      condition: "Hypertension",
+      status: "stable",
+      lastVisit: "2024-01-20",
+      nextAppointment: "2024-02-15",
+      riskLevel: "low",
       records: 12,
-      permissions: 'Full Access'
+      permissions: "Full Access",
     },
     {
-      id: '2',
-      name: 'Michael Brown',
-      patientId: 'PT-002',
+      id: "2",
+      name: "Michael Brown",
+      patientId: "PT-002",
       age: 52,
-      condition: 'Post-Surgery Monitoring',
-      status: 'monitoring',
-      lastVisit: '2024-01-21',
-      nextAppointment: '2024-01-28',
-      riskLevel: 'high',
+      condition: "Post-Surgery Monitoring",
+      status: "monitoring",
+      lastVisit: "2024-01-21",
+      nextAppointment: "2024-01-28",
+      riskLevel: "high",
       records: 8,
-      permissions: 'Full Access'
+      permissions: "Full Access",
     },
     {
-      id: '3',
-      name: 'Emma Davis',
-      patientId: 'PT-003',
+      id: "3",
+      name: "Emma Davis",
+      patientId: "PT-003",
       age: 38,
-      condition: 'Diabetes Type 2',
-      status: 'improving',
-      lastVisit: '2024-01-18',
-      nextAppointment: '2024-02-01',
-      riskLevel: 'medium',
+      condition: "Diabetes Type 2",
+      status: "improving",
+      lastVisit: "2024-01-18",
+      nextAppointment: "2024-02-01",
+      riskLevel: "medium",
       records: 15,
-      permissions: 'Limited Access'
+      permissions: "Limited Access",
     },
     {
-      id: '4',
-      name: 'John Smith',
-      patientId: 'PT-004',
+      id: "4",
+      name: "John Smith",
+      patientId: "PT-004",
       age: 60,
-      condition: 'Cardiovascular Disease',
-      status: 'stable',
-      lastVisit: '2024-01-15',
-      nextAppointment: '2024-02-10',
-      riskLevel: 'medium',
+      condition: "Cardiovascular Disease",
+      status: "stable",
+      lastVisit: "2024-01-15",
+      nextAppointment: "2024-02-10",
+      riskLevel: "medium",
       records: 20,
-      permissions: 'Full Access'
+      permissions: "Full Access",
     },
     {
-      id: '5',
-      name: 'Lisa Wilson',
-      patientId: 'PT-005',
+      id: "5",
+      name: "Lisa Wilson",
+      patientId: "PT-005",
       age: 35,
-      condition: 'Thyroid Disorder',
-      status: 'stable',
-      lastVisit: '2024-01-12',
-      nextAppointment: '2024-02-05',
-      riskLevel: 'low',
+      condition: "Thyroid Disorder",
+      status: "stable",
+      lastVisit: "2024-01-12",
+      nextAppointment: "2024-02-05",
+      riskLevel: "low",
       records: 6,
-      permissions: 'Lab Results Only'
-    }
+      permissions: "Lab Results Only",
+    },
   ];
 
   const handleRefresh = async () => {
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsLoading(false);
     setShowRefreshed(true);
     setTimeout(() => setShowRefreshed(false), 3000);
@@ -142,16 +148,38 @@ const PatientRecords = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      stable: { variant: "default" as const, icon: CheckCircle, color: "text-green-600", bgColor: "bg-green-50", borderColor: "border-green-200" },
-      improving: { variant: "default" as const, icon: TrendingUp, color: "text-blue-600", bgColor: "bg-blue-50", borderColor: "border-blue-200" },
-      monitoring: { variant: "secondary" as const, icon: Eye, color: "text-orange-600", bgColor: "bg-orange-50", borderColor: "border-orange-200" }
+      stable: {
+        variant: "default" as const,
+        icon: CheckCircle,
+        color: "text-green-600",
+        bgColor: "bg-green-50",
+        borderColor: "border-green-200",
+      },
+      improving: {
+        variant: "default" as const,
+        icon: TrendingUp,
+        color: "text-blue-600",
+        bgColor: "bg-blue-50",
+        borderColor: "border-blue-200",
+      },
+      monitoring: {
+        variant: "secondary" as const,
+        icon: Eye,
+        color: "text-orange-600",
+        bgColor: "bg-orange-50",
+        borderColor: "border-orange-200",
+      },
     };
 
-    const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.stable;
+    const config =
+      statusConfig[status as keyof typeof statusConfig] || statusConfig.stable;
     const Icon = config.icon;
 
     return (
-      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border`}>
+      <Badge
+        variant={config.variant}
+        className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border`}
+      >
         <Icon className={`h-3 w-3 ${config.color}`} />
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </Badge>
@@ -160,36 +188,57 @@ const PatientRecords = () => {
 
   const getRiskBadge = (riskLevel: string) => {
     const riskConfig = {
-      low: { variant: "default" as const, color: "text-green-600", bgColor: "bg-green-50", borderColor: "border-green-200" },
-      medium: { variant: "secondary" as const, color: "text-yellow-600", bgColor: "bg-yellow-50", borderColor: "border-yellow-200" },
-      high: { variant: "destructive" as const, color: "text-red-600", bgColor: "bg-red-50", borderColor: "border-red-200" }
+      low: {
+        variant: "default" as const,
+        color: "text-green-600",
+        bgColor: "bg-green-50",
+        borderColor: "border-green-200",
+      },
+      medium: {
+        variant: "secondary" as const,
+        color: "text-yellow-600",
+        bgColor: "bg-yellow-50",
+        borderColor: "border-yellow-200",
+      },
+      high: {
+        variant: "destructive" as const,
+        color: "text-red-600",
+        bgColor: "bg-red-50",
+        borderColor: "border-red-200",
+      },
     };
 
-    const config = riskConfig[riskLevel as keyof typeof riskConfig] || riskConfig.low;
+    const config =
+      riskConfig[riskLevel as keyof typeof riskConfig] || riskConfig.low;
 
     return (
-      <Badge variant={config.variant} className={`${config.bgColor} ${config.color} ${config.borderColor} border`}>
+      <Badge
+        variant={config.variant}
+        className={`${config.bgColor} ${config.color} ${config.borderColor} border`}
+      >
         {riskLevel} Risk
       </Badge>
     );
   };
 
-  const filteredPatients = patients.filter(patient =>
-    patient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    patient.condition.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    patient.patientId.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredPatients = patients.filter(
+    (patient) =>
+      patient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      patient.condition.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      patient.patientId.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <DashboardLayout>
       <div className="min-h-screen bg-white p-4 space-y-6">
         {/* Enhanced Header */}
-        <div className="bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-xl p-6 shadow-xl">
+        <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-3xl font-bold mb-2">Patient Records</h1>
-              <p className="text-blue-100">
-                Access and manage patient medical records with permission-based security
+              <p className="text-purple-100">
+                Access and manage patient medical records with permission-based
+                security
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -203,7 +252,9 @@ const PatientRecords = () => {
                 className="bg-white/10 border-white/30 text-white hover:bg-white/20"
                 disabled={isLoading}
               >
-                <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
+                <RefreshCw
+                  className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`}
+                />
                 Sync Records
               </Button>
             </div>
@@ -214,30 +265,38 @@ const PatientRecords = () => {
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Users className="h-5 w-5 text-green-300" />
-                <span className="text-sm text-blue-100">Total Patients</span>
+                <span className="text-sm text-purple-100">Total Patients</span>
               </div>
               <div className="text-2xl font-bold">{patients.length}</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle className="h-5 w-5 text-green-300" />
-                <span className="text-sm text-blue-100">Stable Patients</span>
+                <span className="text-sm text-purple-100">Stable Patients</span>
               </div>
-              <div className="text-2xl font-bold">{patients.filter(p => p.status === 'stable').length}</div>
+              <div className="text-2xl font-bold">
+                {patients.filter((p) => p.status === "stable").length}
+              </div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Eye className="h-5 w-5 text-orange-300" />
-                <span className="text-sm text-blue-100">Under Monitoring</span>
+                <span className="text-sm text-purple-100">
+                  Under Monitoring
+                </span>
               </div>
-              <div className="text-2xl font-bold">{patients.filter(p => p.status === 'monitoring').length}</div>
+              <div className="text-2xl font-bold">
+                {patients.filter((p) => p.status === "monitoring").length}
+              </div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <FileText className="h-5 w-5 text-blue-300" />
-                <span className="text-sm text-blue-100">Total Records</span>
+                <span className="text-sm text-purple-100">Total Records</span>
               </div>
-              <div className="text-2xl font-bold">{patients.reduce((sum, p) => sum + p.records, 0)}</div>
+              <div className="text-2xl font-bold">
+                {patients.reduce((sum, p) => sum + p.records, 0)}
+              </div>
             </div>
           </div>
         </div>
@@ -263,7 +322,11 @@ const PatientRecords = () => {
               Recent Visits
             </Button>
             {searchQuery && (
-              <Button variant="outline" size="sm" onClick={() => setSearchQuery("")}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSearchQuery("")}
+              >
                 Clear Search
               </Button>
             )}
@@ -277,9 +340,12 @@ const PatientRecords = () => {
               <div className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 text-green-600" />
                 <div>
-                  <h3 className="font-semibold text-green-900">Records Synced!</h3>
+                  <h3 className="font-semibold text-green-900">
+                    Records Synced!
+                  </h3>
                   <p className="text-green-700 text-sm">
-                    Patient records have been updated from all connected systems.
+                    Patient records have been updated from all connected
+                    systems.
                   </p>
                 </div>
               </div>
@@ -322,7 +388,7 @@ const PatientRecords = () => {
               <CardContent className="p-8 text-center">
                 <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-600 mb-4">No patients found</p>
-                <Button onClick={() => navigate('/doctor/patients/add')}>
+                <Button onClick={() => navigate("/doctor/patients/add")}>
                   <UserPlus className="h-4 w-4 mr-2" />
                   Add Your First Patient
                 </Button>
@@ -330,7 +396,10 @@ const PatientRecords = () => {
             </Card>
           ) : (
             filteredPatients.map((patient) => (
-              <Card key={patient.id} className="hover:shadow-lg transition-shadow">
+              <Card
+                key={patient.id}
+                className="hover:shadow-lg transition-shadow"
+              >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4">
@@ -339,7 +408,9 @@ const PatientRecords = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-lg font-semibold">{patient.name}</h3>
+                          <h3 className="text-lg font-semibold">
+                            {patient.name}
+                          </h3>
                           <Badge variant="outline" className="text-xs">
                             {patient.patientId}
                           </Badge>
@@ -347,7 +418,8 @@ const PatientRecords = () => {
                           {getRiskBadge(patient.riskLevel)}
                         </div>
                         <p className="text-sm text-gray-600 mb-2">
-                          {patient.condition} • Age: {patient.age} • {patient.records} records
+                          {patient.condition} • Age: {patient.age} •{" "}
+                          {patient.records} records
                         </p>
                         <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
                           <span className="flex items-center gap-1">
@@ -376,7 +448,13 @@ const PatientRecords = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button variant="outline" size="sm" onClick={() => navigate(`/doctor/patient/${patient.id}`)}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          navigate(`/doctor/patient/${patient.id}`)
+                        }
+                      >
                         <Eye className="h-4 w-4 mr-1" />
                         View Records
                       </Button>

@@ -48,7 +48,7 @@ interface DashboardLayoutProps {
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading, isInitialized } = useAuth();
 
   // Prevent any black hover states in sidebar
   React.useEffect(() => {
@@ -99,6 +99,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     { title: "Settings", url: "/settings", icon: Settings },
   ];
 
+  // Don't show navigation until we know the user role to prevent flashing
   const navItems = user?.role === "doctor" ? doctorNavItems : patientNavItems;
 
   const handleLogout = () => {
@@ -108,6 +109,39 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
   const AppSidebar = () => {
     const currentPath = location.pathname;
+
+    // Show loading state during initialization
+    if (!isInitialized || isLoading) {
+      return (
+        <Sidebar
+          className="w-64 bg-white border-r border-purple-200 shadow-lg sidebar-override"
+          collapsible="icon"
+        >
+          <SidebarContent className="bg-white">
+            {/* Logo */}
+            <div className="p-6 border-b border-purple-200 bg-white">
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Shield className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xl font-bold text-purple-900">
+                  dr Hedera
+                </span>
+              </div>
+            </div>
+
+            {/* Loading placeholder */}
+            <div className="p-4">
+              <div className="animate-pulse space-y-3">
+                <div className="h-4 bg-purple-100 rounded"></div>
+                <div className="h-4 bg-purple-100 rounded"></div>
+                <div className="h-4 bg-purple-100 rounded"></div>
+              </div>
+            </div>
+          </SidebarContent>
+        </Sidebar>
+      );
+    }
 
     const isActive = (path: string) => currentPath === path;
     const getNavCls = (path: string) =>

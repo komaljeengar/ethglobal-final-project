@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Progress } from '@/components/ui/progress';
-import { Separator } from '@/components/ui/separator';
-import { 
-  Stethoscope, 
-  Users, 
-  FileText, 
-  Clock, 
-  Calendar, 
-  Brain, 
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import {
+  Stethoscope,
+  Users,
+  FileText,
+  Clock,
+  Calendar,
+  Brain,
   MessageSquare,
   Search,
   Plus,
@@ -60,11 +66,11 @@ import {
   User,
   LogOut,
   Phone,
-  Settings
-} from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import DashboardLayout from '@/components/layout/DashboardLayout';
+  Settings,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 const DoctorDashboard = () => {
   const navigate = useNavigate();
@@ -74,159 +80,192 @@ const DoctorDashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const quickStats = [
-    { label: 'Active Patients', value: '42', icon: <Users className="w-5 h-5" />, color: 'text-blue-600', bgColor: 'bg-blue-50', borderColor: 'border-blue-200' },
-    { label: 'Pending Requests', value: '7', icon: <Clock className="w-5 h-5" />, color: 'text-orange-600', bgColor: 'bg-orange-50', borderColor: 'border-orange-200' },
-    { label: 'Today\'s Appointments', value: '8', icon: <Calendar className="w-5 h-5" />, color: 'text-green-600', bgColor: 'bg-green-50', borderColor: 'border-green-200' },
-    { label: 'AI Consultations', value: '15', icon: <Brain className="w-5 h-5" />, color: 'text-purple-600', bgColor: 'bg-purple-50', borderColor: 'border-purple-200' },
+    {
+      label: "Active Patients",
+      value: "42",
+      icon: <Users className="w-5 h-5" />,
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
+      borderColor: "border-blue-200",
+    },
+    {
+      label: "Pending Requests",
+      value: "7",
+      icon: <Clock className="w-5 h-5" />,
+      color: "text-orange-600",
+      bgColor: "bg-orange-50",
+      borderColor: "border-orange-200",
+    },
+    {
+      label: "Today's Appointments",
+      value: "8",
+      icon: <Calendar className="w-5 h-5" />,
+      color: "text-green-600",
+      bgColor: "bg-green-50",
+      borderColor: "border-green-200",
+    },
+    {
+      label: "AI Consultations",
+      value: "15",
+      icon: <Brain className="w-5 h-5" />,
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
+      borderColor: "border-purple-200",
+    },
   ];
 
   const pendingRequests = [
     {
-      id: '1',
-      patient: 'Sarah Johnson',
-      patientId: 'PT-001',
-      condition: 'Heart Condition Follow-up',
-      requestedAccess: ['Lab Results', 'Imaging', 'Consultations'],
-      urgency: 'routine',
-      requestDate: '2024-01-22',
-      reason: 'Quarterly cardiology follow-up appointment scheduled for next week',
-      value: '$450'
+      id: "1",
+      patient: "Sarah Johnson",
+      patientId: "PT-001",
+      condition: "Heart Condition Follow-up",
+      requestedAccess: ["Lab Results", "Imaging", "Consultations"],
+      urgency: "routine",
+      requestDate: "2024-01-22",
+      reason:
+        "Quarterly cardiology follow-up appointment scheduled for next week",
+      value: "$450",
     },
     {
-      id: '2',
-      patient: 'Michael Brown',
-      patientId: 'PT-002',
-      condition: 'Post-Surgery Monitoring',
-      requestedAccess: ['Full Access'],
-      urgency: 'urgent',
-      requestDate: '2024-01-21',
-      reason: 'Post-operative complications monitoring after cardiac procedure',
-      value: '$800'
+      id: "2",
+      patient: "Michael Brown",
+      patientId: "PT-002",
+      condition: "Post-Surgery Monitoring",
+      requestedAccess: ["Full Access"],
+      urgency: "urgent",
+      requestDate: "2024-01-21",
+      reason: "Post-operative complications monitoring after cardiac procedure",
+      value: "$800",
     },
     {
-      id: '3',
-      patient: 'Emma Davis',
-      patientId: 'PT-003',
-      condition: 'Hypertension Management',
-      requestedAccess: ['Lab Results', 'Prescriptions'],
-      urgency: 'routine',
-      requestDate: '2024-01-20',
-      reason: 'Medication adjustment consultation for blood pressure management',
-      value: '$200'
-    }
+      id: "3",
+      patient: "Emma Davis",
+      patientId: "PT-003",
+      condition: "Hypertension Management",
+      requestedAccess: ["Lab Results", "Prescriptions"],
+      urgency: "routine",
+      requestDate: "2024-01-20",
+      reason:
+        "Medication adjustment consultation for blood pressure management",
+      value: "$200",
+    },
   ];
 
   const recentPatients = [
     {
-      id: '1',
-      name: 'John Smith',
-      patientId: 'PT-004',
-      lastVisit: '2024-01-20',
-      condition: 'Diabetes Type 2',
-      status: 'stable',
-      nextAppointment: '2024-02-15',
-      riskLevel: 'low',
-      value: '$300'
+      id: "1",
+      name: "John Smith",
+      patientId: "PT-004",
+      lastVisit: "2024-01-20",
+      condition: "Diabetes Type 2",
+      status: "stable",
+      nextAppointment: "2024-02-15",
+      riskLevel: "low",
+      value: "$300",
     },
     {
-      id: '2',
-      name: 'Lisa Wilson',
-      patientId: 'PT-005',
-      lastVisit: '2024-01-18',
-      condition: 'Hypertension',
-      status: 'improving',
-      nextAppointment: '2024-01-25',
-      riskLevel: 'medium',
-      value: '$250'
+      id: "2",
+      name: "Lisa Wilson",
+      patientId: "PT-005",
+      lastVisit: "2024-01-18",
+      condition: "Hypertension",
+      status: "improving",
+      nextAppointment: "2024-01-25",
+      riskLevel: "medium",
+      value: "$250",
     },
     {
-      id: '3',
-      name: 'David Chen',
-      patientId: 'PT-006',
-      lastVisit: '2024-01-15',
-      condition: 'Post-MI Recovery',
-      status: 'monitoring',
-      nextAppointment: '2024-01-24',
-      riskLevel: 'high',
-      value: '$600'
-    }
+      id: "3",
+      name: "David Chen",
+      patientId: "PT-006",
+      lastVisit: "2024-01-15",
+      condition: "Post-MI Recovery",
+      status: "monitoring",
+      nextAppointment: "2024-01-24",
+      riskLevel: "high",
+      value: "$600",
+    },
   ];
 
   const todaysAppointments = [
     {
-      time: '09:00 AM',
-      patient: 'Sarah Johnson',
-      type: 'Follow-up',
-      duration: '30 min',
-      status: 'confirmed',
-      value: '$300'
+      time: "09:00 AM",
+      patient: "Sarah Johnson",
+      type: "Follow-up",
+      duration: "30 min",
+      status: "confirmed",
+      value: "$300",
     },
     {
-      time: '10:00 AM',
-      patient: 'Michael Brown',
-      type: 'Post-Op Check',
-      duration: '45 min',
-      status: 'confirmed',
-      value: '$450'
+      time: "10:00 AM",
+      patient: "Michael Brown",
+      type: "Post-Op Check",
+      duration: "45 min",
+      status: "confirmed",
+      value: "$450",
     },
     {
-      time: '11:30 AM',
-      patient: 'Emma Davis',
-      type: 'Consultation',
-      duration: '30 min',
-      status: 'pending',
-      value: '$200'
+      time: "11:30 AM",
+      patient: "Emma Davis",
+      type: "Consultation",
+      duration: "30 min",
+      status: "pending",
+      value: "$200",
     },
     {
-      time: '02:00 PM',
-      patient: 'Robert Taylor',
-      type: 'Initial Visit',
-      duration: '60 min',
-      status: 'confirmed',
-      value: '$500'
-    }
+      time: "02:00 PM",
+      patient: "Robert Taylor",
+      type: "Initial Visit",
+      duration: "60 min",
+      status: "confirmed",
+      value: "$500",
+    },
   ];
 
   const clinicalInsights = [
     {
-      title: 'Drug Interaction Alert',
-      description: 'Patient John Smith: Potential interaction between Lisinopril and new NSAID prescription',
-      type: 'warning',
-      patient: 'John Smith',
-      action: 'Review medication list',
-      value: 'High Risk',
-      color: 'text-red-600',
-      bgColor: 'bg-red-50',
-      borderColor: 'border-red-200'
+      title: "Drug Interaction Alert",
+      description:
+        "Patient John Smith: Potential interaction between Lisinopril and new NSAID prescription",
+      type: "warning",
+      patient: "John Smith",
+      action: "Review medication list",
+      value: "High Risk",
+      color: "text-red-600",
+      bgColor: "bg-red-50",
+      borderColor: "border-red-200",
     },
     {
-      title: 'Lab Results Follow-up',
-      description: 'Lisa Wilson: HbA1c improved to 6.8% - consider medication adjustment',
-      type: 'success',
-      patient: 'Lisa Wilson',
-      action: 'Schedule consultation',
-      value: 'Improved',
-      color: 'text-green-600',
-      bgColor: 'bg-green-50',
-      borderColor: 'border-green-200'
+      title: "Lab Results Follow-up",
+      description:
+        "Lisa Wilson: HbA1c improved to 6.8% - consider medication adjustment",
+      type: "success",
+      patient: "Lisa Wilson",
+      action: "Schedule consultation",
+      value: "Improved",
+      color: "text-green-600",
+      bgColor: "bg-green-50",
+      borderColor: "border-green-200",
     },
     {
-      title: 'Risk Assessment Update',
-      description: 'David Chen: Cardiovascular risk score increased based on latest vitals',
-      type: 'alert',
-      patient: 'David Chen',
-      action: 'Urgent review needed',
-      value: 'Critical',
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200'
-    }
+      title: "Risk Assessment Update",
+      description:
+        "David Chen: Cardiovascular risk score increased based on latest vitals",
+      type: "alert",
+      patient: "David Chen",
+      action: "Urgent review needed",
+      value: "Critical",
+      color: "text-orange-600",
+      bgColor: "bg-orange-50",
+      borderColor: "border-orange-200",
+    },
   ];
 
   const handleRefresh = async () => {
     setIsLoading(true);
     // Simulate refresh
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsLoading(false);
     setShowRefreshed(true);
     setTimeout(() => setShowRefreshed(false), 3000);
@@ -238,48 +277,97 @@ const DoctorDashboard = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      stable: { variant: "default" as const, icon: CheckCircle, color: "text-green-600", bgColor: "bg-green-50", borderColor: "border-green-200" },
-      improving: { variant: "default" as const, icon: TrendingUp, color: "text-blue-600", bgColor: "bg-blue-50", borderColor: "border-blue-200" },
-      monitoring: { variant: "secondary" as const, icon: Eye, color: "text-orange-600", bgColor: "bg-orange-50", borderColor: "border-orange-200" },
-      urgent: { variant: "destructive" as const, icon: AlertTriangle, color: "text-red-600", bgColor: "bg-red-50", borderColor: "border-red-200" },
-      routine: { variant: "secondary" as const, icon: Clock, color: "text-blue-600", bgColor: "bg-blue-50", borderColor: "border-blue-200" },
-      confirmed: { variant: "default" as const, icon: CheckCircle, color: "text-green-600", bgColor: "bg-green-50", borderColor: "border-green-200" },
-      pending: { variant: "secondary" as const, icon: Clock, color: "text-orange-600", bgColor: "bg-orange-50", borderColor: "border-orange-200" }
+      stable: {
+        variant: "default" as const,
+        icon: CheckCircle,
+        color: "text-green-600",
+        bgColor: "bg-green-50",
+        borderColor: "border-green-200",
+      },
+      improving: {
+        variant: "default" as const,
+        icon: TrendingUp,
+        color: "text-blue-600",
+        bgColor: "bg-blue-50",
+        borderColor: "border-blue-200",
+      },
+      monitoring: {
+        variant: "secondary" as const,
+        icon: Eye,
+        color: "text-orange-600",
+        bgColor: "bg-orange-50",
+        borderColor: "border-orange-200",
+      },
+      urgent: {
+        variant: "destructive" as const,
+        icon: AlertTriangle,
+        color: "text-red-600",
+        bgColor: "bg-red-50",
+        borderColor: "border-red-200",
+      },
+      routine: {
+        variant: "secondary" as const,
+        icon: Clock,
+        color: "text-blue-600",
+        bgColor: "bg-blue-50",
+        borderColor: "border-blue-200",
+      },
+      confirmed: {
+        variant: "default" as const,
+        icon: CheckCircle,
+        color: "text-green-600",
+        bgColor: "bg-green-50",
+        borderColor: "border-green-200",
+      },
+      pending: {
+        variant: "secondary" as const,
+        icon: Clock,
+        color: "text-orange-600",
+        bgColor: "bg-orange-50",
+        borderColor: "border-orange-200",
+      },
     };
 
-    const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.routine;
+    const config =
+      statusConfig[status as keyof typeof statusConfig] || statusConfig.routine;
     const Icon = config.icon;
 
     return (
-      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border text-black`}>
+      <Badge
+        variant={config.variant}
+        className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border text-black`}
+      >
         <Icon className={`h-3 w-3 ${config.color}`} />
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </Badge>
     );
   };
 
-  const filteredRequests = pendingRequests.filter(request =>
-    request.patient.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    request.condition.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    request.urgency.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredRequests = pendingRequests.filter(
+    (request) =>
+      request.patient.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      request.condition.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      request.urgency.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const filteredPatients = recentPatients.filter(patient =>
-    patient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    patient.condition.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    patient.status.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredPatients = recentPatients.filter(
+    (patient) =>
+      patient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      patient.condition.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      patient.status.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <DashboardLayout>
       <div className="p-4 space-y-6">
         {/* Enhanced Header */}
-        <div className="bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-xl p-6 shadow-xl">
+        <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-3xl font-bold mb-2">Dr Hedera Doctor Dashboard</h1>
-              <p className="text-blue-100">
-                Good morning, {user?.name}! Managing patient care with AI insights
+              <p className="text-purple-100">
+                Good morning, {user?.name}! Managing patient care with AI
+                insights
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -293,7 +381,9 @@ const DoctorDashboard = () => {
                 className="bg-white/10 border-white/30 text-white hover:bg-white/20"
                 disabled={isLoading}
               >
-                <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
+                <RefreshCw
+                  className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`}
+                />
                 Sync Data
               </Button>
             </div>
@@ -302,12 +392,13 @@ const DoctorDashboard = () => {
           {/* Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {quickStats.map((stat, index) => (
-              <div key={index} className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+              <div
+                key={index}
+                className="bg-white/10 rounded-lg p-4 backdrop-blur-sm"
+              >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className={`${stat.color}`}>
-                    {stat.icon}
-                  </div>
-                  <span className="text-sm text-blue-100">{stat.label}</span>
+                  <div className={`${stat.color}`}>{stat.icon}</div>
+                  <span className="text-sm text-purple-100">{stat.label}</span>
                 </div>
                 <div className="text-2xl font-bold">{stat.value}</div>
               </div>
@@ -354,7 +445,8 @@ const DoctorDashboard = () => {
                 <div>
                   <h3 className="font-semibold text-green-900">Data Synced!</h3>
                   <p className="text-green-700 text-sm">
-                    Your patient data has been updated across all connected systems.
+                    Your patient data has been updated across all connected
+                    systems.
                   </p>
                 </div>
               </div>
@@ -372,17 +464,26 @@ const DoctorDashboard = () => {
                   MedVault: AI-Powered Clinical Support
                 </p>
                 <p className="text-sm text-blue-700">
-                  Access patient records with permission-based security. 
-                  AI insights help with diagnosis and treatment recommendations.
+                  Access patient records with permission-based security. AI
+                  insights help with diagnosis and treatment recommendations.
                 </p>
                 <div className="flex items-center gap-4 mt-3">
-                  <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                  <Badge
+                    variant="outline"
+                    className="bg-blue-50 text-blue-700 border-blue-200"
+                  >
                     {pendingRequests.length} Pending Requests
                   </Badge>
-                  <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                  <Badge
+                    variant="outline"
+                    className="bg-green-50 text-green-700 border-green-200"
+                  >
                     {todaysAppointments.length} Today's Appointments
                   </Badge>
-                  <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
+                  <Badge
+                    variant="outline"
+                    className="bg-purple-50 text-purple-700 border-purple-200"
+                  >
                     AI Clinical Support
                   </Badge>
                 </div>
@@ -399,11 +500,17 @@ const DoctorDashboard = () => {
               Quick Actions
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white" onClick={() => navigate('/doctor/patient-records')}>
+              <Button
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/patient-records")}
+              >
                 <PlusCircle className="h-4 w-4 mr-2" />
                 Add Patient
               </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white" onClick={() => navigate('/doctor/ai-chat')}>
+              <Button
+                className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white"
+                onClick={() => navigate("/doctor/ai-chat")}
+              >
                 <Brain className="h-4 w-4 mr-2" />
                 AI Clinical Support
               </Button>
@@ -428,13 +535,22 @@ const DoctorDashboard = () => {
                   <Trophy className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-purple-900">Patient Care Milestone</h4>
+                  <h4 className="font-semibold text-purple-900">
+                    Patient Care Milestone
+                  </h4>
                   <p className="text-sm text-purple-700">
-                    {recentPatients.length >= 50 ? "Expert Physician!" : `${50 - recentPatients.length} more patients to Expert level`}
+                    {recentPatients.length >= 50
+                      ? "Expert Physician!"
+                      : `${
+                          50 - recentPatients.length
+                        } more patients to Expert level`}
                   </p>
                 </div>
               </div>
-              <Progress value={(recentPatients.length / 50) * 100} className="mt-3 h-2" />
+              <Progress
+                value={(recentPatients.length / 50) * 100}
+                className="mt-3 h-2"
+              />
             </CardContent>
           </Card>
 
@@ -445,13 +561,28 @@ const DoctorDashboard = () => {
                   <ShieldCheck className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-blue-900">AI Support Score</h4>
+                  <h4 className="font-semibold text-blue-900">
+                    AI Support Score
+                  </h4>
                   <p className="text-sm text-blue-700">
-                    {Math.round((clinicalInsights.filter(i => i.type === 'success').length / Math.max(clinicalInsights.length, 1)) * 100)}% positive outcomes
+                    {Math.round(
+                      (clinicalInsights.filter((i) => i.type === "success")
+                        .length /
+                        Math.max(clinicalInsights.length, 1)) *
+                        100
+                    )}
+                    % positive outcomes
                   </p>
                 </div>
               </div>
-              <Progress value={(clinicalInsights.filter(i => i.type === 'success').length / Math.max(clinicalInsights.length, 1)) * 100} className="mt-3 h-2" />
+              <Progress
+                value={
+                  (clinicalInsights.filter((i) => i.type === "success").length /
+                    Math.max(clinicalInsights.length, 1)) *
+                  100
+                }
+                className="mt-3 h-2"
+              />
             </CardContent>
           </Card>
 
@@ -462,7 +593,9 @@ const DoctorDashboard = () => {
                   <Network className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-purple-900">Connected Patients</h4>
+                  <h4 className="font-semibold text-purple-900">
+                    Connected Patients
+                  </h4>
                   <p className="text-sm text-purple-700">
                     Managing {recentPatients.length} active patients
                   </p>
@@ -470,7 +603,14 @@ const DoctorDashboard = () => {
               </div>
               <div className="flex gap-1 mt-3">
                 {recentPatients.map((_, i) => (
-                  <div key={i} className={`h-2 flex-1 rounded ${i < recentPatients.length ? "bg-gradient-to-r from-purple-500 to-blue-500" : "bg-gray-200"}`} />
+                  <div
+                    key={i}
+                    className={`h-2 flex-1 rounded ${
+                      i < recentPatients.length
+                        ? "bg-gradient-to-r from-purple-500 to-blue-500"
+                        : "bg-gray-200"
+                    }`}
+                  />
                 ))}
               </div>
             </CardContent>
@@ -533,7 +673,10 @@ const DoctorDashboard = () => {
               <CardTitle className="flex items-center gap-2 text-black">
                 <Brain className="h-5 w-5 text-purple-600" />
                 AI Clinical Insights
-                <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
+                <Badge
+                  variant="outline"
+                  className="bg-purple-50 text-purple-700 border-purple-200"
+                >
                   AI
                 </Badge>
               </CardTitle>
@@ -544,7 +687,10 @@ const DoctorDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {clinicalInsights.map((insight, index) => (
-                  <div key={index} className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}>
+                  <div
+                    key={index}
+                    className={`p-4 rounded-lg border ${insight.bgColor} ${insight.borderColor}`}
+                  >
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-medium text-sm text-black">{insight.title}</h4>
                       <Badge className={`${insight.bgColor} ${insight.color} border-0`}>
