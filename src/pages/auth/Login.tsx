@@ -90,9 +90,9 @@ const Login = () => {
             {/* Left: Logo */}
             <div className="flex items-center">
               <div className="flex items-center gap-2 group">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-md">
+                {/* <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-md">
                   <span className="text-2xl font-extrabold text-white">Mv</span>
-                </div>
+                </div> */}
                 <span className="text-xl font-bold text-gray-900">Dr Hedera</span>
               </div>
             </div>

@@ -240,7 +240,12 @@ const BlockchainRegistration: React.FC = () => {
   };
 
   const handleRegister = async () => {
-    if (!smartContractService) return;
+    if (!smartContractService) {
+      alert(
+        "Smart contract service not initialized. Please connect your wallet and try again."
+      );
+      return;
+    }
 
     setIsLoading(true);
     try {
@@ -249,10 +254,19 @@ const BlockchainRegistration: React.FC = () => {
       setIsRegistered(true);
 
       // Show success message
-      alert(`Patient registered successfully! Patient ID: ${result.patientId}`);
+      alert(`🎉 Patient registered successfully! 
+
+Patient ID: ${result.patientId}
+Transaction: ${result.txHash.substring(0, 10)}...
+
+Your medical identity is now secured on the blockchain!`);
     } catch (error) {
       console.error("Failed to register patient:", error);
-      alert("Failed to register patient. Please try again.");
+      alert(
+        `❌ Registration failed: ${
+          error.message || "Unknown error"
+        }. Please try again.`
+      );
     } finally {
       setIsLoading(false);
     }

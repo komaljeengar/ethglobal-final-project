@@ -258,7 +258,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                       onClick={handleLogout}
                       className="text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 rounded-md cursor-pointer"
                     >
-                      <LogOut className="w-4 h-4 mr-2 text-red-500" />
+                      <LogOut className="w-4 h-4 mr-2 hover:text-red-500 text-red-500" />
                       Sign Out
                     </DropdownMenuItem>
                   </DropdownMenuContent>

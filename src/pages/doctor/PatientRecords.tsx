@@ -349,12 +349,12 @@ const PatientRecords = () => {
           <Card className="bg-green-50 border-green-200">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <CheckCircle className="h-5 w-5 text-green-600" />
+                <CheckCircle className="h-5 w-5 text-green-300" />
                 <div>
-                  <h3 className="font-semibold text-green-900">
+                  <h3 className="font-semibold text-green-400">
                     Records Synced!
                   </h3>
-                  <p className="text-green-700 text-sm">
+                  <p className="text-green-300 text-sm">
                     Patient records have been updated from all connected
                     systems.
                   </p>
@@ -363,34 +363,6 @@ const PatientRecords = () => {
             </CardContent>
           </Card>
         )}
-
-        {/* Quick Actions Bar */}
-        <Card className="bg-gradient-to-r from-indigo-200 to-purple-400 text-white">
-          <CardContent className="p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Zap className="h-5 w-5" />
-              Quick Actions
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
-                <UserPlus className="h-4 w-4 mr-2" />
-                Add Patient
-              </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
-                <FileText className="h-4 w-4 mr-2" />
-                Upload Records
-              </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
-                <Calendar className="h-4 w-4 mr-2" />
-                Schedule Visit
-              </Button>
-              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
-                <Shield className="h-4 w-4 mr-2" />
-                Access Permissions
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Patients List */}
         <div className="grid grid-cols-1 gap-6">
@@ -502,6 +474,33 @@ const PatientRecords = () => {
             ))
           )}
         </div>
+        {/* Quick Actions Bar */}
+        <Card className="bg-gradient-to-r from-indigo-200 to-purple-400 text-white">
+          <CardContent className="p-6">
+            <h3 className="text-lg text-black font-semibold mb-4 flex items-center gap-2">
+              <Zap className="h-5 w-5" />
+              Quick Actions
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+                <UserPlus className="h-4 w-4 mr-2" />
+                Add Patient
+              </Button>
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+                <FileText className="h-4 w-4 mr-2" />
+                Upload Records
+              </Button>
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+                <Calendar className="h-4 w-4 mr-2" />
+                Schedule Visit
+              </Button>
+              <Button className="w-full bg-white/20 hover:bg-white/30 border-white/30 text-white">
+                <Shield className="h-4 w-4 mr-2" />
+                Access Permissions
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </DashboardLayout>
   );

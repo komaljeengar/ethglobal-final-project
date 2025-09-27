@@ -361,12 +361,12 @@ const ClinicalSupport = () => {
           <Card className="bg-green-50 border-green-200">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <CheckCircle className="h-5 w-5 text-green-600" />
+                <CheckCircle className="h-5 w-5 text-green-400" />
                 <div>
-                  <h3 className="font-semibold text-green-900">
+                  <h3 className="font-semibold text-green-200">
                     Clinical Support Updated!
                   </h3>
-                  <p className="text-green-700 text-sm">
+                  <p className="text-green-400 text-sm">
                     AI clinical assistant has been updated with the latest
                     medical data and guidelines.
                   </p>
