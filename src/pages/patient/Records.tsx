@@ -58,8 +58,17 @@ const Records = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showRefreshed, setShowRefreshed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDemoMode, setIsDemoMode] = useState(false);
+  const [userRecords, setUserRecords] = useState([]);
 
-  const medicalRecords = [
+  // Check if user is in demo mode
+  React.useEffect(() => {
+    const isDemo = user?.email?.includes('demo') || user?.name?.includes('Demo') || user?.id === '1' || user?.id === '2';
+    setIsDemoMode(isDemo);
+  }, [user]);
+
+  // Demo records for demo users, empty for real users
+  const demoRecords = [
     {
       id: '1',
       title: 'Blood Test Results',
@@ -116,6 +125,8 @@ const Records = () => {
       description: 'Brain MRI for headache evaluation - results pending'
     }
   ];
+
+  const medicalRecords = isDemoMode ? demoRecords : userRecords;
 
   const handleRefresh = async () => {
     setIsLoading(true);
@@ -244,6 +255,33 @@ const Records = () => {
           </div>
         </div>
 
+        {/* Demo Mode Warning */}
+        {isDemoMode && (
+          <Card className="bg-gradient-to-r from-yellow-50 via-amber-50 to-orange-50 border-yellow-200 shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex gap-4">
+                <AlertTriangle className="h-6 w-6 text-yellow-600 mt-0.5 flex-shrink-0" />
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-yellow-900">
+                    Demo Mode Active
+                  </p>
+                  <p className="text-sm text-yellow-700">
+                    You are viewing demo medical records. Create a real account to start managing your actual medical records.
+                  </p>
+                  <div className="flex items-center gap-4 mt-3">
+                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
+                      Demo Data
+                    </Badge>
+                    <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                      Sample Records
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Success Message */}
         {showRefreshed && (
           <Card className="bg-green-50 border-green-200">
@@ -300,10 +338,17 @@ const Records = () => {
             <Card>
               <CardContent className="p-8 text-center">
                 <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600 mb-4">No medical records found</p>
+                <p className="text-gray-600 mb-2">
+                  {isDemoMode ? "No medical records found" : "No medical records yet"}
+                </p>
+                {!isDemoMode && (
+                  <p className="text-sm text-gray-500 mb-4">
+                    Upload your first medical record to get started
+                  </p>
+                )}
                 <Button onClick={() => navigate('/patient/records/upload')}>
                   <Upload className="h-4 w-4 mr-2" />
-                  Upload Your First Record
+                  {isDemoMode ? "Upload Your First Record" : "Upload Medical Records"}
                 </Button>
               </CardContent>
             </Card>

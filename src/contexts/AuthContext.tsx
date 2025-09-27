@@ -13,6 +13,11 @@ interface User {
   role: "patient" | "doctor";
   avatar?: string;
   specialization?: string; // for doctors
+  // Blockchain integration
+  walletAddress?: string;
+  patientId?: number;
+  isBlockchainRegistered?: boolean;
+  verificationLevel?: number;
 }
 
 interface AuthContextType {
