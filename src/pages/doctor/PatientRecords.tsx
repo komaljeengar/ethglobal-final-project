@@ -184,11 +184,11 @@ const PatientRecords = () => {
     <DashboardLayout>
       <div className="min-h-screen bg-white p-4 space-y-6">
         {/* Enhanced Header */}
-        <div className="bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-xl p-6 shadow-xl">
+        <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-3xl font-bold mb-2">Patient Records</h1>
-              <p className="text-blue-100">
+              <p className="text-purple-100">
                 Access and manage patient medical records with permission-based security
               </p>
             </div>
@@ -214,28 +214,28 @@ const PatientRecords = () => {
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Users className="h-5 w-5 text-green-300" />
-                <span className="text-sm text-blue-100">Total Patients</span>
+                <span className="text-sm text-purple-100">Total Patients</span>
               </div>
               <div className="text-2xl font-bold">{patients.length}</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle className="h-5 w-5 text-green-300" />
-                <span className="text-sm text-blue-100">Stable Patients</span>
+                <span className="text-sm text-purple-100">Stable Patients</span>
               </div>
               <div className="text-2xl font-bold">{patients.filter(p => p.status === 'stable').length}</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Eye className="h-5 w-5 text-orange-300" />
-                <span className="text-sm text-blue-100">Under Monitoring</span>
+                <span className="text-sm text-purple-100">Under Monitoring</span>
               </div>
               <div className="text-2xl font-bold">{patients.filter(p => p.status === 'monitoring').length}</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <FileText className="h-5 w-5 text-blue-300" />
-                <span className="text-sm text-blue-100">Total Records</span>
+                <span className="text-sm text-purple-100">Total Records</span>
               </div>
               <div className="text-2xl font-bold">{patients.reduce((sum, p) => sum + p.records, 0)}</div>
             </div>

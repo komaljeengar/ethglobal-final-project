@@ -274,11 +274,11 @@ const DoctorDashboard = () => {
     <DashboardLayout>
       <div className="p-4 space-y-6">
         {/* Enhanced Header */}
-        <div className="bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-xl p-6 shadow-xl">
+        <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold mb-2">Dr.0G Doctor Dashboard</h1>
-              <p className="text-blue-100">
+              <h1 className="text-3xl font-bold mb-2">drH Doctor Dashboard</h1>
+              <p className="text-purple-100">
                 Good morning, {user?.name}! Managing patient care with AI insights
               </p>
             </div>
@@ -307,7 +307,7 @@ const DoctorDashboard = () => {
                   <div className={`${stat.color}`}>
                     {stat.icon}
                   </div>
-                  <span className="text-sm text-blue-100">{stat.label}</span>
+                  <span className="text-sm text-purple-100">{stat.label}</span>
                 </div>
                 <div className="text-2xl font-bold">{stat.value}</div>
               </div>

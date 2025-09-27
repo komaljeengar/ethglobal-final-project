@@ -159,24 +159,31 @@ const Patient = () => {
   return (
     <DashboardLayout>
       <div className="min-h-screen bg-white p-4 space-y-6">
-        {/* Header with Back Button */}
-        <div className="flex items-center gap-4 mb-6">
-          <Button variant="outline" onClick={() => navigate('/doctor/patients')}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Patients
-          </Button>
-          <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900">Patient Profile</h1>
-            <p className="text-gray-600">Comprehensive view of patient medical information</p>
+        {/* Enhanced Header */}
+        <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl mb-6">
+          <div className="flex items-center gap-4 mb-4">
+            <Button 
+              variant="outline" 
+              onClick={() => navigate('/doctor/patients')}
+              className="bg-white/10 border-white/30 text-white hover:bg-white/20"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Patients
+            </Button>
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold mb-2">Patient Profile</h1>
+              <p className="text-purple-100">Comprehensive view of patient medical information</p>
+            </div>
+            <Button
+              onClick={handleRefresh}
+              variant="outline"
+              className="bg-white/10 border-white/30 text-white hover:bg-white/20"
+              disabled={isLoading}
+            >
+              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
+              Refresh Data
+            </Button>
           </div>
-          <Button
-            onClick={handleRefresh}
-            variant="outline"
-            disabled={isLoading}
-          >
-            <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
-            Refresh Data
-          </Button>
         </div>
 
         {/* Success Message */}

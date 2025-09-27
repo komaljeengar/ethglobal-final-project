@@ -238,11 +238,11 @@ const ClinicalSupport = () => {
     <DashboardLayout>
       <div className="min-h-screen bg-white p-4 space-y-6">
         {/* Enhanced Header */}
-        <div className="bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-xl p-6 shadow-xl">
+        <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-3xl font-bold mb-2">AI Clinical Support</h1>
-              <p className="text-blue-100">
+              <p className="text-purple-100">
                 Advanced AI assistance for clinical decision making and patient care
               </p>
             </div>
@@ -268,28 +268,28 @@ const ClinicalSupport = () => {
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <MessageSquare className="h-5 w-5 text-green-300" />
-                <span className="text-sm text-blue-100">Clinical Sessions</span>
+                <span className="text-sm text-purple-100">Clinical Sessions</span>
               </div>
               <div className="text-2xl font-bold">24</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Brain className="h-5 w-5 text-blue-300" />
-                <span className="text-sm text-blue-100">AI Insights</span>
+                <span className="text-sm text-purple-100">AI Insights</span>
               </div>
               <div className="text-2xl font-bold">18</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle className="h-5 w-5 text-green-300" />
-                <span className="text-sm text-blue-100">Accuracy Rate</span>
+                <span className="text-sm text-purple-100">Accuracy Rate</span>
               </div>
               <div className="text-2xl font-bold">96%</div>
             </div>
             <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="h-5 w-5 text-yellow-300" />
-                <span className="text-sm text-blue-100">Time Saved</span>
+                <span className="text-sm text-purple-100">Time Saved</span>
               </div>
               <div className="text-2xl font-bold">2.5h</div>
             </div>
