@@ -109,7 +109,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
   const AppSidebar = () => {
     const currentPath = location.pathname;
-    
+
     // Show loading state during initialization
     if (!isInitialized || isLoading) {
       return (
@@ -129,7 +129,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 </span>
               </div>
             </div>
-            
+
             {/* Loading placeholder */}
             <div className="p-4">
               <div className="animate-pulse space-y-3">
