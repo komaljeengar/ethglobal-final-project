@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
-import { Separator } from '@/components/ui/separator';
-import { 
-  User, 
-  FileText, 
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import {
+  User,
+  FileText,
   Heart,
   Stethoscope,
   Activity,
@@ -38,11 +44,11 @@ import {
   RefreshCw,
   Search,
   Filter,
-  ArrowLeft
-} from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import DashboardLayout from '@/components/layout/DashboardLayout';
+  ArrowLeft,
+} from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 const Patient = () => {
   const navigate = useNavigate();
@@ -54,75 +60,75 @@ const Patient = () => {
 
   // Mock patient data
   const patient = {
-    id: patientId || '1',
-    name: 'Sarah Johnson',
+    id: patientId || "1",
+    name: "Sarah Johnson",
     age: 45,
-    gender: 'Female',
-    dateOfBirth: '1979-03-15',
-    phone: '+1 (555) 123-4567',
-    email: 'sarah.johnson@email.com',
-    address: '123 Main St, City, State 12345',
-    emergencyContact: 'John Johnson (Spouse) - +1 (555) 987-6543',
-    primaryCare: 'Dr. Emily Rodriguez',
-    insurance: 'Blue Cross Blue Shield',
-    lastVisit: '2024-01-20',
-    nextAppointment: '2024-02-15',
-    riskLevel: 'low',
-    status: 'stable',
-    allergies: ['Penicillin', 'Shellfish'],
-    medications: ['Lisinopril 10mg', 'Metformin 500mg'],
-    conditions: ['Hypertension', 'Type 2 Diabetes']
+    gender: "Female",
+    dateOfBirth: "1979-03-15",
+    phone: "+1 (555) 123-4567",
+    email: "sarah.johnson@email.com",
+    address: "123 Main St, City, State 12345",
+    emergencyContact: "John Johnson (Spouse) - +1 (555) 987-6543",
+    primaryCare: "Dr. Emily Rodriguez",
+    insurance: "Blue Cross Blue Shield",
+    lastVisit: "2024-01-20",
+    nextAppointment: "2024-02-15",
+    riskLevel: "low",
+    status: "stable",
+    allergies: ["Penicillin", "Shellfish"],
+    medications: ["Lisinopril 10mg", "Metformin 500mg"],
+    conditions: ["Hypertension", "Type 2 Diabetes"],
   };
 
   const medicalRecords = [
     {
-      id: '1',
-      title: 'Blood Test Results',
-      date: '2024-01-20',
-      type: 'Lab Results',
-      status: 'normal',
-      doctor: 'Dr. Emily Rodriguez',
-      description: 'Complete blood count, lipid panel, and metabolic panel',
-      value: '$150',
-      notes: 'All values within normal range. Continue current medication.'
+      id: "1",
+      title: "Blood Test Results",
+      date: "2024-01-20",
+      type: "Lab Results",
+      status: "normal",
+      doctor: "Dr. Emily Rodriguez",
+      description: "Complete blood count, lipid panel, and metabolic panel",
+      value: "$150",
+      notes: "All values within normal range. Continue current medication.",
     },
     {
-      id: '2',
-      title: 'Cardiology Consultation',
-      date: '2024-01-18',
-      type: 'Consultation',
-      status: 'review',
-      doctor: 'Dr. Michael Chen',
-      description: 'Cardiovascular examination and EKG interpretation',
-      value: '$300',
-      notes: 'EKG shows normal sinus rhythm. Blood pressure well controlled.'
+      id: "2",
+      title: "Cardiology Consultation",
+      date: "2024-01-18",
+      type: "Consultation",
+      status: "review",
+      doctor: "Dr. Michael Chen",
+      description: "Cardiovascular examination and EKG interpretation",
+      value: "$300",
+      notes: "EKG shows normal sinus rhythm. Blood pressure well controlled.",
     },
     {
-      id: '3',
-      title: 'Prescription Update',
-      date: '2024-01-15',
-      type: 'Medication',
-      status: 'active',
-      doctor: 'Dr. Emily Rodriguez',
-      description: 'Updated medication regimen for hypertension management',
-      value: '$85',
-      notes: 'Increased Lisinopril dosage. Monitor blood pressure weekly.'
-    }
+      id: "3",
+      title: "Prescription Update",
+      date: "2024-01-15",
+      type: "Medication",
+      status: "active",
+      doctor: "Dr. Emily Rodriguez",
+      description: "Updated medication regimen for hypertension management",
+      value: "$85",
+      notes: "Increased Lisinopril dosage. Monitor blood pressure weekly.",
+    },
   ];
 
   const vitalSigns = {
-    bloodPressure: '120/80',
+    bloodPressure: "120/80",
     heartRate: 72,
     temperature: 98.6,
     weight: 150,
-    height: '5\'6"',
+    height: "5'6\"",
     bmi: 24.2,
-    lastUpdated: '2024-01-20'
+    lastUpdated: "2024-01-20",
   };
 
   const handleRefresh = async () => {
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsLoading(false);
     setShowRefreshed(true);
     setTimeout(() => setShowRefreshed(false), 3000);
@@ -134,26 +140,49 @@ const Patient = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      normal: { variant: "default" as const, icon: CheckCircle, color: "text-green-600", bgColor: "bg-green-50", borderColor: "border-green-200" },
-      review: { variant: "secondary" as const, icon: Eye, color: "text-blue-600", bgColor: "bg-blue-50", borderColor: "border-blue-200" },
-      active: { variant: "default" as const, icon: Activity, color: "text-purple-600", bgColor: "bg-purple-50", borderColor: "border-purple-200" }
+      normal: {
+        variant: "default" as const,
+        icon: CheckCircle,
+        color: "text-green-600",
+        bgColor: "bg-green-50",
+        borderColor: "border-green-200",
+      },
+      review: {
+        variant: "secondary" as const,
+        icon: Eye,
+        color: "text-blue-600",
+        bgColor: "bg-blue-50",
+        borderColor: "border-blue-200",
+      },
+      active: {
+        variant: "default" as const,
+        icon: Activity,
+        color: "text-purple-600",
+        bgColor: "bg-purple-50",
+        borderColor: "border-purple-200",
+      },
     };
 
-    const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.normal;
+    const config =
+      statusConfig[status as keyof typeof statusConfig] || statusConfig.normal;
     const Icon = config.icon;
 
     return (
-      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border`}>
+      <Badge
+        variant={config.variant}
+        className={`flex items-center gap-1 ${config.bgColor} ${config.borderColor} border`}
+      >
         <Icon className={`h-3 w-3 ${config.color}`} />
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </Badge>
     );
   };
 
-  const filteredRecords = medicalRecords.filter(record =>
-    record.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    record.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    record.doctor.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredRecords = medicalRecords.filter(
+    (record) =>
+      record.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      record.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      record.doctor.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -162,9 +191,9 @@ const Patient = () => {
         {/* Enhanced Header */}
         <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-600 text-white rounded-xl p-6 shadow-xl mb-6">
           <div className="flex items-center gap-4 mb-4">
-            <Button 
-              variant="outline" 
-              onClick={() => navigate('/doctor/patients')}
+            <Button
+              variant="outline"
+              onClick={() => navigate("/doctor/patients")}
               className="bg-white/10 border-white/30 text-white hover:bg-white/20"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -172,7 +201,9 @@ const Patient = () => {
             </Button>
             <div className="flex-1">
               <h1 className="text-3xl font-bold mb-2">Patient Profile</h1>
-              <p className="text-purple-100">Comprehensive view of patient medical information</p>
+              <p className="text-purple-100">
+                Comprehensive view of patient medical information
+              </p>
             </div>
             <Button
               onClick={handleRefresh}
@@ -180,7 +211,9 @@ const Patient = () => {
               className="bg-white/10 border-white/30 text-white hover:bg-white/20"
               disabled={isLoading}
             >
-              <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
+              <RefreshCw
+                className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`}
+              />
               Refresh Data
             </Button>
           </div>
@@ -193,9 +226,12 @@ const Patient = () => {
               <div className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 text-green-600" />
                 <div>
-                  <h3 className="font-semibold text-green-900">Patient Data Updated!</h3>
+                  <h3 className="font-semibold text-green-900">
+                    Patient Data Updated!
+                  </h3>
                   <p className="text-green-700 text-sm">
-                    Patient information has been synchronized with the latest data.
+                    Patient information has been synchronized with the latest
+                    data.
                   </p>
                 </div>
               </div>
@@ -220,9 +256,12 @@ const Patient = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">{patient.name}</h3>
-                  <p className="text-gray-600">{patient.age} years old • {patient.gender}</p>
+                  <p className="text-gray-600">
+                    {patient.age} years old • {patient.gender}
+                  </p>
                   <Badge variant="outline" className="mt-1">
-                    {patient.status.charAt(0).toUpperCase() + patient.status.slice(1)}
+                    {patient.status.charAt(0).toUpperCase() +
+                      patient.status.slice(1)}
                   </Badge>
                 </div>
               </div>
@@ -252,7 +291,9 @@ const Patient = () => {
 
               <div className="space-y-2">
                 <h4 className="font-medium">Emergency Contact</h4>
-                <p className="text-sm text-gray-600">{patient.emergencyContact}</p>
+                <p className="text-sm text-gray-600">
+                  {patient.emergencyContact}
+                </p>
               </div>
 
               <div className="space-y-2">
@@ -281,19 +322,27 @@ const Patient = () => {
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center p-3 bg-red-50 rounded-lg">
-                  <div className="text-2xl font-bold text-red-600">{vitalSigns.bloodPressure}</div>
+                  <div className="text-2xl font-bold text-red-600">
+                    {vitalSigns.bloodPressure}
+                  </div>
                   <div className="text-sm text-gray-600">Blood Pressure</div>
                 </div>
                 <div className="text-center p-3 bg-blue-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">{vitalSigns.heartRate}</div>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {vitalSigns.heartRate}
+                  </div>
                   <div className="text-sm text-gray-600">Heart Rate (BPM)</div>
                 </div>
                 <div className="text-center p-3 bg-orange-50 rounded-lg">
-                  <div className="text-2xl font-bold text-orange-600">{vitalSigns.temperature}°F</div>
+                  <div className="text-2xl font-bold text-orange-600">
+                    {vitalSigns.temperature}°F
+                  </div>
                   <div className="text-sm text-gray-600">Temperature</div>
                 </div>
                 <div className="text-center p-3 bg-green-50 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600">{vitalSigns.weight} lbs</div>
+                  <div className="text-2xl font-bold text-green-600">
+                    {vitalSigns.weight} lbs
+                  </div>
                   <div className="text-sm text-gray-600">Weight</div>
                 </div>
               </div>
@@ -413,7 +462,10 @@ const Patient = () => {
             {/* Records List */}
             <div className="space-y-4">
               {filteredRecords.map((record) => (
-                <div key={record.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-blue-50 bg-white">
+                <div
+                  key={record.id}
+                  className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-blue-50 bg-white"
+                >
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                       <FileText className="h-6 w-6 text-blue-600" />
@@ -426,7 +478,9 @@ const Patient = () => {
                         </Badge>
                         {getStatusBadge(record.status)}
                       </div>
-                      <p className="text-sm text-gray-600 mb-2">{record.description}</p>
+                      <p className="text-sm text-gray-600 mb-2">
+                        {record.description}
+                      </p>
                       <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
                         <span className="flex items-center gap-1">
                           <User className="h-4 w-4" />
@@ -440,7 +494,9 @@ const Patient = () => {
                           <span className="font-medium">${record.value}</span>
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 italic">{record.notes}</p>
+                      <p className="text-sm text-gray-600 italic">
+                        {record.notes}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
