@@ -48,7 +48,7 @@ interface DashboardLayoutProps {
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading, isInitialized } = useAuth();
 
   // Prevent any black hover states in sidebar
   React.useEffect(() => {
@@ -80,11 +80,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     { title: "Medical Records", url: "/patient/records", icon: FileText },
     { title: "Permissions", url: "/patient/permissions", icon: Users },
     { title: "AI Health Chat", url: "/patient/ai-chat", icon: MessageSquare },
-    {
-      title: "Emergency Access",
-      url: "/patient/emergency-access",
-      icon: Heart,
-    },
     { title: "Settings", url: "/settings", icon: Settings },
   ];
 
@@ -99,6 +94,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     { title: "Settings", url: "/settings", icon: Settings },
   ];
 
+  // Don't show navigation until we know the user role to prevent flashing
   const navItems = user?.role === "doctor" ? doctorNavItems : patientNavItems;
 
   const handleLogout = () => {
@@ -109,11 +105,44 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const AppSidebar = () => {
     const currentPath = location.pathname;
 
+    // Show loading state during initialization
+    if (!isInitialized || isLoading) {
+      return (
+        <Sidebar
+          className="w-64 bg-white border-r border-purple-200 shadow-lg sidebar-override"
+          collapsible="icon"
+        >
+          <SidebarContent className="bg-white">
+            {/* Logo */}
+            <div className="p-6 border-b border-purple-200 bg-white">
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Shield className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xl font-bold text-purple-900">
+                  dr Hedera
+                </span>
+              </div>
+            </div>
+
+            {/* Loading placeholder */}
+            <div className="p-4">
+              <div className="animate-pulse space-y-3">
+                <div className="h-4 bg-purple-100 rounded"></div>
+                <div className="h-4 bg-purple-100 rounded"></div>
+                <div className="h-4 bg-purple-100 rounded"></div>
+              </div>
+            </div>
+          </SidebarContent>
+        </Sidebar>
+      );
+    }
+
     const isActive = (path: string) => currentPath === path;
     const getNavCls = (path: string) =>
       isActive(path)
         ? "bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold hover:from-purple-600 hover:to-purple-700 border-l-4 border-purple-300 rounded-r-lg focus:from-purple-600 focus:to-purple-700"
-        : "hover:bg-purple-50 text-purple-700 hover:text-purple-900 hover:font-medium hover:border-l-4 hover:border-purple-300 hover:rounded-r-lg transition-all duration-300 focus:bg-purple-50 focus:text-purple-900";
+        : "text-purple-700 hover:bg-gradient-to-r hover:from-purple-100 hover:to-purple-50 hover:text-purple-700 hover:font-semibold hover:border-l-4 hover:border-purple-400 hover:rounded-r-lg hover:shadow-sm transition-all duration-300 focus:bg-purple-50 focus:text-purple-700";
 
     return (
       <Sidebar
@@ -146,7 +175,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                   >
                     <SidebarMenuButton
                       asChild
-                      className="bg-white p-0 w-full hover:bg-white focus:bg-white"
+                      className="bg-white p-0 w-full hover:bg-transparent focus:bg-transparent"
                     >
                       <NavLink
                         to={item.url}
@@ -155,7 +184,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                         )} transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full focus:outline-none focus:ring-0`}
                       >
                         <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
-                        <span className="text-sm">{item.title}</span>
+                        <span className="text-sm font-medium hover:font-semibold transition-all duration-300">{item.title}</span>
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -164,7 +193,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             </SidebarGroupContent>
           </SidebarGroup>
 
-          {user?.role === "patient" && (
+          {/* {user?.role === "patient" && (
             <SidebarGroup className="bg-white py-4 mt-4 border-t border-purple-100">
               <SidebarGroupLabel className="text-purple-700 font-semibold bg-white px-4 mb-3">
                 Emergency
@@ -180,7 +209,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
-          )}
+          )} */}
 
           {/* Profile Section */}
           <div className="mt-auto bg-white border-t border-purple-100">
@@ -317,7 +346,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           <main className="flex-1">{children}</main>
 
           {/* Footer */}
-          {/* <Footer /> */}
+          <footer className="bg-white border-t border-purple-100 py-4 px-6">
+            <div className="flex items-center justify-center text-center">
+              <p className="text-xs text-purple-600">
+                © 2024 dr Hedera - Licensed under MIT | Secure Healthcare Data
+                Management Platform | All rights reserved
+              </p>
+            </div>
+          </footer>
         </div>
       </div>
     </SidebarProvider>

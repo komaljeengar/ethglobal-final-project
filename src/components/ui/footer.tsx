@@ -49,7 +49,7 @@ export default function Footer() {
             <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
               <span className="text-2xl font-extrabold text-purple-600">Mv</span>
             </div>
-            <h3 className="text-3xl font-bold text-white">Dr.0G</h3>
+            <h3 className="text-3xl font-bold text-white">Dr Hedera</h3>
           </div>
           <p className="text-lg text-purple-100 max-w-2xl mx-auto leading-relaxed">
             Revolutionizing healthcare through blockchain security and AI-powered insights
@@ -238,7 +238,7 @@ export default function Footer() {
         <div className="border-t border-white/20 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-purple-200 mb-4 md:mb-0 text-sm">
-              © {currentYear} Dr.0G. All rights reserved.
+              © {currentYear} Dr Hedera. All rights reserved.
             </div>
 
             <div className="flex items-center space-x-6">
@@ -270,10 +270,10 @@ export default function Footer() {
         {/* Brand statement */}
         <div className="text-center mt-8 pt-8 border-t border-white/10">
           <p className="text-xs text-purple-200 max-w-4xl mx-auto leading-relaxed">
-            Dr.0G is a revolutionary healthcare platform that transforms
+            Dr Hedera is a revolutionary healthcare platform that transforms
             medical data management through blockchain security, AI-powered insights,
-            and biometric authentication. Our platform supports Flow blockchain,
-            World ID verification, and Hedera AI with enterprise-grade security and HIPAA compliance.
+            and secure authentication. Our platform supports Flow blockchain
+            and Hedera AI with enterprise-grade security and HIPAA compliance.
           </p>
         </div>
       </div>

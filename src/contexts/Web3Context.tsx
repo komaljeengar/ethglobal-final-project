@@ -34,14 +34,36 @@ const PATIENT_IDENTITY_ABI = [
   "function verificationLevels(address) external view returns (uint8)"
 ];
 
-// Contract address - you'll need to deploy the contract and update this
-const CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Update with deployed contract address
+// Smart Contract ABI - EncryptedNFT contract
+const ENCRYPTED_NFT_ABI = [
+  // Events
+  "event NFTMinted(uint256 indexed tokenId, address indexed owner, string ipfsCID)",
+  "event KeyReencryptionNeeded(uint256 indexed tokenId, address indexed from, address indexed to, uint256 nextVersion)",
+  "event WrappedKeyUpdated(uint256 indexed tokenId, address indexed updater, uint256 newVersion)",
+  
+  // Functions
+  "function mintEncrypted(address to, string calldata ipfsCID, bytes calldata wrappedKey) external returns (uint256)",
+  "function getIPFSCID(uint256 tokenId) external view returns (string memory)",
+  "function getWrappedKey(uint256 tokenId) external view returns (bytes memory)",
+  "function updateWrappedKey(uint256 tokenId, bytes calldata newWrappedKey) external",
+  "function getKeyVersion(uint256 tokenId) external view returns (uint256)",
+  "function ownerOf(uint256 tokenId) external view returns (address)",
+  "function totalSupply() external view returns (uint256)",
+  "function grantMinter(address account) external",
+  "function grantReencryptor(address account) external",
+  "function adminUpdateIPFSCID(uint256 tokenId, string calldata newCID) external"
+];
+
+// Contract addresses - you'll need to deploy the contracts and update these
+const PATIENT_IDENTITY_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Update with deployed contract address
+const ENCRYPTED_NFT_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Update with deployed contract address
 
 interface Web3ContextType {
   provider: ethers.BrowserProvider | null;
   signer: ethers.JsonRpcSigner | null;
   account: string | null;
-  contract: ethers.Contract | null;
+  patientIdentityContract: ethers.Contract | null;
+  encryptedNFTContract: ethers.Contract | null;
   isConnected: boolean;
   isConnecting: boolean;
   connectWallet: () => Promise<void>;
@@ -69,7 +91,8 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
   const [account, setAccount] = useState<string | null>(null);
-  const [contract, setContract] = useState<ethers.Contract | null>(null);
+  const [patientIdentityContract, setPatientIdentityContract] = useState<ethers.Contract | null>(null);
+  const [encryptedNFTContract, setEncryptedNFTContract] = useState<ethers.Contract | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -94,8 +117,8 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
           setAccount(accounts[0].address);
           setIsConnected(true);
           
-          // Initialize contract
-          initializeContract(web3Provider, accounts[0].address);
+          // Initialize contracts
+          initializeContracts(web3Provider, accounts[0].address);
         }
         
         // Listen for account changes
@@ -108,14 +131,23 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     }
   };
 
-  const initializeContract = (web3Provider: ethers.BrowserProvider, accountAddress: string) => {
-    if (CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000") {
-      const contractInstance = new ethers.Contract(
-        CONTRACT_ADDRESS,
+  const initializeContracts = (web3Provider: ethers.BrowserProvider, accountAddress: string) => {
+    if (PATIENT_IDENTITY_CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000") {
+      const patientContract = new ethers.Contract(
+        PATIENT_IDENTITY_CONTRACT_ADDRESS,
         PATIENT_IDENTITY_ABI,
         web3Provider
       );
-      setContract(contractInstance);
+      setPatientIdentityContract(patientContract);
+    }
+
+    if (ENCRYPTED_NFT_CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000") {
+      const nftContract = new ethers.Contract(
+        ENCRYPTED_NFT_CONTRACT_ADDRESS,
+        ENCRYPTED_NFT_ABI,
+        web3Provider
+      );
+      setEncryptedNFTContract(nftContract);
     }
   };
 
@@ -138,8 +170,8 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
         setAccount(accounts[0]);
         setIsConnected(true);
         
-        // Initialize contract
-        initializeContract(web3Provider, accounts[0]);
+        // Initialize contracts
+        initializeContracts(web3Provider, accounts[0]);
       }
     } catch (error) {
       console.error('Failed to connect wallet:', error);
@@ -153,7 +185,8 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     setProvider(null);
     setSigner(null);
     setAccount(null);
-    setContract(null);
+    setPatientIdentityContract(null);
+    setEncryptedNFTContract(null);
     setIsConnected(false);
   };
 
@@ -209,7 +242,8 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
         provider,
         signer,
         account,
-        contract,
+        patientIdentityContract,
+        encryptedNFTContract,
         isConnected,
         isConnecting,
         connectWallet,

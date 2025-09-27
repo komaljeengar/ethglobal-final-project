@@ -84,7 +84,7 @@ const Register = () => {
       
       toast({
         title: "Registration Successful",
-        description: "Welcome to MedVault!",
+        description: "Welcome to dr Hedera!",
       });
       
       navigate(userType === 'patient' ? '/patient/dashboard' : '/doctor/dashboard');
@@ -105,7 +105,7 @@ const Register = () => {
             <div className="text-center mb-8">
               <h2 className="text-muted-foreground text-black text-3xl font-bold mb-2">Choose Your Role</h2>
               <p className="text-muted-foreground text-purple-600">
-                Select how you'll be using MedVault
+                Select how you'll be using dr Hedera
               </p>
             </div>
 
@@ -185,7 +185,7 @@ const Register = () => {
             <div className="text-center mb-8">
               <h2 className="text-muted-foreground text-black text-3xl font-bold mb-2">Account Details</h2>
               <p className="text-muted-foreground text-purple-900">
-                Complete your MedVault registration
+                Complete your dr Hedera registration
               </p>
             </div>
 
@@ -344,7 +344,7 @@ const Register = () => {
                     Creating Account...
                   </>
                 ) : (
-                  'Create MedVault Account'
+                  'Create dr Hedera Account'
                 )}
               </Button>
             </div>
@@ -357,7 +357,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Simple Header without announcement bar */}
       <nav className="sticky top-0 z-[100] w-full border-b border-gray-200 bg-white shadow-sm">
         <div className="container mx-auto px-4">
@@ -368,7 +368,7 @@ const Register = () => {
                 <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-md">
                   <span className="text-2xl font-extrabold text-white">Mv</span>
                 </div>
-                <span className="text-xl font-bold text-gray-900">MedVault</span>
+                <span className="text-xl font-bold text-gray-900">dr Hedera</span>
               </div>
             </div>
 
@@ -386,7 +386,8 @@ const Register = () => {
       </nav>
       
       {/* Registration Form */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="flex-1 flex items-center justify-center">
+        <div className="container mx-auto px-4 py-12">
         <div className="max-w-2xl mx-auto">
           {/* Progress Steps */}
           <div className="flex items-center justify-center mb-12">
@@ -421,11 +422,19 @@ const Register = () => {
             </p>
           </div>
         </div>
+        </div>
       </div>
 
       {/* Simple Footer */}
       {/* Footer */}
-      <Footer />
+      <footer className="bg-white border-t border-purple-100 py-4 px-6">
+            <div className="flex items-center justify-center text-center">
+              <p className="text-xs text-purple-600">
+                © 2025 dr Hedera - Licensed under MIT | Secure Healthcare Data
+                Management Platform | All rights reserved
+              </p>
+            </div>
+          </footer>
     </div>
   );
 };

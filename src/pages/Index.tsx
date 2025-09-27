@@ -54,11 +54,6 @@ const Index = () => {
       description: "Your medical data is secured on Flow blockchain with immutable records and cryptographic protection."
     },
     {
-      icon: <Eye className="w-6 h-6 text-primary" />,
-      title: "World ID Authentication",
-      description: "Biometric verification ensures only you can access your medical records with iris scanning technology."
-    },
-    {
       icon: <Brain className="w-6 h-6 text-primary" />,
       title: "AI Health Assistant",
       description: "Hedera AI analyzes your medical history to provide personalized health insights and recommendations."
@@ -89,7 +84,6 @@ const Index = () => {
 
   const technologies = [
     { name: "Flow Blockchain", color: "bg-primary text-primary-foreground" },
-    { name: "World ID", color: "bg-secondary text-secondary-foreground" },
     { name: "Hedera AI", color: "bg-accent text-accent-foreground" },
     { name: "IPFS Storage", color: "bg-muted text-muted-foreground" }
   ];
@@ -248,7 +242,7 @@ const Index = () => {
                         <span className="text-white font-bold text-sm">Mv</span>
                       </div>
                       <span className="text-white font-medium">
-                        Dr.0G Dashboard
+                        Dr Hedera Dashboard
                       </span>
                     </div>
                     <div className="flex gap-2">
@@ -401,7 +395,7 @@ const Index = () => {
                 style={{ transitionDelay: "800ms" }}
               >
                 <AnimatedText
-                  text="Why Dr.0G is the healthcare standard"
+                  text="Why Dr Hedera is the healthcare standard"
                   className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8"
                   delay={1000}
                 />
@@ -411,17 +405,17 @@ const Index = () => {
                     {
                       title: "Institutional-grade security",
                       description:
-                        "Dr.0G protocols are secured by enterprise-level security audits with a proven track record of protecting millions of medical records.",
+                        "Dr Hedera protocols are secured by enterprise-level security audits with a proven track record of protecting millions of medical records.",
                     },
                     {
                       title: "Cross-platform compatibility",
                       description:
-                        "Dr.0G connects existing healthcare systems to any blockchain network and enables seamless multi-platform data management.",
+                        "Dr Hedera connects existing healthcare systems to any blockchain network and enables seamless multi-platform data management.",
                     },
                     {
                       title: "Healthcare-ready infrastructure",
                       description:
-                        "Dr.0G provides healthcare institutions with comprehensive documentation, dedicated support, and proven scalability.",
+                        "Dr Hedera provides healthcare institutions with comprehensive documentation, dedicated support, and proven scalability.",
                     },
                   ].map((item, index) => (
                     <div
@@ -599,7 +593,7 @@ const Index = () => {
                         }`}
                         style={{ transitionDelay: "1200ms" }}
                       >
-                        Dr.0G Analytics Dashboard
+                        Dr Hedera Analytics Dashboard
                       </span>
                     </div>
                     <div

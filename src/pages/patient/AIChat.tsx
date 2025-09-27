@@ -355,7 +355,7 @@ const AIChat = () => {
                   <Button 
                     onClick={handleSendMessage} 
                     disabled={!message.trim()}
-                    className="bg-purple-600 text-white hover:bg-purple-700 disabled:bg-gray-300 disabled:text-gray-500 w-full sm:w-auto"
+                    className="bg-purple-600 text-white hover:bg-purple-700 disabled:bg-gray-900 disabled:text-gray-900 w-full sm:w-auto"
                   >
                     <Send className="h-4 w-4" />
                   </Button>

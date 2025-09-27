@@ -181,14 +181,6 @@
     @apply bg-blue-500/20 text-blue-400 border border-blue-500/30 backdrop-blur-sm;
   }
   
-  .iris-scan {
-    @apply relative inline-block;
-  }
-  
-  .iris-scan::before {
-    content: '';
-    @apply absolute inset-0 rounded-full border-2 border-primary animate-pulse;
-  }
   
   /* Animated background elements */
   .animated-bg {
