@@ -238,9 +238,9 @@ const Index = () => {
                   {/* Dashboard Header */}
                   <div className="bg-gray-900 px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                      {/* <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
                         <span className="text-white font-bold text-sm">Mv</span>
-                      </div>
+                      </div> */}
                       <span className="text-white font-medium">
                         Dr Hedera Dashboard
                       </span>

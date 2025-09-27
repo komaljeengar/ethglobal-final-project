@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from './button';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+interface User {
+  name?: string;
+  email?: string;
+}
+import { Button } from "./button";
 import {
   BarChart3,
   Wallet,
@@ -27,19 +32,19 @@ import {
   User,
   LogOut,
   Settings,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-} from './dropdown-menu';
-import { Badge } from './badge';
-import { useAuth } from '@/contexts/AuthContext';
+} from "./dropdown-menu";
+import { Badge } from "./badge";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Navbar() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -55,7 +60,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -69,7 +74,8 @@ export default function Navbar() {
             <Sparkles className="w-4 h-4" />
           </div>
           <span className="font-semibold">
-            🏥 Live: 250K+ Medical Records Secured • AI Health Insights Available
+            🏥 Live: 250K+ Medical Records Secured • AI Health Insights
+            Available
           </span>
           <Link
             to="/auth/register"
@@ -86,9 +92,9 @@ export default function Navbar() {
             {/* Left: Logo */}
             <div className="flex items-center">
               <Link to="/" className="flex items-center gap-2 group">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-md">
+                {/* <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-105 transition-all duration-300 shadow-md">
                   <span className="text-2xl font-extrabold text-white">Mv</span>
-                </div>
+                </div> */}
               </Link>
             </div>
 
@@ -159,7 +165,6 @@ export default function Navbar() {
                             </div>
                           </Link>
                         </DropdownMenuItem>
-
 
                         <DropdownMenuSeparator className="my-2" />
 
@@ -614,20 +619,24 @@ export default function Navbar() {
                         <User className="w-4 h-4 text-white" />
                       </div>
                       <span className="hidden md:block text-sm font-medium">
-                        {user.name || 'User'}
+                        {user.name || "User"}
                       </span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuItem onClick={() => navigate('/patient/dashboard')}>
+                    <DropdownMenuItem
+                      onClick={() => navigate("/patient/dashboard")}
+                    >
                       <Heart className="w-4 h-4 mr-2" />
                       Patient Dashboard
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => navigate('/doctor/dashboard')}>
+                    <DropdownMenuItem
+                      onClick={() => navigate("/doctor/dashboard")}
+                    >
                       <Stethoscope className="w-4 h-4 mr-2" />
                       Doctor Dashboard
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => navigate('/settings')}>
+                    <DropdownMenuItem onClick={() => navigate("/settings")}>
                       <Settings className="w-4 h-4 mr-2" />
                       Settings
                     </DropdownMenuItem>
@@ -663,7 +672,11 @@ export default function Navbar() {
                 className="lg:hidden text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {isMobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </Button>
             </div>
           </div>

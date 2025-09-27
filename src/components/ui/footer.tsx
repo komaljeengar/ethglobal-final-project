@@ -46,9 +46,9 @@ export default function Footer() {
         {/* Logo and tagline section */}
         <div className="text-center mb-16">
           <div className="flex justify-center items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
+            {/* <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
               <span className="text-2xl font-extrabold text-purple-600">Mv</span>
-            </div>
+            </div> */}
             <h3 className="text-3xl font-bold text-white">Dr Hedera</h3>
           </div>
           <p className="text-lg text-purple-100 max-w-2xl mx-auto leading-relaxed">

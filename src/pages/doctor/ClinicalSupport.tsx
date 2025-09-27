@@ -361,12 +361,12 @@ const ClinicalSupport = () => {
           <Card className="bg-green-50 border-green-200">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <CheckCircle className="h-5 w-5 text-green-600" />
+                <CheckCircle className="h-5 w-5 text-green-400" />
                 <div>
-                  <h3 className="font-semibold text-green-900">
+                  <h3 className="font-semibold text-green-200">
                     Clinical Support Updated!
                   </h3>
-                  <p className="text-green-700 text-sm">
+                  <p className="text-green-400 text-sm">
                     AI clinical assistant has been updated with the latest
                     medical data and guidelines.
                   </p>
@@ -431,7 +431,7 @@ const ClinicalSupport = () => {
                 <Button
                   key={question.id}
                   variant="outline"
-                  className="h-auto p-4 flex flex-col items-center gap-2 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 min-h-[100px]"
+                  className="h-auto p-1 flex flex-col items-center gap-2 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-300 text-purple-700 hover:from-purple-100 hover:to-purple-200 hover:border-purple-400 min-h-[100px]"
                   onClick={() => handleQuickQuestion(question.question)}
                 >
                   <div className="flex items-center gap-2 w-full justify-center">

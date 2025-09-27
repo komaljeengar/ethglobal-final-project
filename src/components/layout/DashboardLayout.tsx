@@ -163,7 +163,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           </div>
 
           <SidebarGroup className="bg-white py-4">
-            <SidebarGroupLabel className="text-purple-700 font-semibold bg-white px-4 mb-3">
+            <SidebarGroupLabel className="text-purple-800 font-bold text-lg tracking-wide bg-white px-4 mb-4 uppercase">
               {user?.role === "doctor" ? "Clinical Tools" : "Your Health"}
             </SidebarGroupLabel>
             <SidebarGroupContent className="bg-white">
@@ -184,7 +184,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                         )} transition-all duration-300 py-4 pl-4 pr-4 flex items-center w-full focus:outline-none focus:ring-0`}
                       >
                         <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
-                        <span className="text-sm font-medium hover:font-semibold transition-all duration-300">{item.title}</span>
+                        <span className="text-sm font-medium hover:font-semibold transition-all duration-300">
+                          {item.title}
+                        </span>
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -256,7 +258,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                       onClick={handleLogout}
                       className="text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 rounded-md cursor-pointer"
                     >
-                      <LogOut className="w-4 h-4 mr-2 text-red-500" />
+                      <LogOut className="w-4 h-4 mr-2 hover:text-red-500 text-red-500" />
                       Sign Out
                     </DropdownMenuItem>
                   </DropdownMenuContent>
