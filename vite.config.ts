@@ -27,48 +27,7 @@ export default defineConfig(({ mode }) => ({
         return false;
       },
       output: {
-        manualChunks: (id) => {
-          // Vendor chunks
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-vendor';
-            }
-            if (id.includes('react-router')) {
-              return 'router-vendor';
-            }
-            if (id.includes('@radix-ui')) {
-              return 'ui-vendor';
-            }
-            if (id.includes('ethers')) {
-              return 'ethers-vendor';
-            }
-            if (id.includes('@metamask')) {
-              return 'web3-vendor';
-            }
-            if (id.includes('lucide-react')) {
-              return 'icons-vendor';
-            }
-            if (id.includes('clsx') || id.includes('tailwind-merge') || id.includes('class-variance-authority')) {
-              return 'utils-vendor';
-            }
-            // Other node_modules
-            return 'vendor';
-          }
-          
-          // Feature chunks
-          if (id.includes('/src/pages/auth/')) {
-            return 'auth-pages';
-          }
-          if (id.includes('/src/pages/doctor/')) {
-            return 'doctor-pages';
-          }
-          if (id.includes('/src/pages/patient/')) {
-            return 'patient-pages';
-          }
-          if (id.includes('/src/components/Blockchain') || id.includes('/src/components/WalletConnection')) {
-            return 'blockchain-components';
-          }
-        },
+        manualChunks: undefined, // Disable manual chunks to avoid Rollup issues
       },
     },
   },
