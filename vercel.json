@@ -1,25 +1,15 @@
 {
-  "version": 2,
-  "buildCommand": "npm install && npm run vercel-build",
+  "buildCommand": "npm ci && npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npm install",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+  "framework": "vite",
+  "installCommand": "npm ci --include=optional",
+  "devCommand": "npm run dev",
+  "functions": {
+    "app/api/**/*.js": {
+      "runtime": "nodejs18.x"
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
+  },
   "env": {
-    "NODE_ENV": "production",
-    "VITE_LEGACY_BUILD": "false"
+    "NODE_ENV": "production"
   }
 }
