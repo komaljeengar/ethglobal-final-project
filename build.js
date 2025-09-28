@@ -13,6 +13,23 @@ try {
   process.env.NODE_ENV = 'production';
   process.env.ROLLUP_DISABLE_NATIVE = 'true';
   
+  // Debug: Check what's in node_modules
+  console.log('🔍 Checking node_modules...');
+  try {
+    const nodeModulesExists = fs.existsSync('node_modules');
+    console.log('📁 node_modules exists:', nodeModulesExists);
+    
+    if (nodeModulesExists) {
+      const viteExists = fs.existsSync('node_modules/vite');
+      console.log('📦 vite package exists:', viteExists);
+      
+      const viteBinExists = fs.existsSync('node_modules/.bin/vite');
+      console.log('🔧 vite binary exists:', viteBinExists);
+    }
+  } catch (debugError) {
+    console.log('⚠️  Could not check node_modules:', debugError.message);
+  }
+  
   // Try to install the missing Rollup native dependency
   console.log('🔧 Attempting to fix Rollup native dependencies...');
   try {
@@ -28,19 +45,45 @@ try {
     console.log('⚠️  Could not install Rollup native dependency, continuing...');
   }
   
-  // Use Vite with specific flags to avoid native dependencies
-  const buildCommand = 'npx vite build --mode production --minify esbuild --target esnext';
+  // Try different approaches to run Vite
+  const buildCommands = [
+    './node_modules/.bin/vite build --config vite.config.simple.ts',
+    'npx vite build --config vite.config.simple.ts',
+    './node_modules/.bin/vite build --mode production --minify esbuild --target esnext',
+    'npx vite build --mode production --minify esbuild --target esnext',
+    'npm run build'
+  ];
   
-  console.log('📦 Running build command:', buildCommand);
-  execSync(buildCommand, { 
-    stdio: 'inherit',
-    env: {
-      ...process.env,
-      VITE_LEGACY_BUILD: 'false',
-      NODE_ENV: 'production',
-      ROLLUP_DISABLE_NATIVE: 'true'
+  let buildSuccess = false;
+  
+  for (const buildCommand of buildCommands) {
+    console.log('📦 Trying build command:', buildCommand);
+    try {
+      execSync(buildCommand, { 
+        stdio: 'inherit',
+        env: {
+          ...process.env,
+          VITE_LEGACY_BUILD: 'false',
+          NODE_ENV: 'production',
+          ROLLUP_DISABLE_NATIVE: 'true'
+        }
+      });
+      console.log('✅ Build completed successfully with:', buildCommand);
+      buildSuccess = true;
+      break;
+    } catch (error) {
+      console.log('❌ Build failed with:', buildCommand);
+      console.log('Error:', error.message);
+      if (buildCommand === buildCommands[buildCommands.length - 1]) {
+        throw error; // Re-throw the last error
+      }
+      console.log('🔄 Trying next build command...');
     }
-  });
+  }
+  
+  if (!buildSuccess) {
+    throw new Error('All build commands failed');
+  }
   
   console.log('✅ Build completed successfully!');
   
