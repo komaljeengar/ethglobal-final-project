@@ -76,6 +76,7 @@ interface Web3ContextType {
   encryptedNFTContract: ethers.Contract | null;
   isConnected: boolean;
   isConnecting: boolean;
+  error: string | null;
   connectWallet: () => Promise<void>;
   disconnectWallet: () => void;
   switchNetwork: (chainId: string) => Promise<void>;
@@ -101,6 +102,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
   const [account, setAccount] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [patientIdentityContract, setPatientIdentityContract] =
     useState<ethers.Contract | null>(null);
   const [encryptedNFTContract, setEncryptedNFTContract] =
@@ -139,7 +141,8 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
         ethereumProvider.on("disconnect", handleDisconnect);
       }
     } catch (error) {
-      console.error("Failed to initialize Web3:", error);
+      console.warn("Web3 initialization failed (continuing without blockchain features):", error);
+      setError("Web3 features unavailable");
     }
   };
 
@@ -264,6 +267,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
         encryptedNFTContract,
         isConnected,
         isConnecting,
+        error,
         connectWallet,
         disconnectWallet,
         switchNetwork,
