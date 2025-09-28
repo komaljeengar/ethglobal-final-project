@@ -67,7 +67,7 @@
             mutation.addedNodes.forEach(function(node) {
               if (node.tagName === 'SCRIPT' && node.src && 
                   (node.src.includes('content.js') || node.src.includes('selection.js') || 
-                   node.src.includes('knowee') || node.src.includes('extension'))) {
+                   node.src.includes('extension'))) {
                 console.warn('Blocked extension script injection:', node.src);
                 node.remove();
               }

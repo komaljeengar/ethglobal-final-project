@@ -29,11 +29,10 @@ class ErrorBoundary extends Component<Props, State> {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
     
     // Check if this is an extension-related error
-    const isExtensionError = error.message.includes('createContext') || 
+      const isExtensionError = error.message.includes('createContext') || 
                            error.message.includes('Cannot read properties') ||
                            error.message.includes('content.js') ||
-                           error.message.includes('selection.js') ||
-                           error.message.includes('knowee');
+                           error.message.includes('selection.js');
 
     this.setState({
       error,
