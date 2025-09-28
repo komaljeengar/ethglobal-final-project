@@ -98,3 +98,32 @@ public
 # Temporary folders
 tmp/
 temp/
+
+# Large files not needed for build
+*.lockb
+bun.lockb
+
+# Blockchain artifacts (not needed for frontend build)
+contracts/build/
+contracts/artifacts/
+contracts/cache/
+contracts/node_modules/
+contracts/typechain/
+
+# Hardhat files
+.hardhat/
+deployments/
+
+# Solidity compilation outputs
+*.sol.bak
+*.sol.orig
+
+# Large documentation files that can be regenerated
+*.pdf
+*.zip
+*.tar.gz
+*.rar
+
+# IDE specific large files
+*.code-workspace
+.vscode/settings.json.bak
