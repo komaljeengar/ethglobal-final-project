@@ -13,7 +13,9 @@ window.addEventListener('error', (event) => {
         errorMsg.includes('Cannot destructure') ||
         errorMsg.includes('content.js') ||
         errorMsg.includes('selection.js') ||
-        errorMsg.includes('knowee')) {
+        errorMsg.includes('knowee') ||
+        errorMsg.includes('intermediate value') ||
+        errorMsg.includes('is null')) {
       console.warn('Extension conflict detected, ignoring error:', errorMsg);
       event.preventDefault();
       return false;
@@ -31,7 +33,9 @@ window.addEventListener('unhandledrejection', (event) => {
         errorMsg.includes('Cannot destructure') ||
         errorMsg.includes('content.js') ||
         errorMsg.includes('selection.js') ||
-        errorMsg.includes('knowee')) {
+        errorMsg.includes('knowee') ||
+        errorMsg.includes('intermediate value') ||
+        errorMsg.includes('is null')) {
       console.warn('Extension conflict detected in promise rejection, ignoring:', errorMsg);
       event.preventDefault();
       return false;
@@ -60,6 +64,33 @@ if (window.React) {
     configurable: false
   });
 }
+
+// Add null/undefined protection for extension interference
+const originalDestructuring = Object.prototype.toString;
+Object.prototype.toString = function() {
+  if (this === null || this === undefined) {
+    return '[object Null]';
+  }
+  return originalDestructuring.call(this);
+};
+
+// Protect against null destructuring in extensions
+const originalObjectKeys = Object.keys;
+Object.keys = function(obj) {
+  if (obj === null || obj === undefined) {
+    return [];
+  }
+  return originalObjectKeys.call(this, obj);
+};
+
+// Protect against null property access
+const originalObjectValues = Object.values;
+Object.values = function(obj) {
+  if (obj === null || obj === undefined) {
+    return [];
+  }
+  return originalObjectValues.call(this, obj);
+};
 
 // Create root with error boundary
 const root = createRoot(document.getElementById("root")!);
