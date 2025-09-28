@@ -13,7 +13,7 @@ try {
   process.env.NODE_ENV = 'production';
   process.env.ROLLUP_DISABLE_NATIVE = 'true';
   
-  // Try to install the missing Rollup native dependency first
+  // Try to install the missing Rollup native dependency
   console.log('🔧 Attempting to fix Rollup native dependencies...');
   try {
     execSync('npm install @rollup/rollup-linux-x64-gnu --force', { 
