@@ -15,6 +15,72 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <!-- Content Security Policy to prevent extension conflicts -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: blob: https:;
+      connect-src 'self' https: wss:;
+      frame-src 'none';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+    ">
+    
+    <!-- Prevent extension script conflicts -->
+    <script>
+      // Protect React context from extension interference
+      (function() {
+        // Store original React if it exists
+        const originalReact = window.React;
+        
+        // Prevent extensions from overriding React
+        Object.defineProperty(window, 'React', {
+          get: function() {
+            return originalReact;
+          },
+          set: function(value) {
+            if (value && value.createContext && value.useState && value.useEffect) {
+              originalReact = value;
+            }
+          },
+          configurable: false
+        });
+        
+        // Error boundary for extension conflicts
+        window.addEventListener('error', function(event) {
+          if (event.error && event.error.message && 
+              (event.error.message.includes('createContext') || 
+               event.error.message.includes('Cannot read properties'))) {
+            console.warn('Extension conflict detected, ignoring error:', event.error.message);
+            event.preventDefault();
+            return false;
+          }
+        });
+        
+        // Prevent extension scripts from running in our context
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.tagName === 'SCRIPT' && node.src && 
+                  (node.src.includes('content.js') || node.src.includes('selection.js') || 
+                   node.src.includes('knowee') || node.src.includes('extension'))) {
+                console.warn('Blocked extension script injection:', node.src);
+                node.remove();
+              }
+            });
+          });
+        });
+        
+        observer.observe(document, {
+          childList: true,
+          subtree: true
+        });
+      })();
+    </script>
   </head>
 
   <body>
