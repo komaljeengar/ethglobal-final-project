@@ -11,9 +11,9 @@ pragma solidity ^0.8.19;
   - Only owner/approved can read the encrypted CID / wrappedKey via getters (convenience)
 */
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import "openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
+import "openzeppelin-contracts/contracts/access/AccessControl.sol";
+import "openzeppelin-contracts/contracts/utils/Counters.sol";
 
 contract EncryptedNFT is ERC721, AccessControl {
     using Counters for Counters.Counter;
@@ -78,7 +78,7 @@ contract EncryptedNFT is ERC721, AccessControl {
     function getIPFSCID(uint256 tokenId) external view returns (string memory) {
         require(_exists(tokenId), "EncryptedNFT: nonexistent token");
         address owner = ownerOf(tokenId);
-        require(_isAllowed(owner, msg.sender), "EncryptedNFT: caller not owner nor approved");
+        require(_isAllowed(owner, msg.sender, tokenId), "EncryptedNFT: caller not owner nor approved");
         return _encryptedData[tokenId].ipfsCID;
     }
 
@@ -88,7 +88,7 @@ contract EncryptedNFT is ERC721, AccessControl {
     function getWrappedKey(uint256 tokenId) external view returns (bytes memory) {
         require(_exists(tokenId), "EncryptedNFT: nonexistent token");
         address owner = ownerOf(tokenId);
-        require(_isAllowed(owner, msg.sender), "EncryptedNFT: caller not owner nor approved");
+        require(_isAllowed(owner, msg.sender, tokenId), "EncryptedNFT: caller not owner nor approved");
         return _encryptedData[tokenId].wrappedKey;
     }
 
@@ -111,7 +111,7 @@ contract EncryptedNFT is ERC721, AccessControl {
     /**
      * @dev Internal helper to check ownership or approval.
      */
-    function _isAllowed(address owner, address caller) internal view returns (bool) {
+    function _isAllowed(address owner, address caller, uint256 tokenId) internal view returns (bool) {
         return (caller == owner || getApproved(tokenId) == caller || isApprovedForAll(owner, caller));
     }
 
@@ -160,5 +160,12 @@ contract EncryptedNFT is ERC721, AccessControl {
     function getKeyVersion(uint256 tokenId) external view returns (uint256) {
         require(_exists(tokenId), "EncryptedNFT: nonexistent token");
         return _encryptedData[tokenId].version;
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, AccessControl) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 }

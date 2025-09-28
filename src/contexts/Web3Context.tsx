@@ -54,9 +54,38 @@ const ENCRYPTED_NFT_ABI = [
   "function adminUpdateIPFSCID(uint256 tokenId, string calldata newCID) external"
 ];
 
+// Smart Contract ABI - MedicalRecordVault contract
+const MEDICAL_RECORD_VAULT_ABI = [
+  // Events
+  "event MedicalRecordCreated(uint256 indexed recordId, address indexed patient, address indexed creator, uint8 category, uint256 timestamp)",
+  "event AccessPermissionGranted(address indexed patient, address indexed grantedTo, uint8 category, uint8 level, uint256 expiresAt)",
+  "event AccessPermissionRevoked(address indexed patient, address indexed revokedFrom, uint8 category)",
+  "event MedicalRecordAccessed(uint256 indexed recordId, address indexed accessor, address indexed patient, uint256 timestamp)",
+  "event EmergencyAccess(address indexed patient, address indexed emergencyProvider, uint256 timestamp)",
+  "event RecordUpdated(uint256 indexed recordId, address indexed patient, uint256 timestamp)",
+  
+  // Functions
+  "function createMedicalRecord(string memory _ipfsHash, string memory _metadataHash, uint8 _category, bool _isEmergencyAccessible) external",
+  "function grantAccess(address _doctor, uint8 _category, uint8 _level, uint256 _duration, string memory _purpose) external",
+  "function revokeAccess(address _doctor, uint8 _category) external",
+  "function accessMedicalRecord(uint256 _recordId, string memory _ipAddress) external returns (string memory, string memory)",
+  "function emergencyAccess(address _patient, uint8 _category) external returns (uint256[] memory)",
+  "function updateMedicalRecord(uint256 _recordId, string memory _newIpfsHash, string memory _newMetadataHash) external",
+  "function setEmergencyProvider(address _provider, bool _authorized) external",
+  "function getPatientRecords(address _patient) external view returns (uint256[] memory)",
+  "function getAccessPermission(address _patient, address _doctor, uint8 _category) external view returns (tuple(address grantedTo, address patient, uint8 category, uint8 level, uint256 grantedAt, uint256 expiresAt, bool isActive, string purpose))",
+  "function getPatientAccessLogs(address _patient) external view returns (uint256[] memory)",
+  "function checkAccess(address _patient, address _doctor, uint8 _category) external view returns (bool, uint8, uint256)",
+  "function getTotalRecords() external view returns (uint256)",
+  "function medicalRecords(uint256) external view returns (tuple(uint256 recordId, address patient, string ipfsHash, string metadataHash, uint8 category, uint256 createdAt, uint256 lastAccessed, bool isEmergencyAccessible, address createdBy, bool isActive))",
+  "function accessLogs(uint256) external view returns (tuple(uint256 logId, address accessor, address patient, uint256 recordId, uint256 accessedAt, string accessType, string ipAddress))",
+  "function emergencyAccessProviders(address) external view returns (bool)"
+];
+
 // Contract addresses - you'll need to deploy the contracts and update these
-const PATIENT_IDENTITY_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Update with deployed contract address
-const ENCRYPTED_NFT_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Update with deployed contract address
+const PATIENT_IDENTITY_CONTRACT_ADDRESS = "0x08023259e316c86364F01E97aAB69339Cf9C02ac"; // Update with deployed contract address
+const ENCRYPTED_NFT_CONTRACT_ADDRESS = "0xb64747AE9eE6910Afd8630B74895ee84f7D5E3d6"; // Update with deployed contract address
+const MEDICAL_RECORD_VAULT_CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000"; // Update with deployed contract address
 
 interface Web3ContextType {
   provider: ethers.BrowserProvider | null;
@@ -64,6 +93,7 @@ interface Web3ContextType {
   account: string | null;
   patientIdentityContract: ethers.Contract | null;
   encryptedNFTContract: ethers.Contract | null;
+  medicalRecordVaultContract: ethers.Contract | null;
   isConnected: boolean;
   isConnecting: boolean;
   connectWallet: () => Promise<void>;
@@ -93,6 +123,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   const [account, setAccount] = useState<string | null>(null);
   const [patientIdentityContract, setPatientIdentityContract] = useState<ethers.Contract | null>(null);
   const [encryptedNFTContract, setEncryptedNFTContract] = useState<ethers.Contract | null>(null);
+  const [medicalRecordVaultContract, setMedicalRecordVaultContract] = useState<ethers.Contract | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -132,7 +163,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
   };
 
   const initializeContracts = (web3Provider: ethers.BrowserProvider, accountAddress: string) => {
-    if (PATIENT_IDENTITY_CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000") {
+    if (PATIENT_IDENTITY_CONTRACT_ADDRESS == "0x08023259e316c86364F01E97aAB69339Cf9C02ac") {
       const patientContract = new ethers.Contract(
         PATIENT_IDENTITY_CONTRACT_ADDRESS,
         PATIENT_IDENTITY_ABI,
@@ -141,13 +172,22 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
       setPatientIdentityContract(patientContract);
     }
 
-    if (ENCRYPTED_NFT_CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000") {
+    if (ENCRYPTED_NFT_CONTRACT_ADDRESS == "0xb64747AE9eE6910Afd8630B74895ee84f7D5E3d6") {
       const nftContract = new ethers.Contract(
         ENCRYPTED_NFT_CONTRACT_ADDRESS,
         ENCRYPTED_NFT_ABI,
         web3Provider
       );
       setEncryptedNFTContract(nftContract);
+    }
+
+    if (MEDICAL_RECORD_VAULT_CONTRACT_ADDRESS != "0x0000000000000000000000000000000000000000") {
+      const vaultContract = new ethers.Contract(
+        MEDICAL_RECORD_VAULT_CONTRACT_ADDRESS,
+        MEDICAL_RECORD_VAULT_ABI,
+        web3Provider
+      );
+      setMedicalRecordVaultContract(vaultContract);
     }
   };
 
@@ -187,6 +227,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
     setAccount(null);
     setPatientIdentityContract(null);
     setEncryptedNFTContract(null);
+    setMedicalRecordVaultContract(null);
     setIsConnected(false);
   };
 
@@ -244,6 +285,7 @@ export const Web3Provider: React.FC<Web3ProviderProps> = ({ children }) => {
         account,
         patientIdentityContract,
         encryptedNFTContract,
+        medicalRecordVaultContract,
         isConnected,
         isConnecting,
         connectWallet,
