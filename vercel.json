@@ -1,4 +1,5 @@
 {
   "framework": "vite",
-  "installCommand": "npm ci --include=optional"
+  "installCommand": "npm install",
+  "buildCommand": "npm install @rollup/rollup-linux-x64-gnu @rollup/rollup-linux-arm64-gnu && npm run build"
 }
