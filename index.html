@@ -20,8 +20,8 @@
     <meta http-equiv="Content-Security-Policy" content="
       default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:;
       script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      font-src 'self' https://fonts.gstatic.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com data:;
+      font-src 'self' https://fonts.gstatic.com data: blob:;
       img-src 'self' data: blob: https:;
       connect-src 'self' https: wss:;
       frame-src 'none';
@@ -35,29 +35,92 @@
       // Protect React context from extension interference
       (function() {
         // Store original React if it exists
-        const originalReact = window.React;
+        let originalReact = window.React;
+        let originalReactDOM = window.ReactDOM;
+        
+        // Create a protected React namespace
+        const protectedReact = {
+          createContext: originalReact?.createContext || function() {},
+          useState: originalReact?.useState || function() {},
+          useEffect: originalReact?.useEffect || function() {},
+          useLayoutEffect: originalReact?.useLayoutEffect || function() {},
+          useContext: originalReact?.useContext || function() {},
+          useReducer: originalReact?.useReducer || function() {},
+          useMemo: originalReact?.useMemo || function() {},
+          useCallback: originalReact?.useCallback || function() {},
+          useRef: originalReact?.useRef || function() {},
+          forwardRef: originalReact?.forwardRef || function() {},
+          memo: originalReact?.memo || function() {},
+          createElement: originalReact?.createElement || function() {},
+          Fragment: originalReact?.Fragment || function() {},
+          Component: originalReact?.Component || function() {}
+        };
         
         // Prevent extensions from overriding React
         Object.defineProperty(window, 'React', {
           get: function() {
-            return originalReact;
+            return protectedReact;
           },
           set: function(value) {
-            if (value && value.createContext && value.useState && value.useEffect) {
-              originalReact = value;
+            if (value && typeof value === 'object') {
+              // Only update if it's a valid React object
+              if (value.createContext && value.useState && value.useEffect) {
+                originalReact = value;
+                // Update protected version with new React
+                Object.assign(protectedReact, value);
+              }
             }
           },
           configurable: false
         });
         
-        // Error boundary for extension conflicts
+        // Protect ReactDOM as well
+        if (originalReactDOM) {
+          Object.defineProperty(window, 'ReactDOM', {
+            get: function() {
+              return originalReactDOM;
+            },
+            set: function(value) {
+              if (value && value.render && value.createRoot) {
+                originalReactDOM = value;
+              }
+            },
+            configurable: false
+          });
+        }
+        
+        // Enhanced error boundary for extension conflicts
         window.addEventListener('error', function(event) {
-          if (event.error && event.error.message && 
-              (event.error.message.includes('createContext') || 
-               event.error.message.includes('Cannot read properties'))) {
-            console.warn('Extension conflict detected, ignoring error:', event.error.message);
-            event.preventDefault();
-            return false;
+          if (event.error && event.error.message) {
+            const errorMsg = event.error.message;
+            if (errorMsg.includes('createContext') || 
+                errorMsg.includes('useLayoutEffect') ||
+                errorMsg.includes('Cannot read properties') ||
+                errorMsg.includes('Cannot destructure') ||
+                errorMsg.includes('content.js') ||
+                errorMsg.includes('selection.js') ||
+                errorMsg.includes('knowee')) {
+              console.warn('Extension conflict detected, ignoring error:', errorMsg);
+              event.preventDefault();
+              return false;
+            }
+          }
+        });
+        
+        // Handle unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+          if (event.reason && event.reason.message) {
+            const errorMsg = event.reason.message;
+            if (errorMsg.includes('createContext') || 
+                errorMsg.includes('useLayoutEffect') ||
+                errorMsg.includes('Cannot read properties') ||
+                errorMsg.includes('Cannot destructure') ||
+                errorMsg.includes('content.js') ||
+                errorMsg.includes('selection.js')) {
+              console.warn('Extension conflict in promise, ignoring:', errorMsg);
+              event.preventDefault();
+              return false;
+            }
           }
         });
         
@@ -65,11 +128,27 @@
         const observer = new MutationObserver(function(mutations) {
           mutations.forEach(function(mutation) {
             mutation.addedNodes.forEach(function(node) {
-              if (node.tagName === 'SCRIPT' && node.src && 
-                  (node.src.includes('content.js') || node.src.includes('selection.js') || 
-                   node.src.includes('knowee') || node.src.includes('extension'))) {
-                console.warn('Blocked extension script injection:', node.src);
-                node.remove();
+              if (node.tagName === 'SCRIPT') {
+                // Block extension scripts by src
+                if (node.src && (node.src.includes('content.js') || 
+                    node.src.includes('selection.js') || 
+                    node.src.includes('knowee') || 
+                    node.src.includes('extension'))) {
+                  console.warn('Blocked extension script injection:', node.src);
+                  node.remove();
+                  return;
+                }
+                
+                // Block extension scripts by content
+                if (node.textContent && (
+                    node.textContent.includes('knowee') ||
+                    node.textContent.includes('KNOWEE') ||
+                    node.textContent.includes('FloatTool') ||
+                    node.textContent.includes('messageSubscribe'))) {
+                  console.warn('Blocked extension script by content');
+                  node.remove();
+                  return;
+                }
               }
             });
           });
@@ -79,6 +158,30 @@
           childList: true,
           subtree: true
         });
+        
+        // Additional protection: Override console methods to filter extension logs
+        const originalConsoleWarn = console.warn;
+        const originalConsoleError = console.error;
+        
+        console.warn = function(...args) {
+          const message = args.join(' ');
+          if (!message.includes('content.js') && 
+              !message.includes('selection.js') && 
+              !message.includes('knowee')) {
+            originalConsoleWarn.apply(console, args);
+          }
+        };
+        
+        console.error = function(...args) {
+          const message = args.join(' ');
+          if (!message.includes('content.js') && 
+              !message.includes('selection.js') && 
+              !message.includes('knowee')) {
+            originalConsoleError.apply(console, args);
+          }
+        };
+        
+        console.log('Extension protection initialized');
       })();
     </script>
   </head>

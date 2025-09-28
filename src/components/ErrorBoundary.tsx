@@ -30,7 +30,9 @@ class ErrorBoundary extends Component<Props, State> {
     
     // Check if this is an extension-related error
     const isExtensionError = error.message.includes('createContext') || 
+                           error.message.includes('useLayoutEffect') ||
                            error.message.includes('Cannot read properties') ||
+                           error.message.includes('Cannot destructure') ||
                            error.message.includes('content.js') ||
                            error.message.includes('selection.js') ||
                            error.message.includes('knowee');
@@ -61,7 +63,9 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       const isExtensionError = this.state.error?.message.includes('createContext') || 
-                             this.state.error?.message.includes('Cannot read properties');
+                             this.state.error?.message.includes('useLayoutEffect') ||
+                             this.state.error?.message.includes('Cannot read properties') ||
+                             this.state.error?.message.includes('Cannot destructure');
 
       return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4">
