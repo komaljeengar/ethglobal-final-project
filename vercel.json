@@ -1,15 +1,4 @@
 {
-  "buildCommand": "npm ci && npm run build",
-  "outputDirectory": "dist",
   "framework": "vite",
-  "installCommand": "npm ci --include=optional",
-  "devCommand": "npm run dev",
-  "functions": {
-    "app/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "installCommand": "npm ci --include=optional"
 }
