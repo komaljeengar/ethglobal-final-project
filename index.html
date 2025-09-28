@@ -10,9 +10,20 @@
     <meta property="og:title" content="Dr. Hedera" />
     <meta property="og:description" content="Dr. Hedera" />
     <meta property="og:type" content="website" />
-  
 
-    
+    <!-- Content Security Policy to prevent extension conflicts -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com data:;
+      font-src 'self' https://fonts.gstatic.com data: blob:;
+      img-src 'self' data: blob: https:;
+      connect-src 'self' https: wss:;
+      frame-src 'none';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+    ">
     
     <!-- Prevent extension script conflicts -->
     <script>
@@ -147,68 +158,70 @@
           subtree: true
         });
         
-        // Additional protection: Override console methods to filter extension logs
+        // Filter console logs to reduce extension noise (less aggressive)
+        const originalConsoleLog = console.log;
         const originalConsoleWarn = console.warn;
         const originalConsoleError = console.error;
         
+        const shouldFilterMessage = (message) => {
+          return message.includes('content.js') || 
+                 message.includes('selection.js') || 
+                 message.includes('knowee') ||
+                 message.includes('FloatTool') ||
+                 message.includes('messageSubscribe') ||
+                 message.includes('KNOWEE');
+        };
+        
+        console.log = function(...args) {
+          const message = args.join(' ');
+          if (!shouldFilterMessage(message)) {
+            originalConsoleLog.apply(console, args);
+          }
+        };
+        
         console.warn = function(...args) {
           const message = args.join(' ');
-          if (!message.includes('content.js') && 
-              !message.includes('selection.js') && 
-              !message.includes('knowee')) {
+          if (!shouldFilterMessage(message)) {
             originalConsoleWarn.apply(console, args);
           }
         };
         
         console.error = function(...args) {
           const message = args.join(' ');
-          if (!message.includes('content.js') && 
-              !message.includes('selection.js') && 
-              !message.includes('knowee')) {
+          if (!shouldFilterMessage(message)) {
             originalConsoleError.apply(console, args);
           }
         };
         
-        // Additional protection: Override common extension patterns
-        const originalConsoleLog = console.log;
-        console.log = function(...args) {
-          const message = args.join(' ');
-          if (!message.includes('content.js') && 
-              !message.includes('selection.js') && 
-              !message.includes('knowee') &&
-              !message.includes('FloatTool') &&
-              !message.includes('messageSubscribe')) {
-            originalConsoleLog.apply(console, args);
-          }
-        };
-        
-        // Prevent extension from accessing critical objects
-        const protectedObjects = ['React', 'ReactDOM', 'Vue', 'Angular'];
+        // Light protection for critical objects (less aggressive)
+        const protectedObjects = ['React', 'ReactDOM'];
         protectedObjects.forEach(objName => {
           if (window[objName]) {
-            const original = window[objName];
-            Object.freeze(window[objName]);
-            Object.seal(window[objName]);
+            // Only seal, don't freeze to allow React updates
+            try {
+              Object.seal(window[objName]);
+            } catch (e) {
+              // Ignore if already sealed
+            }
           }
         });
         
-        // Block extension message passing
+        // Light blocking of extension message passing (only for known extension patterns)
         const originalPostMessage = window.postMessage;
         window.postMessage = function(message, targetOrigin, transfer) {
-          if (typeof message === 'string' && (
-              message.includes('knowee') || 
-              message.includes('KNOWEE') ||
-              message.includes('extension'))) {
+          if (typeof message === 'string' && message.includes('knowee')) {
             console.warn('Blocked extension postMessage:', message);
             return;
           }
           originalPostMessage.call(this, message, targetOrigin, transfer);
         };
         
-        // Block extension event listeners
+        // Light blocking of extension event listeners (only for content.js)
         const originalAddEventListener = EventTarget.prototype.addEventListener;
         EventTarget.prototype.addEventListener = function(type, listener, options) {
-          if (typeof listener === 'function' && listener.toString().includes('content.js')) {
+          if (typeof listener === 'function' && 
+              listener.toString().includes('content.js') &&
+              listener.toString().includes('knowee')) {
             console.warn('Blocked extension event listener');
             return;
           }
