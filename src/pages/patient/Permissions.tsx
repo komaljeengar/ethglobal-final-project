@@ -52,6 +52,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useWeb3 } from '@/contexts/Web3Context';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import BlockchainPermissions from '@/components/BlockchainPermissions';
+import MedicalRecordVault from '@/components/MedicalRecordVault';
 
 const Permissions = () => {
   const navigate = useNavigate();
@@ -345,6 +346,11 @@ const Permissions = () => {
               </div>
             </CardContent>
           </Card>
+        )}
+
+        {/* Medical Record Vault Permissions */}
+        {isConnected && (
+          <MedicalRecordVault />
         )}
 
         {/* Blockchain Permissions */}

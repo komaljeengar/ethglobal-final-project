@@ -50,6 +50,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useWeb3 } from '@/contexts/Web3Context';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import EncryptedDocumentUpload from '@/components/EncryptedDocumentUpload';
+import MedicalRecordVault from '@/components/MedicalRecordVault';
 
 const Records = () => {
   const navigate = useNavigate();
@@ -326,6 +327,11 @@ const Records = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Medical Record Vault */}
+        {isConnected && (
+          <MedicalRecordVault />
+        )}
 
         {/* Encrypted Document Upload */}
         {isConnected && (
