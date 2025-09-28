@@ -11,7 +11,7 @@
     "build:vercel": "vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview",
-    "vercel-build": "VITE_LEGACY_BUILD=false vite build"
+    "vercel-build": "node build.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

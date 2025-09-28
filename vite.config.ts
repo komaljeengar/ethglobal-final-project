@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => ({
   build: {
     chunkSizeWarningLimit: 1000,
     target: 'esnext',
+    minify: 'esbuild',
     rollupOptions: {
       external: (id) => {
         // Don't externalize dependencies that need to be bundled
@@ -30,5 +31,11 @@ export default defineConfig(({ mode }) => ({
         manualChunks: undefined, // Disable manual chunks to avoid Rollup issues
       },
     },
+  },
+  esbuild: {
+    target: 'esnext'
+  },
+  define: {
+    global: 'globalThis',
   },
 }));
