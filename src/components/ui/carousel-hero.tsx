@@ -27,7 +27,7 @@ export function CarouselHero({ user }: CarouselHeroProps) {
     {
       badge: "New Partnership",
       icon: Star,
-      title: "MedVault x Healthcare Alliance",
+      title: "Dr Hedera x Healthcare Alliance",
       description: "Multi-chain medical data tokenization with AI verification.",
       link: "/partnership",
     },

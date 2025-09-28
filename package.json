@@ -2,7 +2,7 @@
   "name": "medvault-enhanced",
   "private": true,
   "version": "1.0.0",
-  "description": "MedVault - Enhanced Healthcare Platform with Advanced UI/UX",
+  "description": "Dr Hedera - Enhanced Healthcare Platform with Advanced UI/UX",
   "type": "module",
   "scripts": {
     "dev": "vite",

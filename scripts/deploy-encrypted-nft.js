@@ -11,7 +11,7 @@ async function main() {
   console.log('Deploying contracts with the account:', deployer.address);
 
   const encryptedNFT = await EncryptedNFT.deploy(
-    'MedVault Encrypted Documents', // name
+    'Dr Hedera Encrypted Documents', // name
     'MVD', // symbol
     deployer.address // admin
   );
@@ -36,7 +36,7 @@ async function main() {
     deploymentTime: new Date().toISOString(),
     contractName: 'EncryptedNFT',
     constructorArgs: {
-      name: 'MedVault Encrypted Documents',
+      name: 'Dr Hedera Encrypted Documents',
       symbol: 'MVD',
       admin: deployer.address
     }
