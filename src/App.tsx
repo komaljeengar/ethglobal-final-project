@@ -25,7 +25,7 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => {
-  console.log('App component rendering...');
+  console.log('App component rendering with full Index page...');
   
   return (
     <QueryClientProvider client={queryClient}>
