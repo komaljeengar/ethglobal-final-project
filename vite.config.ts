@@ -29,6 +29,7 @@ export default defineConfig(({ mode }) => ({
       },
       output: {
         manualChunks: undefined, // Disable manual chunks to avoid Rollup issues
+        format: 'es',
       },
     },
   },
@@ -37,5 +38,8 @@ export default defineConfig(({ mode }) => ({
   },
   define: {
     global: 'globalThis',
+  },
+  ssr: {
+    noExternal: true,
   },
 }));
