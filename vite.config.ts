@@ -15,9 +15,17 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom']
+  },
   build: {
     chunkSizeWarningLimit: 1000,
+    target: 'esnext',
     rollupOptions: {
+      external: (id) => {
+        // Don't externalize dependencies that need to be bundled
+        return false;
+      },
       output: {
         manualChunks: (id) => {
           // Vendor chunks
