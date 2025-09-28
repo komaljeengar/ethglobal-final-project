@@ -316,7 +316,7 @@ const Settings = () => {
                     <div className="flex-1">
                       <h3 className="font-medium text-black">Anonymous Analytics</h3>
                       <p className="text-sm text-purple-600">
-                        Help improve MedVault with anonymous usage analytics
+                        Help improve Dr Hedera with anonymous usage analytics
                       </p>
                     </div>
                     <Switch

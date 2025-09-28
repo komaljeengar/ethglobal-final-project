@@ -1,6 +1,6 @@
 # Blockchain Integration Guide
 
-This document explains the blockchain integration features implemented in the MedVault application.
+This document explains the blockchain integration features implemented in the Dr Hedera application.
 
 ## Overview
 

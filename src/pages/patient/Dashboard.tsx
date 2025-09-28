@@ -439,7 +439,7 @@ const Dashboard = () => {
               <InfoIcon className="h-6 w-6 text-purple-600 mt-0.5 flex-shrink-0" />
               <div className="space-y-2">
                 <p className="text-sm font-semibold text-gray-900">
-                  MedVault: Secure Healthcare Data Management
+                  Dr Hedera: Secure Healthcare Data Management
                 </p>
                 <p className="text-sm text-gray-700">
                   Your medical records are encrypted and stored on the

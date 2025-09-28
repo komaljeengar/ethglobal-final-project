@@ -476,7 +476,7 @@ const DoctorDashboard = () => {
               <InfoIcon className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
               <div className="space-y-2">
                 <p className="text-sm font-semibold text-blue-900">
-                  MedVault: AI-Powered Clinical Support
+                  Dr Hedera: AI-Powered Clinical Support
                 </p>
                 <p className="text-sm text-blue-700">
                   Access patient records with permission-based security. AI
