@@ -12,7 +12,7 @@
 
 **🚀 Revolutionary Web3 healthcare platform combining advanced UI/UX with blockchain security**
 
-[🌟 **Live Demo**](https://dr-hedera-demo.vercel.app) • [📖 **Documentation**](docs/) • [🎥 **Video Demo**](https://youtube.com/watch?v=demo) • [🐛 **Report Bug**](https://github.com/your-repo/issues)
+
 
 </div>
 
